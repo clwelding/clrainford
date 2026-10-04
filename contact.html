@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Contact C. L. Rainford Welding & Fabrication — serving Chicago, IL and the surrounding area.">
+<title>Contact | C. L. Rainford Welding &amp; Fabrication</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Public+Sans:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+  :root{
+    --ground:#17191C; --surface:#202327; --surface-2:#282C31;
+    --ink:#F2F1EC; --ink-soft:#A9ACB1; --ink-faint:#6E7278;
+    --line:rgba(242,241,236,0.10); --line-strong:rgba(242,241,236,0.20);
+    --accent:#E8571F; --accent-deep:#B8431A; --accent-soft:rgba(232,87,31,0.14); --spark:#8FE3EF; --good:#6FBF8B;
+  }
+  *{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%; text-size-adjust:100%;}
+  html{scroll-behavior:smooth;}
+  body{margin:0; background:var(--ground); color:var(--ink); font-family:"Public Sans",-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; line-height:1.6;}
+  a{color:inherit; text-decoration:none;}
+  img{max-width:100%; display:block;}
+  h1,h2,h3{font-family:"Oswald",Impact,"Arial Narrow",sans-serif; font-weight:700; text-transform:uppercase; letter-spacing:0.01em; text-wrap:balance; margin:0;}
+  .eyebrow{font-family:"Oswald",sans-serif; font-weight:600; font-size:0.74rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--accent);}
+  .hazard-strip{height:8px; background:repeating-linear-gradient(135deg, var(--accent), var(--accent) 18px, var(--ground) 18px, var(--ground) 36px);}
+
+  header.site-header{display:flex; align-items:center; justify-content:space-between; gap:20px; padding:20px 32px; background:var(--ground); border-bottom:1px solid var(--line); position:sticky; top:0; z-index:50; flex-wrap:wrap;}
+  .wordmark{display:flex; flex-direction:column; line-height:1.1;}
+  .wordmark .mark{font-family:"Oswald",sans-serif; font-weight:700; font-size:1.3rem; letter-spacing:0.02em; color:var(--ink);}
+  .wordmark .mark span{color:var(--accent);}
+  .wordmark .sub{font-size:0.62rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--ink-faint); margin-top:3px;}
+  nav.main-nav ul{list-style:none; display:flex; gap:26px; margin:0; padding:0; flex-wrap:wrap;}
+  nav.main-nav a{font-size:0.84rem; font-weight:600; color:var(--ink-soft); padding:6px 0; border-bottom:2px solid transparent;}
+  nav.main-nav a:hover{color:var(--ink); border-color:var(--accent);}
+  nav.main-nav a.active{color:var(--ink); border-color:var(--accent);}
+  .header-cta{display:flex; gap:10px; flex-wrap:wrap;}
+  .btn{display:inline-flex; align-items:center; gap:9px; font-family:"Oswald",sans-serif; font-weight:600; font-size:0.82rem; letter-spacing:0.04em; text-transform:uppercase; padding:12px 22px; border-radius:3px; border:1.5px solid transparent; cursor:pointer; white-space:nowrap;}
+  .btn.primary{background:var(--accent); color:#17191C;} .btn.primary:hover{background:#ff6b2e;}
+  .btn.primary:disabled{opacity:0.55; cursor:not-allowed;}
+  .btn.ghost{background:transparent; border-color:var(--line-strong); color:var(--ink);} .btn.ghost:hover{border-color:var(--ink);}
+  .btn.small{padding:9px 16px; font-size:0.74rem;}
+
+  main{max-width:1180px; margin:0 auto;}
+  .back-bar{padding:14px 32px 0;}
+  .back-bar a{font-size:0.82rem; font-weight:600; color:var(--ink-soft); display:inline-flex; align-items:center; gap:8px;}
+  .back-bar a:hover{color:var(--accent);}
+  section{padding:50px 32px;}
+
+  .page-hero{padding:40px 32px 8px;}
+  .page-hero p.lede{color:var(--ink-soft); font-size:1.02rem; max-width:62ch; margin:14px 0 0;}
+
+  .contact-grid{display:grid; grid-template-columns:1fr 1.2fr; gap:36px;}
+  @media (max-width:900px){ .contact-grid{grid-template-columns:1fr;} }
+
+  .info-card{background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:28px; margin-bottom:20px;}
+  .info-card h3{font-size:1rem; margin-bottom:10px;}
+  .info-card p{color:var(--ink-soft); font-size:0.9rem; margin:0;}
+  .info-card .quote-link{display:inline-flex; align-items:center; gap:8px; margin-top:14px; color:var(--accent); font-weight:700; font-size:0.88rem;}
+  .info-card .direct-line{display:flex; align-items:center; gap:10px; font-size:0.92rem; color:var(--ink); margin-top:10px;}
+  .info-card .direct-line:first-of-type{margin-top:0;}
+  .info-card .direct-line i{color:var(--accent); width:16px;}
+  .info-card .direct-line a{color:var(--ink); font-weight:600;}
+  .info-card .direct-line a:hover{color:var(--accent);}
+
+  .footer-social{display:flex; gap:10px; flex-wrap:wrap;}
+  .footer-social a{width:32px; height:32px; border:1px solid var(--line-strong); border-radius:50%; display:flex; align-items:center; justify-content:center; color:var(--ink-soft); font-size:0.84rem;}
+  .footer-social a:hover{color:var(--accent); border-color:var(--accent);}
+
+  .form-card{background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:30px;}
+  label{display:block; font-family:"Oswald",sans-serif; font-size:0.72rem; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; color:var(--ink-soft); margin:18px 0 7px;}
+  label.first{margin-top:0;}
+  input[type="text"], input[type="email"], textarea{width:100%; padding:12px 14px; border:1.5px solid var(--line-strong); border-radius:5px; font-size:0.94rem; font-family:inherit; background:var(--surface-2); color:var(--ink);}
+  input::placeholder, textarea::placeholder{color:var(--ink-faint);}
+  input:focus, textarea:focus{outline:none; border-color:var(--accent);}
+  textarea{min-height:130px; resize:vertical;}
+  .submit-row{margin-top:22px;}
+  .form-msg{font-size:0.9rem; margin-top:14px;}
+  .form-msg.error{color:#FF9A73;}
+  .form-msg.success{color:var(--good);}
+
+  .voice-mount{margin-top:10px; display:flex; align-items:center; gap:12px; flex-wrap:wrap;}
+  .voice-btn{
+    display:inline-flex; align-items:center; gap:8px; background:var(--surface-2); border:1.5px solid var(--spark);
+    color:var(--spark); font-family:"Oswald",sans-serif; font-weight:600; font-size:0.74rem; letter-spacing:0.03em;
+    text-transform:uppercase; padding:9px 16px; border-radius:20px; cursor:pointer;
+  }
+  .voice-btn:hover{background:var(--spark-soft, rgba(143,227,239,0.12));}
+  .voice-btn.recording{background:#E0685A; border-color:#E0685A; color:#fff;}
+  .voice-status{font-size:0.8rem; color:var(--ink-soft);}
+  .rec-dot{display:inline-block; width:8px; height:8px; border-radius:50%; background:#E0685A; animation:voice-pulse 1s infinite;}
+  @keyframes voice-pulse{0%,100%{opacity:1;} 50%{opacity:0.25;}}
+
+  footer{border-top:1px solid var(--line); padding:40px 32px 26px; margin-top:20px;}
+  .footer-bottom{max-width:1180px; margin:0 auto; color:var(--ink-faint); font-size:0.78rem; display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px;}
+</style>
+</head>
+<body>
+
+<div class="hazard-strip"></div>
+
+<header class="site-header" role="banner">
+  <div class="wordmark">
+    <a href="/" style="color:inherit;"><span class="mark">C.L. RAINFORD <span>WELDING &amp; FABRICATION</span></span></a>
+    <span class="sub">Chicago, IL &middot; Since 2015</span>
+  </div>
+  <nav class="main-nav" role="navigation" aria-label="Main navigation">
+    <ul>
+      <li><a href="/">Home</a></li>
+      <li><a href="/capabilities.html">What We Do</a></li>
+      <li><a href="/residential.html">Residential</a></li>
+      <li><a href="/commercial.html">Commercial</a></li>
+      <li><a href="/custom/">Custom</a></li>
+      <li><a href="/gallery.html">Gallery</a></li>
+      <li><a href="/about.html">About</a></li>
+      <li><a href="/contact.html" class="active">Contact</a></li>
+      <li><a href="/careers.html">Careers</a></li>
+    </ul>
+  </nav>
+  <div class="header-cta">
+    <a class="btn ghost small" href="/portal.html"><i class="fas fa-user"></i> Client Login</a>
+    <a class="btn primary small" href="/quote.html">Request a Quote</a>
+  </div>
+</header>
+
+<main>
+  <div class="back-bar"><a href="/"><i class="fas fa-arrow-left"></i> Back to Home</a></div>
+
+  <div class="page-hero">
+    <span class="eyebrow"><i class="fas fa-comment" style="margin-right:6px;"></i>Get In Touch</span>
+    <h1 style="font-size:clamp(1.9rem,4vw,2.6rem); margin-top:10px;">Contact Us</h1>
+    <p class="lede">Have a job for us or a general question? Send a message below.</p>
+  </div>
+
+  <section>
+    <div class="contact-grid">
+      <div>
+        <div class="info-card">
+          <h3><i class="fas fa-phone" style="color:var(--accent); margin-right:8px;"></i>Direct Contact</h3>
+          <div class="direct-line"><i class="fas fa-envelope"></i><a href="mailto:stephen@selassiefest.com">stephen@selassiefest.com</a></div>
+          <div class="direct-line"><i class="fas fa-phone"></i><a href="tel:+14149093279">(414) 909-3279</a></div>
+        </div>
+        <div class="info-card">
+          <h3><i class="fas fa-location-dot" style="color:var(--accent); margin-right:8px;"></i>Service Area</h3>
+          <p>Chicago, IL and the surrounding area.</p>
+        </div>
+        <div class="info-card">
+          <h3><i class="fas fa-file-lines" style="color:var(--accent); margin-right:8px;"></i>Have a Job to Quote?</h3>
+          <p>The quote form gets you the fastest, most specific response — job type, photos, budget, and timeline all in one place.</p>
+          <a class="quote-link" href="/quote.html">Go to the Quote Form <i class="fas fa-arrow-right"></i></a>
+        </div>
+      </div>
+
+      <div class="form-card">
+        <div id="contactFormArea">
+          <label class="first" for="contactName">Your Name</label>
+          <input type="text" id="contactName" required>
+          <label for="contactEmail">Email</label>
+          <input type="email" id="contactEmail" required>
+          <label for="contactMessage">Message</label>
+          <textarea id="contactMessage" placeholder="What can we help with?" required></textarea>
+          <div class="voice-mount" id="contactMessage-voice-mount"></div>
+          <div class="submit-row">
+            <button class="btn primary" id="contactSubmitBtn" type="button">Send Message</button>
+          </div>
+          <div class="form-msg" id="contactFormMsg"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="footer-bottom">
+    <span>&copy; <span id="clrwf-year"></span> C. L. Rainford Welding &amp; Fabrication, Inc. &middot; Chicago, IL</span>
+    <div class="footer-social">
+      <a href="https://www.instagram.com/selassiefest" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+      <a href="https://www.tiktok.com/@selassiefest" target="_blank" rel="noopener noreferrer" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+      <a href="https://www.youtube.com/@selassie7291" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+      <a href="https://www.facebook.com/profile.php?id=100084954017587" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+      <a href="https://x.com/selassiefest/" target="_blank" rel="noopener noreferrer" aria-label="X"><i class="fab fa-x-twitter"></i></a>
+      <a href="https://www.linkedin.com/in/selassiefest/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+    </div>
+    <span><a href="/" style="color:var(--ink-soft);">&larr; Back to Home</a></span>
+  </div>
+</footer>
+
+<script>document.getElementById('clrwf-year').textContent = new Date().getFullYear();</script>
+<script src="/assets/js/supabase-client.js"></script>
+<script src="/assets/voice-input.js"></script>
+<script>
+(function () {
+  var messageVoice = window.ClrwfVoiceInput.attach('contactMessage', 'contactMessage-voice-mount');
+
+  document.getElementById('contactSubmitBtn').addEventListener('click', async function () {
+    var msgEl = document.getElementById('contactFormMsg');
+    msgEl.textContent = '';
+    msgEl.className = 'form-msg';
+
+    var name = document.getElementById('contactName').value.trim();
+    var email = document.getElementById('contactEmail').value.trim();
+    var message = document.getElementById('contactMessage').value.trim();
+
+    if (!name || !email || !message) {
+      msgEl.textContent = 'Name, email, and a message are required.';
+      msgEl.className = 'form-msg error';
+      return;
+    }
+
+    var btn = document.getElementById('contactSubmitBtn');
+    btn.disabled = true;
+    btn.textContent = 'Sending...';
+
+    try {
+      var messageBlob = messageVoice ? messageVoice.getBlob() : null;
+      await window.sfSupabase.submitClrwfContactMessage({
+        name: name, email: email, message: message,
+        voiceNotes: messageBlob ? [{ blob: messageBlob, mimeType: messageVoice.getMimeType() }] : [],
+      });
+      msgEl.textContent = 'Message sent — we\'ll follow up at ' + email + ' soon.';
+      msgEl.className = 'form-msg success';
+      document.getElementById('contactFormArea').querySelectorAll('input, textarea').forEach(function (el) { el.value = ''; });
+      if (messageVoice) messageVoice.reset();
+      btn.textContent = 'Send Message';
+      btn.disabled = false;
+    } catch (err) {
+      msgEl.textContent = 'Something went wrong: ' + (err && err.message ? err.message : 'please try again.');
+      msgEl.className = 'form-msg error';
+      btn.textContent = 'Send Message';
+      btn.disabled = false;
+    }
+  });
+})();
+</script>
+</body>
+</html>

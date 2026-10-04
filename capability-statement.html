@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>Capability Statement | C. L. Rainford Welding &amp; Fabrication</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Public+Sans:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+  :root{
+    --paper:#FFFFFF; --paper-2:#F4F3F0; --ink:#1B1D1F; --ink-soft:#4B4F54; --ink-faint:#8A8F94;
+    --line:#E1DFDA; --accent:#B8431A; --accent-bg:#FBEAE2; --spark:#0E6E7D; --spark-bg:#E7F5F7;
+    --warn:#8A6414; --warn-bg:#FBF1DA; --good:#2C6B45;
+    --toolbar-bg:#17191C; --toolbar-ink:#F2F1EC;
+  }
+  *{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%; text-size-adjust:100%;}
+  body{margin:0; background:var(--paper-2); color:var(--ink); font-family:"Public Sans",-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; line-height:1.55;}
+  a{color:var(--spark);}
+  h1,h2,h3{font-family:"Oswald",Impact,"Arial Narrow",sans-serif; font-weight:700; text-transform:uppercase; letter-spacing:0.01em; margin:0;}
+
+  .toolbar{position:sticky; top:0; z-index:20; background:var(--toolbar-bg); color:var(--toolbar-ink); display:flex; align-items:center; justify-content:space-between; padding:14px 24px; font-size:0.86rem;}
+  .toolbar a{color:var(--toolbar-ink); opacity:0.8; text-decoration:none;}
+  .toolbar a:hover{opacity:1;}
+  .print-btn{background:var(--accent); color:#fff; border:none; font-family:"Oswald",sans-serif; font-weight:600; font-size:0.8rem; letter-spacing:0.03em; text-transform:uppercase; padding:9px 18px; border-radius:5px; cursor:pointer;}
+  .print-btn:hover{background:#d14f21;}
+
+  .sheet{max-width:850px; margin:32px auto; background:var(--paper); border:1px solid var(--line); box-shadow:0 4px 24px rgba(0,0,0,0.08); padding:52px 56px;}
+
+  .doc-head{display:flex; justify-content:space-between; align-items:flex-start; gap:20px; padding-bottom:20px; border-bottom:3px solid var(--accent); margin-bottom:26px;}
+  .doc-head h1{font-size:1.5rem; color:var(--ink);}
+  .doc-head .tagline{font-size:0.86rem; color:var(--ink-soft); margin-top:6px;}
+  .doc-head .doc-label{text-align:right; font-family:"Oswald",sans-serif; font-size:0.7rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent); font-weight:700;}
+
+  .facts-strip{display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-bottom:28px;}
+  @media (max-width:640px){ .facts-strip{grid-template-columns:1fr 1fr;} }
+  .fact{background:var(--paper-2); border:1px solid var(--line); border-radius:6px; padding:10px 12px;}
+  .fact .k{display:block; font-family:"Oswald",sans-serif; font-size:0.6rem; letter-spacing:0.06em; text-transform:uppercase; color:var(--ink-faint); margin-bottom:3px;}
+  .fact .v{font-size:0.84rem; font-weight:600;}
+
+  section.doc-section{margin-bottom:26px;}
+  section.doc-section h2{font-size:0.86rem; letter-spacing:0.06em; color:var(--accent); padding-bottom:8px; border-bottom:1px solid var(--line); margin-bottom:14px;}
+  section.doc-section p{font-size:0.9rem; margin:0 0 10px;}
+
+  .cap-categories{columns:2; column-gap:28px; font-size:0.88rem;}
+  @media (max-width:640px){ .cap-categories{columns:1;} }
+  .cap-categories li{margin-bottom:7px; break-inside:avoid;}
+
+  .cert-row{display:flex; align-items:center; gap:10px; padding:9px 0; border-bottom:1px solid var(--line); font-size:0.88rem;}
+  .cert-row:last-child{border-bottom:none;}
+  .cert-status{font-size:0.62rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; padding:2px 9px; border-radius:8px; flex-shrink:0;}
+  .cert-status.held{background:var(--spark-bg); color:var(--spark);}
+  .cert-status.tbc{background:var(--warn-bg); color:var(--warn);}
+
+  .tbc-note{font-size:0.8rem; color:var(--warn); background:var(--warn-bg); border-left:3px solid var(--warn); padding:8px 12px; border-radius:4px; margin-top:6px;}
+
+  .diff-grid{display:grid; grid-template-columns:1fr 1fr; gap:16px;}
+  @media (max-width:640px){ .diff-grid{grid-template-columns:1fr;} }
+  .diff-item{font-size:0.88rem;}
+  .diff-item strong{display:block; color:var(--ink); margin-bottom:2px;}
+  .diff-item span{color:var(--ink-soft);}
+
+  .contact-block{background:var(--paper-2); border:1px solid var(--line); border-radius:8px; padding:18px 22px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:14px; align-items:center;}
+  .contact-block .item{font-size:0.88rem;}
+  .contact-block .item strong{display:block; font-family:"Oswald",sans-serif; font-size:0.62rem; letter-spacing:0.06em; text-transform:uppercase; color:var(--ink-faint); margin-bottom:3px;}
+
+  .doc-footer{margin-top:30px; padding-top:14px; border-top:1px solid var(--line); font-size:0.72rem; color:var(--ink-faint); display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px;}
+
+  @media print{
+    .toolbar{display:none;}
+    body{background:#fff;}
+    .sheet{box-shadow:none; border:none; margin:0; padding:0.4in; max-width:100%;}
+  }
+</style>
+</head>
+<body>
+
+<div class="toolbar">
+  <a href="/about.html"><i class="fas fa-arrow-left"></i> Back to Site</a>
+  <button class="print-btn" onclick="window.print()"><i class="fas fa-print"></i> Print / Save as PDF</button>
+</div>
+
+<div class="sheet">
+  <div class="doc-head">
+    <div>
+      <h1>C. L. Rainford Welding &amp; Fabrication, Inc.</h1>
+      <div class="tagline">Welding &amp; Metal Fabrication &middot; Chicago, IL &middot; Est. 2015</div>
+    </div>
+    <div class="doc-label">Capability<br>Statement</div>
+  </div>
+
+  <div class="facts-strip">
+    <div class="fact"><span class="k">Entity Type</span><span class="v">IL Domestic Corp.</span></div>
+    <div class="fact"><span class="k">File No.</span><span class="v">70390833</span></div>
+    <div class="fact"><span class="k">Status</span><span class="v">Active, Perpetual</span></div>
+    <div class="fact"><span class="k">Established</span><span class="v">October 21, 2015</span></div>
+  </div>
+
+  <section class="doc-section">
+    <h2>Company Overview</h2>
+    <p>C. L. Rainford Welding &amp; Fabrication, Inc. is a Chicago-based welding and metal fabrication shop serving residential and commercial clients since 2015. We handle everything from structural steel repair and custom fabrication to ongoing maintenance agreements for property managers and industrial facilities — one shop, one point of contact, from quote through delivery.</p>
+  </section>
+
+  <section class="doc-section">
+    <h2>Core Capabilities</h2>
+    <p>99 distinct product/service capabilities across the categories below — see our full searchable capability database at <a href="https://clrainford.com/capabilities.html">clrainford.com/capabilities.html</a>.</p>
+    <ul class="cap-categories">
+      <li>Structural &amp; Architectural</li>
+      <li>Municipal, Transit &amp; Rail</li>
+      <li>Industrial &amp; Manufacturing Support</li>
+      <li>Pipe, Tube &amp; Handrail Systems</li>
+      <li>Repair &amp; Restoration</li>
+      <li>Security &amp; Storage</li>
+      <li>Signage &amp; Display</li>
+      <li>Marine &amp; Dock</li>
+      <li>Agricultural &amp; Ranch</li>
+      <li>Automotive &amp; Performance</li>
+      <li>Oilfield / Energy / Mining</li>
+      <li>Outdoor Living &amp; Recreation</li>
+      <li>Trailers &amp; Towing</li>
+      <li>Furniture &amp; Home</li>
+      <li>Art &amp; Custom Fabrication</li>
+      <li>Specialty / Niche</li>
+    </ul>
+  </section>
+
+  <section class="doc-section">
+    <h2>Certifications &amp; Registrations</h2>
+    <div class="cert-row"><span class="cert-status held">Held</span> City of Chicago MBE/WBE/DBE Certification</div>
+    <div class="cert-row"><span class="cert-status tbc">In Progress</span> Illinois BEP (fast-track reciprocal certification via CEI)</div>
+    <div class="cert-row"><span class="cert-status tbc">Not Yet Filed</span> SAM.gov Registration (federal)</div>
+    <div class="cert-row"><span class="cert-status tbc">Not Yet Decided</span> NMSDC MBE Certification (corporate)</div>
+    <div class="tbc-note"><i class="fas fa-triangle-exclamation"></i> NAICS codes have not yet been formally selected for SAM.gov registration. Likely candidates: NAICS 332 (Fabricated Metal Product Manufacturing) and 238 (Specialty Trade Contractors) — confirm before this statement is used in a federal submission.</div>
+  </section>
+
+  <section class="doc-section">
+    <h2>Bonding &amp; Insurance</h2>
+    <div class="tbc-note"><i class="fas fa-triangle-exclamation"></i> [TO BE CONFIRMED] Current General Liability limits, bonding capacity, and Certificate of Insurance details have not yet been documented. Several channels (federal Miller Act bonds, industrial COI requirements, City construction prequalification) gate on this — confirm actual coverage and update this section before relying on it in a bid.</div>
+  </section>
+
+  <section class="doc-section">
+    <h2>Past Performance</h2>
+    <div class="tbc-note"><i class="fas fa-triangle-exclamation"></i> [TO BE ADDED] No completed-project references are on file yet. See the <a href="/references-template.html">Past Performance / References sheet</a> for the template to fill in as jobs are completed — most federal, state, and City bids require at least 2-3 references.</div>
+  </section>
+
+  <section class="doc-section">
+    <h2>Why Work With Us</h2>
+    <div class="diff-grid">
+      <div class="diff-item"><strong>Certified &amp; Growing</strong><span>Existing City MBE/WBE/DBE certification, actively pursuing state and federal registrations.</span></div>
+      <div class="diff-item"><strong>Full-Service Shop</strong><span>Residential, commercial, and custom fabrication under one roof — no subcontracting the actual weld work.</span></div>
+      <div class="diff-item"><strong>Responsive</strong><span>Direct quote and contact channels, built for fast turnaround on scope and pricing.</span></div>
+      <div class="diff-item"><strong>Established</strong><span>Illinois corporation in continuous operation since 2015.</span></div>
+    </div>
+  </section>
+
+  <div class="contact-block">
+    <div class="item"><strong>Point of Contact</strong>C.L. Rainford, Owner</div>
+    <div class="item"><strong>Email</strong>Clrainfordlpm1@gmail.com</div>
+    <div class="item"><strong>Web</strong>clrainford.com</div>
+  </div>
+
+  <div class="doc-footer">
+    <span>C. L. Rainford Welding &amp; Fabrication, Inc. &middot; Chicago, IL &middot; File No. 70390833</span>
+    <span id="genDate"></span>
+  </div>
+</div>
+
+<script>document.getElementById('genDate').textContent = 'Generated ' + new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });</script>
+</body>
+</html>

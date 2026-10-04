@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Search C. L. Rainford Welding & Fabrication's full capabilities — structural, agricultural, trailers, automotive, industrial, marine, furniture, and more. Describe what you need and find out fast.">
+<title>What Do You Need? | C. L. Rainford Welding &amp; Fabrication</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Public+Sans:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+  :root{
+    --ground:#17191C; --surface:#202327; --surface-2:#282C31;
+    --ink:#F2F1EC; --ink-soft:#A9ACB1; --ink-faint:#6E7278;
+    --line:rgba(242,241,236,0.10); --line-strong:rgba(242,241,236,0.20);
+    --accent:#E8571F; --accent-deep:#B8431A; --accent-soft:rgba(232,87,31,0.14);
+    --spark:#8FE3EF; --spark-soft:rgba(143,227,239,0.12); --good:#6FBF8B;
+  }
+  *{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%; text-size-adjust:100%;}
+  html{scroll-behavior:smooth;}
+  body{margin:0; background:var(--ground); color:var(--ink); font-family:"Public Sans",-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; line-height:1.6;}
+  a{color:inherit; text-decoration:none;}
+  img{max-width:100%; display:block;}
+  h1,h2,h3{font-family:"Oswald",Impact,"Arial Narrow",sans-serif; font-weight:700; text-transform:uppercase; letter-spacing:0.01em; text-wrap:balance; margin:0;}
+  .eyebrow{font-family:"Oswald",sans-serif; font-weight:600; font-size:0.74rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--spark);}
+  .hazard-strip{height:8px; background:repeating-linear-gradient(135deg, var(--accent), var(--accent) 18px, var(--ground) 18px, var(--ground) 36px);}
+
+  header.site-header{display:flex; align-items:center; justify-content:space-between; gap:20px; padding:20px 32px; background:var(--ground); border-bottom:1px solid var(--line); position:sticky; top:0; z-index:50; flex-wrap:wrap;}
+  .wordmark{display:flex; flex-direction:column; line-height:1.1;}
+  .wordmark .mark{font-family:"Oswald",sans-serif; font-weight:700; font-size:1.3rem; letter-spacing:0.02em; color:var(--ink);}
+  .wordmark .mark span{color:var(--accent);}
+  .wordmark .sub{font-size:0.62rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--ink-faint); margin-top:3px;}
+  nav.main-nav ul{list-style:none; display:flex; gap:22px; margin:0; padding:0; flex-wrap:wrap;}
+  nav.main-nav a{font-size:0.82rem; font-weight:600; color:var(--ink-soft); padding:6px 0; border-bottom:2px solid transparent;}
+  nav.main-nav a:hover{color:var(--ink); border-color:var(--accent);}
+  nav.main-nav a.active{color:var(--ink); border-color:var(--accent);}
+  .header-cta{display:flex; gap:10px; flex-wrap:wrap;}
+  .btn{display:inline-flex; align-items:center; gap:9px; font-family:"Oswald",sans-serif; font-weight:600; font-size:0.78rem; letter-spacing:0.04em; text-transform:uppercase; padding:11px 18px; border-radius:3px; border:1.5px solid transparent; cursor:pointer; white-space:nowrap;}
+  .btn.primary{background:var(--accent); color:#17191C;} .btn.primary:hover{background:#ff6b2e;}
+  .btn.ghost{background:transparent; border-color:var(--line-strong); color:var(--ink);} .btn.ghost:hover{border-color:var(--ink);}
+  .btn.small{padding:9px 16px; font-size:0.74rem;}
+  .btn.spark{background:var(--spark); color:#0c2b31;} .btn.spark:hover{background:#a9edf7;}
+
+  main{max-width:1180px; margin:0 auto;}
+  .back-bar{padding:14px 32px 0;}
+  .back-bar a{font-size:0.82rem; font-weight:600; color:var(--ink-soft); display:inline-flex; align-items:center; gap:8px;}
+  .back-bar a:hover{color:var(--accent);}
+
+  .search-hero{padding:52px 32px 8px; text-align:center;}
+  .search-hero p.lede{color:var(--ink-soft); font-size:1.02rem; max-width:60ch; margin:14px auto 0;}
+
+  .search-box-wrap{max-width:640px; margin:34px auto 0; position:relative;}
+  .search-box{
+    width:100%; padding:18px 54px 18px 22px; border-radius:32px; border:2px solid var(--line-strong);
+    background:var(--surface); color:var(--ink); font-size:1.02rem; font-family:inherit;
+  }
+  .search-box:focus{outline:none; border-color:var(--spark);}
+  .search-box::placeholder{color:var(--ink-faint);}
+  .search-icon{position:absolute; right:22px; top:50%; transform:translateY(-50%); color:var(--ink-faint); font-size:1.1rem; pointer-events:none;}
+  .search-icon.spinning{color:var(--spark);}
+
+  .chip-row{display:flex; flex-wrap:wrap; gap:8px; justify-content:center; max-width:900px; margin:22px auto 0; padding:0 32px;}
+  .chip{
+    background:var(--surface); border:1.5px solid var(--line-strong); border-radius:16px; padding:7px 14px;
+    font-size:0.76rem; font-weight:600; color:var(--ink-soft); cursor:pointer; white-space:nowrap;
+  }
+  .chip:hover{border-color:var(--spark);}
+  .chip.active{background:var(--spark-soft); border-color:var(--spark); color:var(--spark);}
+
+  .results-section{padding:44px 32px 90px;}
+  .results-meta{text-align:center; color:var(--ink-faint); font-size:0.86rem; margin-bottom:26px;}
+  .results-meta button{background:none; border:none; color:var(--spark); font-weight:600; cursor:pointer; font-size:0.86rem; font-family:inherit;}
+
+  .category-block{margin-bottom:40px;}
+  .category-title{font-family:"Oswald",sans-serif; font-weight:700; font-size:0.9rem; letter-spacing:0.04em; text-transform:uppercase; color:var(--accent); margin-bottom:16px; padding-bottom:10px; border-bottom:1px solid var(--line);}
+
+  .results-grid{display:grid; grid-template-columns:repeat(auto-fill, minmax(280px, 1fr)); gap:16px;}
+  .result-card{background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:22px; display:flex; flex-direction:column; gap:10px;}
+  .result-card.best-match{border-color:var(--spark); background:linear-gradient(160deg, rgba(143,227,239,0.07), var(--surface));}
+  .best-match-tag{font-family:"Oswald",sans-serif; font-size:0.62rem; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; background:var(--spark); color:#0c2b31; padding:3px 9px; border-radius:10px; align-self:flex-start;}
+  .result-card .cat-tag{font-size:0.68rem; font-weight:700; letter-spacing:0.03em; text-transform:uppercase; color:var(--ink-faint);}
+  .result-card h3{font-size:0.98rem; line-height:1.3;}
+  .result-card p{color:var(--ink-soft); font-size:0.86rem; margin:0; flex-grow:1;}
+  .result-card .proto{color:var(--ink-faint); font-size:0.78rem; font-style:italic; margin:0;}
+  .result-card .quote-link{font-family:"Oswald",sans-serif; font-weight:600; font-size:0.74rem; letter-spacing:0.04em; text-transform:uppercase; color:var(--accent); display:inline-flex; align-items:center; gap:6px; margin-top:4px;}
+
+  .no-results{text-align:center; padding:60px 28px; color:var(--ink-soft);}
+  .no-results i{font-size:1.8rem; color:var(--accent); margin-bottom:16px; display:block;}
+  .no-results .btn{margin-top:18px;}
+
+  .weak-match-banner{display:flex; align-items:center; gap:14px; flex-wrap:wrap; background:var(--surface); border:1px solid var(--line); border-left:3px solid var(--warn, #E0B84A); border-radius:8px; padding:14px 18px; margin-bottom:22px; font-size:0.88rem; color:var(--ink-soft);}
+  .weak-match-banner i{color:var(--warn, #E0B84A);}
+  .weak-match-banner a{color:var(--spark); font-weight:700; white-space:nowrap;}
+
+  .cta-band{background:linear-gradient(120deg, var(--accent-deep), var(--accent)); color:#1a1204; padding:48px 32px; text-align:center; border-radius:12px; margin:20px 32px 0; max-width:1116px; margin-left:auto; margin-right:auto;}
+  .cta-band h2{color:#1a1204; font-size:clamp(1.3rem,3vw,1.8rem);}
+  .cta-band p{color:rgba(26,18,4,0.78); margin:10px 0 22px; font-size:0.94rem;}
+  .cta-band .btn.primary{background:#17191C; color:var(--ink);} .cta-band .btn.primary:hover{background:#000;}
+
+  footer{border-top:1px solid var(--line); padding:40px 32px 26px; margin-top:20px;}
+  .footer-bottom{max-width:1180px; margin:0 auto; color:var(--ink-faint); font-size:0.78rem; display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px;}
+</style>
+</head>
+<body>
+
+<div class="hazard-strip"></div>
+
+<header class="site-header" role="banner">
+  <div class="wordmark">
+    <a href="/" style="color:inherit;"><span class="mark">C.L. RAINFORD <span>WELDING &amp; FABRICATION</span></span></a>
+    <span class="sub">Chicago, IL &middot; Since 2015</span>
+  </div>
+  <nav class="main-nav" role="navigation" aria-label="Main navigation">
+    <ul>
+      <li><a href="/">Home</a></li>
+      <li><a href="/capabilities.html" class="active">What We Do</a></li>
+      <li><a href="/residential.html">Residential</a></li>
+      <li><a href="/commercial.html">Commercial</a></li>
+      <li><a href="/custom/">Custom</a></li>
+      <li><a href="/gallery.html">Gallery</a></li>
+      <li><a href="/about.html">About</a></li>
+      <li><a href="/contact.html">Contact</a></li>
+      <li><a href="/careers.html">Careers</a></li>
+    </ul>
+  </nav>
+  <div class="header-cta">
+    <a class="btn ghost small" href="/portal.html"><i class="fas fa-user"></i> Client Login</a>
+    <a class="btn primary small" href="/quote.html">Request a Quote</a>
+  </div>
+</header>
+
+<main>
+  <div class="back-bar"><a href="/"><i class="fas fa-arrow-left"></i> Back to Home</a></div>
+
+  <div class="search-hero">
+    <span class="eyebrow"><i class="fas fa-magnifying-glass" style="margin-right:6px;"></i>Full Shop Capabilities</span>
+    <h1 style="font-size:clamp(1.9rem,4.2vw,2.7rem); margin-top:10px;">What Do You Need Fixed or Built?</h1>
+    <p class="lede">Describe the problem in your own words — "rusted fire escape," "gate for my driveway," "custom BBQ smoker" — and we'll show you if it's something we handle.</p>
+
+    <div class="search-box-wrap">
+      <input type="text" class="search-box" id="searchBox" placeholder="e.g. my truck bumper is rusted..." autocomplete="off">
+      <i class="fas fa-magnifying-glass search-icon" id="searchIcon"></i>
+    </div>
+
+    <div class="chip-row" id="chipRow">
+      <span class="chip active" data-category="">All Categories</span>
+    </div>
+  </div>
+
+  <section class="results-section">
+    <div class="results-meta" id="resultsMeta"></div>
+    <div id="resultsArea">
+      <div style="text-align:center; color:var(--ink-soft); padding:40px 0;"><i class="fas fa-spinner fa-spin"></i> Loading capabilities&hellip;</div>
+    </div>
+  </section>
+
+  <div class="cta-band">
+    <h2>Don't See It Listed?</h2>
+    <p>If it involves steel, we've probably done something close to it. Tell us what you need.</p>
+    <a class="btn primary" href="/quote.html"><i class="fas fa-file-lines"></i> Request a Quote Anyway</a>
+  </div>
+</main>
+
+<footer>
+  <div class="footer-bottom">
+    <span>&copy; <span id="clrwf-year"></span> C. L. Rainford Welding &amp; Fabrication, Inc. &middot; Chicago, IL</span>
+    <span><a href="/" style="color:var(--ink-soft);">&larr; Back to Home</a></span>
+  </div>
+</footer>
+
+<script>document.getElementById('clrwf-year').textContent = new Date().getFullYear();</script>
+<script src="/assets/js/supabase-client.js"></script>
+<script>
+(function () {
+  // Best-effort routing hint only -- staff read the real capability name
+  // in the quote's own description regardless of which coarse bucket a
+  // category lands in here.
+  var CATEGORY_TO_QUOTE_TYPE = {
+    'Structural & Architectural': 'residential',
+    'Agricultural & Ranch': 'commercial',
+    'Trailers & Towing': 'commercial',
+    'Automotive & Performance': 'custom-other',
+    'Industrial & Manufacturing Support': 'commercial',
+    'Oilfield / Energy / Mining': 'commercial',
+    'Municipal, Transit & Rail': 'commercial',
+    'Marine & Dock': 'custom-other',
+    'Furniture & Home': 'residential',
+    'Outdoor Living & Recreation': 'residential',
+    'Security & Storage': 'residential',
+    'Signage & Display': 'commercial',
+    'Art & Custom Fabrication': 'custom-other',
+    'Repair & Restoration': 'custom-other',
+    'Pipe, Tube & Handrail Systems': 'commercial',
+    'Specialty / Niche': 'custom-other',
+  };
+
+  var client = null;
+  var allItems = [];
+  var categories = [];
+  var activeCategory = '';
+  var searchTimer = null;
+
+  function escapeHtml(s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+      return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c];
+    });
+  }
+
+  function quoteLink(item) {
+    var type = CATEGORY_TO_QUOTE_TYPE[item.category] || 'custom-other';
+    return '/quote.html?type=' + encodeURIComponent(type) + '&need=' + encodeURIComponent(item.name);
+  }
+
+  function renderCard(item, isBestMatch) {
+    return (
+      '<div class="result-card' + (isBestMatch ? ' best-match' : '') + '">' +
+        (isBestMatch ? '<span class="best-match-tag"><i class="fas fa-star"></i> Best Match</span>' : '') +
+        '<span class="cat-tag">' + escapeHtml(item.category) + '</span>' +
+        '<h3>' + escapeHtml(item.name) + '</h3>' +
+        '<p>' + escapeHtml(item.description) + '</p>' +
+        (item.prototype_note && item.prototype_note !== 'N/A' ? '<p class="proto">e.g. ' + escapeHtml(item.prototype_note) + '</p>' : '') +
+        '<a class="quote-link" href="' + quoteLink(item) + '">Request a Quote for This <i class="fas fa-arrow-right"></i></a>' +
+      '</div>'
+    );
+  }
+
+  function renderSearchResults(items, query) {
+    document.getElementById('resultsMeta').innerHTML = items.length
+      ? 'Showing ' + items.length + ' result' + (items.length === 1 ? '' : 's') + ' for &ldquo;' + escapeHtml(query) + '&rdquo;'
+      : '';
+    var area = document.getElementById('resultsArea');
+    if (!items.length) {
+      area.innerHTML = '<div class="no-results"><i class="fas fa-magnifying-glass"></i>Nothing matched that search — but if it involves steel, we probably still do it.' +
+        '<div><a class="btn primary" href="/quote.html"><i class="fas fa-file-lines"></i> Ask Us Directly</a></div></div>';
+      return;
+    }
+    // match_tier: 1 = every significant word matched the same result (strong,
+    // confident hit) -- 2 = only reached via the relaxed any-word-matches
+    // fallback (weak; the top row might just share one incidental word with
+    // the query, not actually be a good answer). Only tier 1 earns the
+    // confident "Best Match" star -- a tier-2-only result set gets a plain
+    // list plus a visible reminder that these are closest guesses, not a
+    // confirmed match, so staff/customers don't take a coincidental match
+    // as a definitive answer.
+    var hasStrongMatch = items.some(function (item) { return item.match_tier === 1; });
+    var banner = hasStrongMatch ? '' :
+      '<div class="weak-match-banner"><i class="fas fa-circle-info"></i>' +
+      '<span>These are the closest things we could find, not an exact match on &ldquo;' + escapeHtml(query) + '&rdquo;.</span>' +
+      '<a href="/quote.html">Ask Us Directly instead &rarr;</a></div>';
+    area.innerHTML = banner + '<div class="results-grid">' + items.map(function (item, i) {
+      return renderCard(item, hasStrongMatch && i === 0);
+    }).join('') + '</div>';
+  }
+
+  function renderBrowseAll(items) {
+    document.getElementById('resultsMeta').innerHTML = items.length + ' capabilities' + (activeCategory ? ' in ' + escapeHtml(activeCategory) : ' across ' + categories.length + ' categories') +
+      ' &middot; <button id="clearFiltersBtn">clear filters</button>';
+    var byCategory = {};
+    var order = [];
+    items.forEach(function (item) {
+      if (!byCategory[item.category]) { byCategory[item.category] = []; order.push(item.category); }
+      byCategory[item.category].push(item);
+    });
+    document.getElementById('resultsArea').innerHTML = order.map(function (cat) {
+      return '<div class="category-block"><div class="category-title">' + escapeHtml(cat) + '</div>' +
+        '<div class="results-grid">' + byCategory[cat].map(function (item) { return renderCard(item, false); }).join('') + '</div></div>';
+    }).join('');
+    var clearBtn = document.getElementById('clearFiltersBtn');
+    if (clearBtn) clearBtn.addEventListener('click', function () {
+      activeCategory = '';
+      document.querySelectorAll('.chip').forEach(function (c) { c.classList.toggle('active', c.getAttribute('data-category') === ''); });
+      render();
+    });
+  }
+
+  async function render() {
+    var query = document.getElementById('searchBox').value.trim();
+    var icon = document.getElementById('searchIcon');
+    icon.className = 'fas fa-spinner fa-spin search-icon spinning';
+
+    if (query) {
+      var result = await client.rpc('clrwf_search_capabilities', { q: query });
+      icon.className = 'fas fa-magnifying-glass search-icon';
+      var items = (result.data || []).filter(function (item) { return !activeCategory || item.category === activeCategory; });
+      renderSearchResults(items, query);
+    } else {
+      icon.className = 'fas fa-magnifying-glass search-icon';
+      var items2 = activeCategory ? allItems.filter(function (item) { return item.category === activeCategory; }) : allItems;
+      renderBrowseAll(items2);
+    }
+  }
+
+  document.getElementById('searchBox').addEventListener('input', function () {
+    clearTimeout(searchTimer);
+    searchTimer = setTimeout(render, 300);
+  });
+
+  (async function init() {
+    client = await window.sfSupabaseReady;
+    var result = await client.from('clrwf_capabilities').select('*').order('category_order').order('item_order');
+    if (result.error) {
+      document.getElementById('resultsArea').innerHTML = '<div class="no-results"><i class="fas fa-triangle-exclamation"></i>Could not load capabilities right now.</div>';
+      return;
+    }
+    allItems = result.data || [];
+    categories = allItems.reduce(function (acc, item) {
+      if (acc.indexOf(item.category) === -1) acc.push(item.category);
+      return acc;
+    }, []);
+
+    document.getElementById('chipRow').innerHTML =
+      '<span class="chip active" data-category="">All Categories</span>' +
+      categories.map(function (cat) { return '<span class="chip" data-category="' + escapeHtml(cat) + '">' + escapeHtml(cat) + '</span>'; }).join('');
+
+    document.getElementById('chipRow').addEventListener('click', function (e) {
+      var chip = e.target.closest('.chip');
+      if (!chip) return;
+      activeCategory = chip.getAttribute('data-category');
+      document.querySelectorAll('.chip').forEach(function (c) { c.classList.toggle('active', c === chip); });
+      render();
+    });
+
+    // Deep-link support: /capabilities.html?q=fire+escape
+    var presetQuery = new URLSearchParams(location.search).get('q');
+    if (presetQuery) document.getElementById('searchBox').value = presetQuery;
+
+    render();
+  })();
+})();
+</script>
+</body>
+</html>

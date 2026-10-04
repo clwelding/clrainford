@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Custom metal fabrication in Chicago, IL — Jerk Pits, decorative metalwork, security features, and one-off builds to your spec.">
+<title>Custom Fabrication | C. L. Rainford Welding &amp; Fabrication</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Public+Sans:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+  :root{
+    --ground:#17191C; --surface:#202327; --surface-2:#282C31;
+    --ink:#F2F1EC; --ink-soft:#A9ACB1; --ink-faint:#6E7278;
+    --line:rgba(242,241,236,0.10); --line-strong:rgba(242,241,236,0.20);
+    --accent:#E8571F; --accent-deep:#B8431A; --accent-soft:rgba(232,87,31,0.14); --spark:#8FE3EF;
+  }
+  *{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%; text-size-adjust:100%;}
+  html{scroll-behavior:smooth;}
+  body{margin:0; background:var(--ground); color:var(--ink); font-family:"Public Sans",-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; line-height:1.6;}
+  a{color:inherit; text-decoration:none;}
+  img{max-width:100%; display:block;}
+  h1,h2,h3{font-family:"Oswald",Impact,"Arial Narrow",sans-serif; font-weight:700; text-transform:uppercase; letter-spacing:0.01em; text-wrap:balance; margin:0;}
+  .eyebrow{font-family:"Oswald",sans-serif; font-weight:600; font-size:0.74rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--accent);}
+  .hazard-strip{height:8px; background:repeating-linear-gradient(135deg, var(--accent), var(--accent) 18px, var(--ground) 18px, var(--ground) 36px);}
+
+  header.site-header{display:flex; align-items:center; justify-content:space-between; gap:20px; padding:20px 32px; background:var(--ground); border-bottom:1px solid var(--line); position:sticky; top:0; z-index:50; flex-wrap:wrap;}
+  .wordmark{display:flex; flex-direction:column; line-height:1.1;}
+  .wordmark .mark{font-family:"Oswald",sans-serif; font-weight:700; font-size:1.3rem; letter-spacing:0.02em; color:var(--ink);}
+  .wordmark .mark span{color:var(--accent);}
+  .wordmark .sub{font-size:0.62rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--ink-faint); margin-top:3px;}
+  nav.main-nav ul{list-style:none; display:flex; gap:26px; margin:0; padding:0; flex-wrap:wrap;}
+  nav.main-nav a{font-size:0.84rem; font-weight:600; color:var(--ink-soft); padding:6px 0; border-bottom:2px solid transparent;}
+  nav.main-nav a:hover{color:var(--ink); border-color:var(--accent);}
+  nav.main-nav a.active{color:var(--ink); border-color:var(--accent);}
+  .header-cta{display:flex; gap:10px; flex-wrap:wrap;}
+  .btn{display:inline-flex; align-items:center; gap:9px; font-family:"Oswald",sans-serif; font-weight:600; font-size:0.82rem; letter-spacing:0.04em; text-transform:uppercase; padding:12px 22px; border-radius:3px; border:1.5px solid transparent; cursor:pointer; white-space:nowrap;}
+  .btn.primary{background:var(--accent); color:#17191C;} .btn.primary:hover{background:#ff6b2e;}
+  .btn.ghost{background:transparent; border-color:var(--line-strong); color:var(--ink);} .btn.ghost:hover{border-color:var(--ink);}
+  .btn.small{padding:9px 16px; font-size:0.74rem;}
+
+  main{max-width:1180px; margin:0 auto;}
+  .back-bar{padding:14px 32px 0;}
+  .back-bar a{font-size:0.82rem; font-weight:600; color:var(--ink-soft); display:inline-flex; align-items:center; gap:8px;}
+  .back-bar a:hover{color:var(--accent);}
+  section{padding:56px 32px;}
+
+  .page-hero{padding:40px 32px 8px;}
+  .page-hero p.lede{color:var(--ink-soft); font-size:1.02rem; max-width:62ch; margin:14px 0 0;}
+
+  .lines-grid{display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr; gap:20px; margin-top:8px;}
+  @media (max-width:1000px){ .lines-grid{grid-template-columns:1fr 1fr;} }
+  @media (max-width:620px){ .lines-grid{grid-template-columns:1fr;} }
+  .line-card{background:var(--surface); border:1px solid var(--line); border-radius:8px; padding:28px 26px; display:flex; flex-direction:column; gap:12px; border-top:3px solid var(--accent);}
+  .line-card.flagship{border-top-color:var(--spark); background:linear-gradient(160deg, rgba(143,227,239,0.06), var(--surface));}
+  .line-card .icon{width:44px; height:44px; border-radius:8px; background:var(--accent-soft); color:var(--accent); display:flex; align-items:center; justify-content:center; font-size:1.15rem;}
+  .line-card.flagship .icon{background:rgba(143,227,239,0.14); color:var(--spark);}
+  .line-card h3{font-size:1.02rem;}
+  .line-card p{color:var(--ink-soft); font-size:0.88rem; margin:0; flex-grow:1;}
+  .line-card .more{font-family:"Oswald",sans-serif; font-weight:600; font-size:0.74rem; letter-spacing:0.05em; text-transform:uppercase; color:var(--accent); display:inline-flex; align-items:center; gap:7px;}
+  .line-card.flagship .more{color:var(--spark);}
+  .badge{display:inline-block; font-family:"Oswald",sans-serif; font-size:0.62rem; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; background:var(--spark); color:#0c2b31; padding:3px 9px; border-radius:10px; align-self:flex-start;}
+
+  .cta-band{background:linear-gradient(120deg, var(--accent-deep), var(--accent)); color:#1a1204; padding:56px 32px; text-align:center; border-radius:12px;}
+  .cta-band h2{color:#1a1204; font-size:clamp(1.5rem,3.4vw,2.1rem);}
+  .cta-band p{color:rgba(26,18,4,0.78); margin:12px 0 26px; font-size:1rem;}
+  .cta-band .btn.primary{background:#17191C; color:var(--ink);} .cta-band .btn.primary:hover{background:#000;}
+
+  footer{border-top:1px solid var(--line); padding:40px 32px 26px; margin-top:20px;}
+  .footer-bottom{max-width:1180px; margin:0 auto; color:var(--ink-faint); font-size:0.78rem; display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px;}
+</style>
+</head>
+<body>
+
+<div class="hazard-strip"></div>
+
+<header class="site-header" role="banner">
+  <div class="wordmark">
+    <a href="/" style="color:inherit;"><span class="mark">C.L. RAINFORD <span>WELDING &amp; FABRICATION</span></span></a>
+    <span class="sub">Chicago, IL &middot; Since 2015</span>
+  </div>
+  <nav class="main-nav" role="navigation" aria-label="Main navigation">
+    <ul>
+      <li><a href="/">Home</a></li>
+      <li><a href="/capabilities.html">What We Do</a></li>
+      <li><a href="/residential.html">Residential</a></li>
+      <li><a href="/commercial.html">Commercial</a></li>
+      <li><a href="/custom/" class="active">Custom</a></li>
+      <li><a href="/gallery.html">Gallery</a></li>
+      <li><a href="/about.html">About</a></li>
+      <li><a href="/contact.html">Contact</a></li>
+      <li><a href="/careers.html">Careers</a></li>
+    </ul>
+  </nav>
+  <div class="header-cta">
+    <a class="btn ghost small" href="/portal.html"><i class="fas fa-user"></i> Client Login</a>
+    <a class="btn primary small" href="/quote.html?type=custom-other">Request a Quote</a>
+  </div>
+</header>
+
+<main>
+  <div class="back-bar"><a href="/"><i class="fas fa-arrow-left"></i> Back to Home</a></div>
+
+  <div class="page-hero">
+    <span class="eyebrow"><i class="fas fa-fire-flame-curved" style="margin-right:6px;"></i>Custom Fabrication</span>
+    <h1 style="font-size:clamp(1.9rem,4vw,2.6rem); margin-top:10px;">One-Off Builds to Your Spec</h1>
+    <p class="lede">From decorative metalwork to security features to our flagship product — custom Jerk Pits — if you can spec it, we can fabricate it.</p>
+  </div>
+
+  <section>
+    <div class="lines-grid">
+      <div class="line-card flagship">
+        <span class="badge">Flagship Product</span>
+        <div class="icon"><i class="fas fa-fire-flame-curved"></i></div>
+        <h3>Custom Jerk Pits</h3>
+        <p>Built for restaurants, BBQ operators, and backyard pitmasters — sizes, cooking configurations, and features built around how you actually cook.</p>
+        <a class="more" href="/custom/jerk-pits.html">Design Your Pit <i class="fas fa-arrow-right"></i></a>
+      </div>
+      <div class="line-card">
+        <div class="icon"><i class="fas fa-shapes"></i></div>
+        <h3>Decorative Metalwork</h3>
+        <p>Furniture, signage, art pieces, and architectural details fabricated to your design.</p>
+        <a class="more" href="/quote.html?type=custom-other">Request a Quote <i class="fas fa-arrow-right"></i></a>
+      </div>
+      <div class="line-card">
+        <div class="icon"><i class="fas fa-shield-halved"></i></div>
+        <h3>Security Features</h3>
+        <p>Security bars, gates, and hardened enclosures fabricated for residential and commercial properties.</p>
+        <a class="more" href="/quote.html?type=custom-other">Request a Quote <i class="fas fa-arrow-right"></i></a>
+      </div>
+      <div class="line-card">
+        <div class="icon"><i class="fas fa-pen-ruler"></i></div>
+        <h3>One-Off Client Designs</h3>
+        <p>Have your own design or drawing? We'll scope, quote, and fabricate it from spec.</p>
+        <a class="more" href="/quote.html?type=custom-other">Request a Quote <i class="fas fa-arrow-right"></i></a>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding-top:0;">
+    <div class="cta-band">
+      <h2>Have a Custom Build in Mind?</h2>
+      <p>Building a Jerk Pit? Start with the configurator. Anything else — tell us what you need.</p>
+      <a class="btn primary" href="/custom/jerk-pits.html"><i class="fas fa-fire"></i> Design a Jerk Pit</a>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="footer-bottom">
+    <span>&copy; <span id="clrwf-year"></span> C. L. Rainford Welding &amp; Fabrication, Inc. &middot; Chicago, IL</span>
+    <span><a href="/" style="color:var(--ink-soft);">&larr; Back to Home</a></span>
+  </div>
+</footer>
+
+<script>document.getElementById('clrwf-year').textContent = new Date().getFullYear();</script>
+</body>
+</html>

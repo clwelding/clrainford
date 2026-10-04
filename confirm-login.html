@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>Confirm Login | C. L. Rainford Welding &amp; Fabrication</title>
+<style>
+  :root{
+    --ground:#17191C; --surface:#202327; --ink:#F2F1EC; --ink-soft:#A9ACB1;
+    --line:rgba(242,241,236,0.10); --accent:#E8571F; --good:#6FBF8B;
+  }
+  *{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%; text-size-adjust:100%;}
+  body{margin:0; min-height:100vh; display:flex; align-items:center; justify-content:center; background:var(--ground); color:var(--ink); font-family:"Public Sans",-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; line-height:1.6; padding:24px;}
+  .card{background:var(--surface); border:1px solid var(--line); border-top:3px solid var(--accent); border-radius:10px; padding:36px 32px; max-width:420px; width:100%; text-align:center;}
+  h1{font-family:"Oswald",Impact,"Arial Narrow",sans-serif; font-weight:700; text-transform:uppercase; font-size:1.2rem; margin:0 0 10px;}
+  p{font-size:0.9rem; color:var(--ink-soft); margin:0 0 22px;}
+  .btn{display:inline-block; width:100%; font-family:"Oswald",sans-serif; font-size:0.85rem; font-weight:700; letter-spacing:0.03em; text-transform:uppercase; padding:14px 20px; border-radius:5px; border:none; cursor:pointer; background:var(--accent); color:#17191C;}
+  .btn:hover{background:#ff6b2e;}
+  .btn:disabled{opacity:0.55; cursor:default;}
+  #msg{font-size:0.85rem; margin-top:16px; min-height:1.2em;}
+  #msg.error{color:#FF9A73;}
+  #msg.success{color:var(--good);}
+  .spinner{display:inline-block; width:14px; height:14px; border:2px solid rgba(242,241,236,0.25); border-top-color:var(--ink); border-radius:50%; animation:spin 0.7s linear infinite; margin-right:8px; vertical-align:-2px;}
+  @keyframes spin{to{transform:rotate(360deg);}}
+</style>
+</head>
+<body>
+
+<div class="card">
+  <div id="stateArea">
+    <h1>Confirm It's You</h1>
+    <p>One more click finishes logging you in. This extra step keeps your login link safe from being used by anything other than you.</p>
+    <button class="btn" id="confirmBtn">Confirm Login</button>
+  </div>
+  <div id="msg"></div>
+</div>
+
+<script src="/assets/js/supabase-client.js"></script>
+<script>
+(function () {
+  // Same security-critical allowlist as bbpac/organization/confirm-login.html
+  // -- verifyOtp() bypasses GoTrue's native GET /verify redirect step, which
+  // is what normally enforces the Redirect URLs allowlist, so this page has
+  // to enforce it itself or redirect_to becomes an open redirect.
+  var ALLOWED_PREFIXES = [
+    'https://clrainford.com/',
+    'https://www.clrainford.com/',
+    'http://localhost:8000/',
+  ];
+
+  function isAllowedRedirect(url) {
+    return ALLOWED_PREFIXES.some(function (p) { return url.indexOf(p) === 0; });
+  }
+
+  var params = new URLSearchParams(location.search);
+  var tokenHash = params.get('token_hash');
+  var redirectToRaw = params.get('redirect_to');
+  var redirectTo = (redirectToRaw && redirectToRaw !== '<no value>')
+    ? redirectToRaw
+    : 'https://clrainford.com/portal.html';
+
+  var msgEl = document.getElementById('msg');
+  var stateArea = document.getElementById('stateArea');
+
+  function showError(text) {
+    stateArea.innerHTML = '<h1>Link Not Valid</h1><p>' + text + '</p>';
+  }
+
+  if (!tokenHash) {
+    showError('This login link is missing its confirmation code. Go back to the page you logged in from and request a fresh link.');
+    return;
+  }
+  if (!isAllowedRedirect(redirectTo)) {
+    showError('This link is not valid for that destination.');
+    return;
+  }
+
+  document.getElementById('confirmBtn').addEventListener('click', async function () {
+    var btn = this;
+    btn.disabled = true;
+    btn.innerHTML = '<span class="spinner"></span> Confirming...';
+    msgEl.textContent = '';
+    msgEl.className = '';
+
+    var client = await window.sfSupabaseReady;
+
+    var result = await client.auth.verifyOtp({ token_hash: tokenHash, type: 'email' });
+    if (result.error) {
+      result = await client.auth.verifyOtp({ token_hash: tokenHash, type: 'magiclink' });
+    }
+
+    if (result.error || !result.data.session) {
+      btn.disabled = false;
+      btn.textContent = 'Confirm Login';
+      msgEl.textContent = 'This link has expired or was already used. Go back and request a fresh one.';
+      msgEl.className = 'error';
+      return;
+    }
+
+    msgEl.textContent = 'Logged in — redirecting...';
+    msgEl.className = 'success';
+    window.location.href = redirectTo;
+  });
+})();
+</script>
+</body>
+</html>

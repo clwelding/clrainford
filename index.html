@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="C. L. Rainford Welding & Fabrication — residential, commercial, and custom metal fabrication in Chicago, IL since 2015. Railings, structural repair, and custom builds including Jerk Pits.">
+<title>C. L. Rainford Welding & Fabrication | Chicago, IL</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Public+Sans:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+  :root{
+    --ground:#17191C;
+    --surface:#202327;
+    --surface-2:#282C31;
+    --ink:#F2F1EC;
+    --ink-soft:#A9ACB1;
+    --ink-faint:#6E7278;
+    --line:rgba(242,241,236,0.10);
+    --line-strong:rgba(242,241,236,0.20);
+    --accent:#E8571F;
+    --accent-deep:#B8431A;
+    --accent-soft:rgba(232,87,31,0.14);
+    --spark:#8FE3EF;
+  }
+  *{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%; text-size-adjust:100%;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0; background:var(--ground); color:var(--ink);
+    font-family:"Public Sans",-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.6;
+  }
+  a{color:inherit; text-decoration:none;}
+  img{max-width:100%; display:block;}
+  h1,h2,h3{font-family:"Oswald",Impact,"Arial Narrow",sans-serif; font-weight:700; text-transform:uppercase; letter-spacing:0.01em; text-wrap:balance; margin:0;}
+  .eyebrow{font-family:"Oswald",sans-serif; font-weight:600; font-size:0.74rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--accent);}
+
+  .hazard-strip{height:8px; background:repeating-linear-gradient(135deg, var(--accent), var(--accent) 18px, var(--ground) 18px, var(--ground) 36px);}
+
+  header.site-header{
+    display:flex; align-items:center; justify-content:space-between; gap:20px;
+    padding:20px 32px; background:var(--ground); border-bottom:1px solid var(--line);
+    position:sticky; top:0; z-index:50; flex-wrap:wrap;
+  }
+  .wordmark{display:flex; flex-direction:column; line-height:1.1;}
+  .wordmark .mark{font-family:"Oswald",sans-serif; font-weight:700; font-size:1.3rem; letter-spacing:0.02em; color:var(--ink);}
+  .wordmark .mark span{color:var(--accent);}
+  .wordmark .sub{font-size:0.62rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--ink-faint); margin-top:3px;}
+
+  nav.main-nav ul{list-style:none; display:flex; gap:26px; margin:0; padding:0; flex-wrap:wrap;}
+  nav.main-nav a{font-size:0.84rem; font-weight:600; color:var(--ink-soft); padding:6px 0; border-bottom:2px solid transparent;}
+  nav.main-nav a:hover{color:var(--ink); border-color:var(--accent);}
+  nav.main-nav a.active{color:var(--ink); border-color:var(--accent);}
+
+  .header-cta{display:flex; gap:10px; flex-wrap:wrap;}
+  .btn{
+    display:inline-flex; align-items:center; gap:9px; font-family:"Oswald",sans-serif; font-weight:600;
+    font-size:0.82rem; letter-spacing:0.04em; text-transform:uppercase; padding:12px 22px;
+    border-radius:3px; border:1.5px solid transparent; cursor:pointer; white-space:nowrap;
+  }
+  .btn.primary{background:var(--accent); color:#17191C;}
+  .btn.primary:hover{background:#ff6b2e;}
+  .btn.ghost{background:transparent; border-color:var(--line-strong); color:var(--ink);}
+  .btn.ghost:hover{border-color:var(--ink);}
+  .btn.small{padding:9px 16px; font-size:0.74rem;}
+
+  main{max-width:1180px; margin:0 auto;}
+  section{padding:76px 32px;}
+
+  .hero{
+    background:
+      linear-gradient(180deg, rgba(23,25,28,0.35), rgba(23,25,28,0.92)),
+      radial-gradient(ellipse at 20% -10%, rgba(232,87,31,0.18), transparent 55%);
+    padding:96px 32px 84px; text-align:left;
+  }
+  .hero-inner{max-width:1180px; margin:0 auto;}
+  .hero h1{font-size:clamp(2.4rem,5.5vw,4rem); margin:14px 0 18px; max-width:16ch;}
+  .hero h1 em{font-style:normal; color:var(--accent);}
+  .hero p.lede{font-size:1.08rem; color:var(--ink-soft); max-width:56ch; margin:0 0 34px;}
+  .hero-actions{display:flex; gap:14px; flex-wrap:wrap;}
+
+  .trust-bar{
+    display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--line);
+    border-top:1px solid var(--line); border-bottom:1px solid var(--line); margin:0;
+  }
+  .trust-item{background:var(--ground); padding:26px 22px; text-align:center;}
+  .trust-item .num{font-family:"Oswald",sans-serif; font-weight:700; font-size:1.6rem; color:var(--accent); display:block;}
+  .trust-item .icon{font-size:1.3rem; color:var(--accent); display:block; margin-bottom:6px;}
+  .trust-item .lbl{font-size:0.76rem; color:var(--ink-soft); text-transform:uppercase; letter-spacing:0.04em; margin-top:4px; line-height:1.5;}
+  @media (max-width:820px){ .trust-bar{grid-template-columns:repeat(2,1fr);} }
+
+  .section-head{max-width:640px; margin:0 auto 44px;}
+  .section-head.left{margin-left:0;}
+  .section-head h2{font-size:clamp(1.6rem,3.4vw,2.2rem); margin-top:10px;}
+  .section-head p{color:var(--ink-soft); font-size:0.98rem; margin:14px 0 0;}
+
+  .services-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:22px;}
+  .service-card{
+    background:var(--surface); border:1px solid var(--line); border-radius:8px;
+    padding:32px 28px; display:flex; flex-direction:column; gap:14px;
+    border-top:3px solid var(--accent);
+  }
+  .service-card .icon{width:46px; height:46px; border-radius:8px; background:var(--accent-soft); color:var(--accent); display:flex; align-items:center; justify-content:center; font-size:1.25rem;}
+  .service-card h3{font-size:1.15rem; letter-spacing:0.01em;}
+  .service-card p{color:var(--ink-soft); font-size:0.9rem; margin:0; flex-grow:1;}
+  .service-card .more{font-family:"Oswald",sans-serif; font-weight:600; font-size:0.76rem; letter-spacing:0.05em; text-transform:uppercase; color:var(--accent); display:inline-flex; align-items:center; gap:7px;}
+  .service-card.flagship{border-top-color:var(--spark);}
+  .service-card.flagship .icon{background:rgba(143,227,239,0.14); color:var(--spark);}
+  .service-card.flagship .more{color:var(--spark);}
+  @media (max-width:900px){ .services-grid{grid-template-columns:1fr;} }
+
+  .gallery-section{background:var(--surface);}
+  .gallery-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:14px;}
+  .gallery-grid img{width:100%; height:230px; object-fit:cover; border-radius:6px; border:1px solid var(--line);}
+  .gallery-empty{
+    border:1.5px dashed var(--line-strong); border-radius:10px; padding:48px 28px; text-align:center;
+    color:var(--ink-soft); font-size:0.94rem;
+  }
+  .gallery-empty i{font-size:1.4rem; color:var(--accent); margin-bottom:12px; display:block;}
+  @media (max-width:820px){ .gallery-grid{grid-template-columns:1fr 1fr;} }
+  @media (max-width:560px){ .gallery-grid{grid-template-columns:1fr;} }
+
+  .cta-band{
+    background:linear-gradient(120deg, var(--accent-deep), var(--accent));
+    color:#1a1204; padding:56px 32px; text-align:center; border-radius:12px; margin:0 32px 0;
+  }
+  .cta-band h2{color:#1a1204; font-size:clamp(1.5rem,3.4vw,2.1rem);}
+  .cta-band p{color:rgba(26,18,4,0.78); margin:12px 0 26px; font-size:1rem;}
+  .cta-band .btn.primary{background:#17191C; color:var(--ink);}
+  .cta-band .btn.primary:hover{background:#000;}
+
+  footer{border-top:1px solid var(--line); padding:52px 32px 30px; margin-top:70px;}
+  .footer-grid{max-width:1180px; margin:0 auto; display:grid; grid-template-columns:1.5fr 1fr 1fr; gap:36px;}
+  .footer-grid h4{font-family:"Oswald",sans-serif; font-size:0.74rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--ink-faint); margin:0 0 14px;}
+  .footer-brand p{color:var(--ink-soft); font-size:0.88rem; max-width:38ch; margin:10px 0 0;}
+  .footer-grid a{display:block; color:var(--ink-soft); padding:5px 0; font-size:0.88rem;}
+  .footer-grid a:hover{color:var(--ink);}
+  .footer-legal{font-size:0.8rem; color:var(--ink-faint); margin-top:10px;}
+  .footer-bottom{max-width:1180px; margin:36px auto 0; border-top:1px solid var(--line); padding-top:18px; color:var(--ink-faint); font-size:0.78rem; display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px;}
+  @media (max-width:760px){ .footer-grid{grid-template-columns:1fr;} }
+</style>
+</head>
+<body>
+
+<div class="hazard-strip"></div>
+
+<header class="site-header" role="banner">
+  <div class="wordmark">
+    <span class="mark">C.L. RAINFORD <span>WELDING &amp; FABRICATION</span></span>
+    <span class="sub">Chicago, IL &middot; Since 2015</span>
+  </div>
+  <nav class="main-nav" role="navigation" aria-label="Main navigation">
+    <ul>
+      <li><a href="/" class="active">Home</a></li>
+      <li><a href="/capabilities.html">What We Do</a></li>
+      <li><a href="/residential.html">Residential</a></li>
+      <li><a href="/commercial.html">Commercial</a></li>
+      <li><a href="/custom/">Custom</a></li>
+      <li><a href="/gallery.html">Gallery</a></li>
+      <li><a href="/about.html">About</a></li>
+      <li><a href="/contact.html">Contact</a></li>
+      <li><a href="/careers.html">Careers</a></li>
+    </ul>
+  </nav>
+  <div class="header-cta">
+    <a class="btn ghost small" href="/portal.html"><i class="fas fa-user"></i> Client Login</a>
+    <a class="btn primary small" href="/quote.html">Request a Quote</a>
+  </div>
+</header>
+
+<main>
+
+  <section class="hero" style="padding-top:96px;">
+    <div class="hero-inner">
+      <span class="eyebrow"><i class="fas fa-bolt" style="margin-right:6px;"></i>Residential &middot; Commercial &middot; Custom</span>
+      <h1>Chicago Welding &amp; Fabrication, <em>Built to Last</em></h1>
+      <p class="lede">C. L. Rainford Welding &amp; Fabrication has served Chicago's residential and commercial clients since 2015 — railings, structural repair, equipment welding, and custom metal fabrication, done right the first time.</p>
+      <div class="hero-actions">
+        <a class="btn primary" href="/quote.html"><i class="fas fa-file-lines"></i> Request a Quote</a>
+        <a class="btn ghost" href="/custom/jerk-pits.html"><i class="fas fa-fire"></i> Custom Fabrication</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="trust-bar">
+    <div class="trust-item"><span class="num">10+</span><span class="lbl">Years in Business</span></div>
+    <div class="trust-item"><i class="fas fa-certificate icon"></i><span class="lbl">Illinois Corporation<br>Active Status</span></div>
+    <div class="trust-item"><i class="fas fa-handshake icon"></i><span class="lbl">Residential &amp; Commercial<br>Clients Served</span></div>
+    <div class="trust-item"><i class="fas fa-location-dot icon"></i><span class="lbl">Chicago-Based<br>&amp; Operated</span></div>
+  </div>
+
+  <section id="services">
+    <div class="section-head">
+      <span class="eyebrow">What We Do</span>
+      <h2>Three ways we put steel to work</h2>
+      <p>From a single railing repair to a full custom build, every job goes through the same shop — see what's moving on the floor at any time isn't something we advertise, but it's why jobs don't get lost.</p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="icon"><i class="fas fa-house"></i></div>
+        <h3>Residential Welding &amp; Fabrication</h3>
+        <p>Railings, gates, and fencing — repair, fabrication, and install. Stair and structural repairs, custom metalwork, and general welding repair for homeowners across Chicago.</p>
+        <a class="more" href="/residential.html">See Residential Services <i class="fas fa-arrow-right"></i></a>
+      </div>
+      <div class="service-card">
+        <div class="icon"><i class="fas fa-industry"></i></div>
+        <h3>Commercial &amp; Structural Work</h3>
+        <p>Structural steel repair and fabrication, equipment and machinery welding repair, and custom fabrication for contractors and property managers — plus ongoing maintenance agreements.</p>
+        <a class="more" href="/commercial.html">See Commercial Services <i class="fas fa-arrow-right"></i></a>
+      </div>
+      <div class="service-card flagship">
+        <div class="icon"><i class="fas fa-fire-flame-curved"></i></div>
+        <h3>Custom Fabrication</h3>
+        <p>One-off builds to your spec — decorative metalwork, security features, and our flagship product: custom Jerk Pits, built for restaurants, BBQ operators, and backyard pitmasters alike.</p>
+        <a class="more" href="/custom/jerk-pits.html">See Jerk Pits <i class="fas fa-arrow-right"></i></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="gallery-section">
+    <div class="section-head">
+      <span class="eyebrow">Our Work</span>
+      <h2>Featured Fabrication</h2>
+      <p>A running look at completed jobs — railings, structural work, and custom builds — as we finish and deliver them.</p>
+    </div>
+    <div id="galleryContent">
+      <div class="gallery-empty"><i class="fas fa-spinner fa-spin"></i>Loading featured work&hellip;</div>
+    </div>
+  </section>
+
+  <section style="padding-top:0;">
+    <div class="cta-band">
+      <h2>Have a Job That Needs Doing Right?</h2>
+      <p>Tell us what you need — residential, commercial, or a custom build — and we'll follow up with a quote.</p>
+      <a class="btn primary" href="/quote.html"><i class="fas fa-file-lines"></i> Request a Quote</a>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <h4>C. L. Rainford Welding &amp; Fabrication, Inc.</h4>
+      <p>Residential and commercial welding &amp; metal fabrication, serving Chicago and the surrounding area.</p>
+      <p class="footer-legal">Illinois Domestic Business Corporation &middot; File No. 70390833 &middot; Active, Perpetual Duration &middot; Incorporated October 21, 2015</p>
+    </div>
+    <div>
+      <h4>Explore</h4>
+      <a href="/residential.html">Residential</a>
+      <a href="/commercial.html">Commercial</a>
+      <a href="/custom/">Custom Fabrication</a>
+      <a href="/gallery.html">Gallery</a>
+      <a href="/about.html">About</a>
+    </div>
+    <div>
+      <h4>Get In Touch</h4>
+      <a href="/quote.html">Request a Quote</a>
+      <a href="/contact.html">Contact &amp; Service Area</a>
+      <a href="/portal.html">Client Login</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>&copy; <span id="clrwf-year"></span> C. L. Rainford Welding &amp; Fabrication, Inc. &middot; Chicago, IL</span>
+    <span>Fastest way to reach us: the <a href="/quote.html" style="color:var(--ink-soft); display:inline; padding:0;">quote form</a></span>
+  </div>
+</footer>
+
+<script>document.getElementById('clrwf-year').textContent = new Date().getFullYear();</script>
+<script src="/assets/js/supabase-client.js"></script>
+<script>
+(function () {
+  var GALLERY_STORAGE_BASE = 'https://xdjbgcqaynnzykrglgnf.supabase.co/storage/v1/object/public/clrwf-gallery-photos';
+
+  function escapeHtml(s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+      return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c];
+    });
+  }
+
+  (async function loadGallery() {
+    var el = document.getElementById('galleryContent');
+    try {
+      var client = await window.sfSupabaseReady;
+      var result = await client
+        .from('clrwf_gallery_public')
+        .select('id, category, photo_paths, created_at')
+        .order('created_at', { ascending: false })
+        .limit(9);
+
+      if (result.error) throw result.error;
+
+      var photos = [];
+      (result.data || []).forEach(function (job) {
+        (job.photo_paths || []).forEach(function (path) {
+          photos.push({ path: path, category: job.category });
+        });
+      });
+
+      if (!photos.length) {
+        el.innerHTML = '<div class="gallery-empty"><i class="fas fa-camera-retro"></i>Our featured work will appear here as projects are completed and delivered &mdash; check back soon.</div>';
+        return;
+      }
+
+      el.innerHTML = '<div class="gallery-grid">' + photos.slice(0, 9).map(function (p) {
+        var url = GALLERY_STORAGE_BASE + '/' + p.path;
+        return '<img src="' + url + '" alt="Completed ' + escapeHtml(p.category) + ' fabrication project" loading="lazy">';
+      }).join('') + '</div>';
+    } catch (e) {
+      el.innerHTML = '<div class="gallery-empty"><i class="fas fa-camera-retro"></i>Our featured work will appear here as projects are completed and delivered &mdash; check back soon.</div>';
+    }
+  })();
+})();
+</script>
+</body>
+</html>

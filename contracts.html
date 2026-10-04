@@ -1,0 +1,1545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>Contracts Playbook | C. L. Rainford Welding &amp; Fabrication</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Public+Sans:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+  :root{
+    --ground:#17191C; --surface:#202327; --surface-2:#282C31; --surface-3:#2E3339;
+    --ink:#F2F1EC; --ink-soft:#A9ACB1; --ink-faint:#6E7278;
+    --line:rgba(242,241,236,0.10); --line-strong:rgba(242,241,236,0.20);
+    --accent:#E8571F; --accent-deep:#B8431A; --accent-soft:rgba(232,87,31,0.14);
+    --spark:#8FE3EF; --spark-soft:rgba(143,227,239,0.12);
+    --good:#6FBF8B; --good-soft:rgba(111,191,139,0.14);
+    --warn:#E0B84A; --warn-soft:rgba(224,184,74,0.14);
+    --danger:#E0685A; --danger-soft:rgba(224,104,90,0.14);
+  }
+  *{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%; text-size-adjust:100%;}
+  html{scroll-behavior:smooth;}
+  body{margin:0; background:var(--ground); color:var(--ink); font-family:"Public Sans",-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; line-height:1.6;}
+  a{color:inherit; text-decoration:none;} img{max-width:100%; display:block;}
+  h1,h2,h3,h4{font-family:"Oswald",Impact,"Arial Narrow",sans-serif; font-weight:700; text-transform:uppercase; letter-spacing:0.01em; margin:0;}
+  button{font-family:inherit;}
+
+  header.shop-header{
+    display:flex; align-items:center; justify-content:space-between; gap:16px;
+    padding:14px 24px; background:var(--surface); border-bottom:1px solid var(--line); flex-wrap:wrap;
+  }
+  .wordmark{font-family:"Oswald",sans-serif; font-weight:700; font-size:1.05rem;}
+  .wordmark span{color:var(--accent);}
+  .shop-tabs{display:flex; gap:6px;}
+  .shop-tab{
+    font-family:"Oswald",sans-serif; font-weight:600; font-size:0.78rem; letter-spacing:0.03em; text-transform:uppercase;
+    padding:9px 16px; border-radius:5px; border:1px solid transparent; background:transparent; color:var(--ink-soft); cursor:pointer;
+  }
+  .shop-tab.active{background:var(--accent-soft); color:var(--accent); border-color:rgba(232,87,31,0.3);}
+  .header-links{display:flex; align-items:center; gap:18px;}
+  .header-links a.nav-link{font-size:0.82rem; font-weight:600; color:var(--ink-soft);}
+  .header-links a.nav-link:hover{color:var(--accent);}
+  .staff-badge{display:flex; align-items:center; gap:10px; font-size:0.84rem; color:var(--ink-soft);}
+  .staff-badge .name{color:var(--ink); font-weight:700;}
+  .staff-badge .role{font-family:"Oswald",sans-serif; font-size:0.65rem; font-weight:700; letter-spacing:0.05em; text-transform:uppercase; background:var(--spark-soft); color:var(--spark); padding:2px 8px; border-radius:8px;}
+  .logout-link{font-size:0.82rem; color:var(--ink-soft); cursor:pointer; font-weight:600;}
+  .logout-link:hover{color:var(--accent);}
+
+  .btn{display:inline-flex; align-items:center; gap:8px; font-family:"Oswald",sans-serif; font-weight:600; font-size:0.78rem; letter-spacing:0.03em; text-transform:uppercase; padding:10px 18px; border-radius:5px; border:1.5px solid transparent; cursor:pointer;}
+  .btn.primary{background:var(--accent); color:#17191C;} .btn.primary:hover{background:#ff6b2e;}
+  .btn.primary:disabled{opacity:0.5; cursor:not-allowed;}
+  .btn.ghost{background:transparent; border-color:var(--line-strong); color:var(--ink);} .btn.ghost:hover{border-color:var(--ink);}
+
+  /* ---- Login gate ---- */
+  #loginGate{max-width:420px; margin:90px auto; padding:0 24px; text-align:center;}
+  #loginGate h1{font-size:1.4rem; margin-bottom:10px;}
+  #loginGate p{color:var(--ink-soft); font-size:0.9rem; margin-bottom:24px; text-transform:none; font-family:inherit; letter-spacing:normal;}
+  .login-card{background:var(--surface); border:1px solid var(--line); border-top:3px solid var(--accent); border-radius:10px; padding:30px; text-align:left;}
+  .login-card label{display:block; font-family:"Oswald",sans-serif; font-size:0.7rem; font-weight:600; letter-spacing:0.05em; text-transform:uppercase; color:var(--ink-soft); margin-bottom:8px;}
+  .login-card input{width:100%; padding:12px 14px; border:1.5px solid var(--line-strong); border-radius:5px; font-size:0.94rem; background:var(--surface-2); color:var(--ink); font-family:inherit;}
+  .login-card input:focus{outline:none; border-color:var(--accent);}
+  .login-card .btn{width:100%; justify-content:center; margin-top:18px;}
+  .form-msg{font-size:0.86rem; margin-top:14px;}
+  .form-msg.error{color:var(--danger);}
+  .form-msg.success{color:var(--good);}
+  #loadingGate{text-align:center; padding:100px 0; color:var(--ink-soft);}
+
+  /* ---- Layout ---- */
+  #playbookApp{display:none;}
+  .pb-shell{display:grid; grid-template-columns:260px 1fr; gap:0; align-items:start;}
+  @media (max-width:880px){ .pb-shell{grid-template-columns:1fr;} .pb-nav{position:static !important; max-height:none !important;} }
+
+  .pb-nav{position:sticky; top:0; height:100vh; overflow-y:auto; padding:26px 18px; border-right:1px solid var(--line); background:var(--surface);}
+  .pb-nav .eyebrow{font-family:"Oswald",sans-serif; font-size:0.66rem; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:var(--ink-faint); padding:0 10px; margin-bottom:8px; display:block;}
+  .pb-nav ul{list-style:none; margin:0 0 22px; padding:0;}
+  .pb-nav a{display:block; padding:8px 10px; border-radius:6px; font-size:0.84rem; color:var(--ink-soft); font-weight:600; border-left:2px solid transparent;}
+  .pb-nav a:hover{color:var(--ink); background:var(--surface-2);}
+  .pb-nav a.active{color:var(--accent); border-left-color:var(--accent); background:var(--accent-soft);}
+  .pb-nav .channel-letter{display:inline-flex; align-items:center; justify-content:center; width:18px; height:18px; border-radius:4px; background:var(--surface-3); color:var(--ink-faint); font-size:0.62rem; font-weight:700; margin-right:8px;}
+  .pb-nav a.active .channel-letter{background:var(--accent); color:#17191C;}
+
+  .pb-main{padding:36px 40px 90px; max-width:900px;}
+  .pb-hero{margin-bottom:36px;}
+  .pb-hero .eyebrow{font-family:"Oswald",sans-serif; font-weight:600; font-size:0.74rem; letter-spacing:0.16em; text-transform:uppercase; color:var(--accent);}
+  .pb-hero h1{font-size:clamp(1.6rem,3.2vw,2.2rem); margin-top:10px;}
+  .pb-hero p{color:var(--ink-soft); font-size:0.98rem; max-width:68ch; margin:12px 0 0;}
+
+  .leverage-box{background:var(--surface); border:1px solid var(--line); border-left:3px solid var(--spark); border-radius:10px; padding:22px 26px; margin:0 0 40px; font-size:0.94rem; color:var(--ink);}
+  .leverage-box strong{color:var(--spark);}
+
+  .pb-section{padding-top:52px; border-top:1px solid var(--line); margin-top:52px;}
+  .pb-section:first-of-type{border-top:none; margin-top:0; padding-top:0;}
+  .channel-head{display:flex; align-items:baseline; gap:14px; margin-bottom:6px;}
+  .channel-head .letter-badge{font-family:"Oswald",sans-serif; font-weight:700; font-size:1.6rem; color:var(--accent);}
+  .channel-head h2{font-size:clamp(1.25rem,2.6vw,1.6rem);}
+
+  .pb-subhead{display:flex; align-items:center; gap:10px; margin:30px 0 14px;}
+  .pb-subhead i{color:var(--accent); font-size:0.9rem;}
+  .pb-subhead h3{font-size:0.86rem; letter-spacing:0.06em; color:var(--ink-soft);}
+
+  .pb-section ul, .pb-section ol{margin:0 0 6px; padding-left:22px; color:var(--ink); font-size:0.92rem;}
+  .pb-section li{margin-bottom:10px;}
+  .pb-section li::marker{color:var(--ink-faint);}
+  .pb-section p{font-size:0.92rem; color:var(--ink); margin:0 0 12px;}
+
+  .workflow-block{background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:22px 24px; margin-top:14px;}
+  .workflow-block h4{font-size:0.78rem; letter-spacing:0.05em; color:var(--good); margin-bottom:14px; display:flex; align-items:center; gap:8px;}
+  .workflow-block ol{counter-reset:wf; list-style:none; padding-left:0; margin:0;}
+  .workflow-block ol li{counter-increment:wf; position:relative; padding-left:34px; margin-bottom:12px; font-size:0.9rem;}
+  .workflow-block ol li::before{content:counter(wf); position:absolute; left:0; top:0; width:22px; height:22px; border-radius:5px; background:var(--good-soft); color:var(--good); font-family:"Oswald",sans-serif; font-weight:700; font-size:0.72rem; display:flex; align-items:center; justify-content:center;}
+
+  .job-card-block{background:var(--surface); border:1px solid var(--line); border-top:3px solid var(--accent); border-radius:10px; padding:28px 30px; margin-bottom:20px;}
+  .job-card-block.compact{padding:20px 24px;}
+  .job-card-block .meta-row{display:flex; gap:24px; flex-wrap:wrap; margin-bottom:20px; font-size:0.86rem; color:var(--ink-soft);}
+  .job-card-block .meta-row strong{color:var(--ink); display:block; font-size:0.68rem; text-transform:uppercase; letter-spacing:0.05em; margin-bottom:4px; font-family:"Oswald",sans-serif;}
+
+  .dept-head{display:flex; align-items:center; gap:12px; margin:44px 0 18px;}
+  .dept-head:first-of-type{margin-top:0;}
+  .dept-head i{color:var(--spark); font-size:1rem;}
+  .dept-head h3{font-size:0.82rem; letter-spacing:0.08em; color:var(--ink-soft); text-transform:uppercase;}
+  .dept-jumplinks{display:flex; flex-wrap:wrap; gap:8px; margin:18px 0 30px;}
+  .dept-jumplinks a{font-size:0.76rem; font-weight:600; color:var(--ink-soft); background:var(--surface-2); border:1px solid var(--line-strong); padding:6px 12px; border-radius:14px;}
+  .dept-jumplinks a:hover{color:var(--spark); border-color:var(--spark);}
+
+  .metrics-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:12px; margin-top:12px;}
+  .metric-item{background:var(--surface-2); border:1px solid var(--line); border-radius:8px; padding:14px 16px; font-size:0.86rem; color:var(--ink-soft); display:flex; gap:10px; align-items:flex-start;}
+  .metric-item i{color:var(--spark); margin-top:2px;}
+
+  .cadence-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:14px; margin-top:16px;}
+  .cadence-card{background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:20px 22px;}
+  .cadence-card h4{font-size:0.72rem; letter-spacing:0.08em; color:var(--accent); margin-bottom:12px;}
+  .cadence-card ul{padding-left:18px; margin:0; font-size:0.86rem;}
+  .cadence-card li{margin-bottom:8px;}
+
+  .sources-list{list-style:none; padding:0; margin:0;}
+  .sources-list li{display:flex; justify-content:space-between; gap:14px; padding:11px 0; border-bottom:1px solid var(--line); font-size:0.88rem;}
+  .sources-list li:last-child{border-bottom:none;}
+  .sources-list .src-name{color:var(--ink);}
+  .sources-list .src-url{color:var(--ink-faint); font-family:monospace; font-size:0.82rem;}
+
+  .action-box{background:var(--warn-soft); border:1px solid rgba(224,184,74,0.3); border-radius:10px; padding:22px 26px; margin-top:20px;}
+  .action-box h4{font-size:0.78rem; letter-spacing:0.05em; color:var(--warn); margin-bottom:12px;}
+  .action-box ol{margin:0; padding-left:20px; font-size:0.9rem;}
+  .action-box li{margin-bottom:10px;}
+
+  .to-top{position:fixed; bottom:24px; right:24px; width:44px; height:44px; border-radius:50%; background:var(--surface-3); border:1px solid var(--line-strong); color:var(--ink-soft); display:flex; align-items:center; justify-content:center; cursor:pointer; z-index:60;}
+  .to-top:hover{color:var(--accent); border-color:var(--accent);}
+
+  /* ---- CRM pane ---- */
+  #crmPane{padding:32px 40px 90px; max-width:1180px; margin:0 auto;}
+  .crm-section{margin-bottom:48px;}
+  .crm-section-head{display:flex; align-items:center; justify-content:space-between; gap:14px; margin-bottom:18px; flex-wrap:wrap;}
+  .crm-section-head h2{font-size:1.15rem;}
+  select.crm-input, input.crm-input, textarea.crm-input{
+    background:var(--surface-2); border:1.5px solid var(--line-strong); border-radius:5px; color:var(--ink); padding:9px 12px; font-size:0.84rem; font-family:inherit;
+  }
+  select.crm-input:focus, input.crm-input:focus, textarea.crm-input:focus{outline:none; border-color:var(--accent);}
+  .filters-row{display:flex; gap:10px; flex-wrap:wrap;}
+
+  .channel-pill{font-size:0.62rem; font-weight:700; text-transform:uppercase; letter-spacing:0.03em; padding:3px 9px; border-radius:8px; background:var(--surface-3); color:var(--ink-soft);}
+  .status-pill{font-size:0.66rem; font-weight:700; text-transform:uppercase; letter-spacing:0.03em; padding:3px 10px; border-radius:8px;}
+  .status-pill.identified, .status-pill.not_started{background:var(--surface-3); color:var(--ink-soft);}
+  .status-pill.qualifying, .status-pill.in_progress{background:var(--spark-soft); color:var(--spark);}
+  .status-pill.bid_submitted{background:var(--warn-soft); color:var(--warn);}
+  .status-pill.awarded, .status-pill.active{background:var(--good-soft); color:var(--good);}
+  .status-pill.lost, .status-pill.declined, .status-pill.expired{background:var(--danger-soft); color:var(--danger);}
+  .status-pill.no_bid{background:var(--surface-3); color:var(--ink-faint);}
+  .status-pill.expiring_soon{background:var(--warn-soft); color:var(--warn);}
+
+  .cert-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:14px;}
+  .cert-card{background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:18px 20px;}
+  .cert-card .top-row{display:flex; justify-content:space-between; align-items:flex-start; gap:10px; margin-bottom:8px;}
+  .cert-card h3{font-size:0.9rem; text-transform:none; letter-spacing:0; font-weight:700;}
+  .cert-card .expiry-line{font-size:0.8rem; color:var(--ink-soft); margin-bottom:10px;}
+  .cert-card .expiry-line.warn{color:var(--warn);}
+  .cert-card .expiry-line.danger{color:var(--danger);}
+  .cert-card .notes{font-size:0.8rem; color:var(--ink-faint); margin-bottom:12px;}
+  .cert-edit-form{display:none; flex-direction:column; gap:8px; margin-top:12px; padding-top:12px; border-top:1px solid var(--line);}
+  .cert-edit-form.open{display:flex;}
+  .cert-edit-form label{font-size:0.7rem; text-transform:uppercase; letter-spacing:0.05em; color:var(--ink-faint);}
+
+  .opp-table{width:100%; border-collapse:collapse; font-size:0.86rem;}
+  .opp-table th{text-align:left; font-family:"Oswald",sans-serif; font-size:0.68rem; letter-spacing:0.05em; text-transform:uppercase; color:var(--ink-faint); padding:10px 12px; border-bottom:1px solid var(--line-strong);}
+  .opp-table td{padding:12px; border-bottom:1px solid var(--line); vertical-align:top;}
+  .opp-table tr.opp-row{cursor:pointer;}
+  .opp-table tr.opp-row:hover{background:var(--surface);}
+  .deadline-cell.overdue{color:var(--danger); font-weight:700;}
+  .deadline-cell.soon{color:var(--warn); font-weight:700;}
+  .empty-note{color:var(--ink-faint); font-size:0.88rem; padding:24px 0;}
+
+  #oppOverlay{position:fixed; inset:0; background:rgba(0,0,0,0.5); display:none; z-index:100;}
+  #oppPanel{position:fixed; top:0; right:0; bottom:0; width:440px; max-width:92vw; background:var(--surface); border-left:1px solid var(--line); z-index:101; display:none; overflow-y:auto; padding:26px;}
+  #oppPanel .close-btn{position:absolute; top:20px; right:20px; background:none; border:none; color:var(--ink-soft); font-size:1.1rem; cursor:pointer;}
+  #oppPanel h2{font-size:1.05rem; margin-bottom:20px; text-transform:none;}
+  .opp-field{display:flex; flex-direction:column; gap:6px; margin-bottom:14px;}
+  .opp-field label{font-size:0.7rem; text-transform:uppercase; letter-spacing:0.05em; color:var(--ink-faint);}
+  .opp-field input, .opp-field select, .opp-field textarea{width:100%;}
+  .opp-field textarea{min-height:70px; resize:vertical;}
+  .crm-msg{font-size:0.84rem; margin-top:12px;}
+  .crm-msg.error{color:var(--danger);}
+  .crm-msg.success{color:var(--good);}
+</style>
+</head>
+<body>
+
+<div id="loadingGate"><i class="fas fa-spinner fa-spin"></i> Loading&hellip;</div>
+
+<div id="loginGate" style="display:none;">
+  <h1><i class="fas fa-lock" style="color:var(--accent); margin-right:8px;"></i>Contracts Access</h1>
+  <p>The Job Acquisition Playbook is for C. L. Rainford Welding &amp; Fabrication staff only.</p>
+  <div class="login-card">
+    <label for="staffEmail">Staff Email</label>
+    <input type="email" id="staffEmail" placeholder="you@example.com">
+    <button class="btn primary" id="staffLoginBtn">Send Login Link</button>
+    <div class="form-msg" id="staffLoginMsg"></div>
+  </div>
+</div>
+
+<div id="playbookApp">
+  <header class="shop-header">
+    <div class="wordmark">C.L. RAINFORD <span>CONTRACTS</span></div>
+    <div class="shop-tabs">
+      <button class="shop-tab active" data-tab="playbook">Playbook</button>
+      <button class="shop-tab" data-tab="crm">CRM</button>
+    </div>
+    <div class="header-links">
+      <a class="nav-link" href="/shop.html"><i class="fas fa-diagram-project"></i> Shop Board</a>
+      <div class="staff-badge">
+        <span class="name" id="staffName"></span>
+        <span class="role" id="staffRole"></span>
+      </div>
+      <span class="logout-link" id="logoutBtn"><i class="fas fa-arrow-right-from-bracket"></i> Log Out</span>
+    </div>
+  </header>
+
+  <div class="pb-shell" id="playbookPane">
+    <nav class="pb-nav" id="pbNav">
+      <span class="eyebrow">Playbook</span>
+      <ul>
+        <li><a href="#overview" data-target="overview">Overview</a></li>
+        <li><a href="#section-a" data-target="section-a"><span class="channel-letter">A</span>Federal</a></li>
+        <li><a href="#section-b" data-target="section-b"><span class="channel-letter">B</span>State of Illinois</a></li>
+        <li><a href="#section-c" data-target="section-c"><span class="channel-letter">C</span>City &amp; Cook County</a></li>
+        <li><a href="#section-d" data-target="section-d"><span class="channel-letter">D</span>Corporate</a></li>
+        <li><a href="#section-e" data-target="section-e"><span class="channel-letter">E</span>Industrial</a></li>
+      </ul>
+      <span class="eyebrow">The Role</span>
+      <ul>
+        <li><a href="#the-job" data-target="the-job">Contracts Specialist</a></li>
+        <li><a href="#org-chart" data-target="org-chart">Org Chart (Future)</a></li>
+      </ul>
+      <span class="eyebrow">Documents</span>
+      <ul>
+        <li><a href="/capability-statement.html"><i class="fas fa-file-lines" style="margin-right:6px; color:var(--ink-faint);"></i>Capability Statement</a></li>
+        <li><a href="/references-template.html"><i class="fas fa-file-lines" style="margin-right:6px; color:var(--ink-faint);"></i>Past Performance Sheet</a></li>
+      </ul>
+      <span class="eyebrow">Operating Rhythm</span>
+      <ul>
+        <li><a href="#cadence" data-target="cadence">Master Cadence</a></li>
+        <li><a href="#sources" data-target="sources">Sources to Verify</a></li>
+        <li><a href="#next-steps" data-target="next-steps">Owner Action Items</a></li>
+      </ul>
+    </nav>
+
+    <main class="pb-main">
+      <div class="pb-hero" id="overview">
+        <span class="eyebrow">Job Acquisition Playbook</span>
+        <h1>Federal, State, City, Corporate &amp; Industrial Contract Channels</h1>
+        <p>A single reference for how to generate leads, what credentials are needed, how to apply, and how bidding works in each channel &mdash; cradle to grave. Each channel below follows the same five-part structure: lead generation, certifications/qualifications, application/registration, bidding process, and the specific cradle-to-grave workflow.</p>
+      </div>
+
+      <div class="leverage-box">
+        <p style="margin:0;">The shop is already <strong>MBE/WBE/DBE certified through the City of Chicago.</strong> That certification is more powerful than it might seem &mdash; the City and Cook County have a <strong>reciprocal certification agreement</strong> (no separate Cook County certification needed), and Illinois's state program (BEP, run by the Commission on Equity and Inclusion) offers a <strong>fast-track &ldquo;Be Enrolled&rdquo; reciprocal certification</strong> for firms already certified by the City &mdash; state-level certification in about 7 business days instead of the full application. This single City certification is leverage across three of the five channels below (state, city, and much of corporate). <strong>Get the state fast-track done first</strong> &mdash; it's the highest-leverage, lowest-effort move available right now.</p>
+      </div>
+
+      <!-- SECTION A: FEDERAL -->
+      <section class="pb-section" id="section-a">
+        <div class="channel-head"><span class="letter-badge">A</span><h2>Federal Contracts</h2></div>
+
+        <div class="pb-subhead"><i class="fas fa-magnifying-glass"></i><h3>LEAD GENERATION</h3></div>
+        <ul>
+          <li><strong>SAM.gov &ldquo;Contract Opportunities&rdquo; search</strong> &mdash; the master federal solicitation board. Filter by NAICS code, set-aside type, and place of performance; save searches and turn on email alerts so new solicitations come automatically rather than requiring daily manual searches.</li>
+          <li><strong>Local federal facilities</strong> &mdash; GSA-managed federal buildings in Chicago (Loop, O'Hare-adjacent facilities), VA hospitals (Jesse Brown VA Medical Center), Great Lakes Naval Station &mdash; all periodically need metal fabrication/repair work, often through GSA regional contracting offices rather than SAM.gov's national board alone.</li>
+          <li><strong>APEX Accelerator (formerly PTAC)</strong> &mdash; Illinois has federally-funded Procurement Technical Assistance Centers that provide free one-on-one help finding and bidding federal work. Worth an initial consultation.</li>
+          <li><strong>Subcontracting to federal primes</strong> &mdash; large GCs who win federal construction/facilities contracts need local subs. SBA's SubNet and direct outreach to primes listed on recent award notices are both valid lead sources.</li>
+        </ul>
+
+        <div class="pb-subhead"><i class="fas fa-clipboard-check"></i><h3>CERTIFICATIONS / QUALIFICATIONS NEEDED</h3></div>
+        <ul>
+          <li><strong>SAM.gov registration</strong> &mdash; mandatory and free; not itself a certification, but the baseline requirement to be paid by the federal government at all.</li>
+          <li><strong>NAICS codes</strong> &mdash; select every code that genuinely applies (likely candidates: NAICS 332 &mdash; Fabricated Metal Product Manufacturing, and 238 &mdash; Specialty Trade Contractors). Mark one as primary; it determines the small-business size standard.</li>
+          <li><strong>Small business socioeconomic certifications</strong> (separate from SAM registration, through SBA): 8(a) Business Development (9-year program), HUBZone (location-based), WOSB/EDWOSB (woman-owned), VOSB/SDVOSB (veteran-owned, via VA's Veterans First). Note: the existing MBE/WBE/DBE certification does <strong>not</strong> automatically carry over to federal set-asides &mdash; these are separate applications through SBA/VA.</li>
+          <li><strong>DBE certification</strong> (Disadvantaged Business Enterprise) &mdash; required specifically for USDOT/FAA-funded projects (e.g. O'Hare or Midway work funded by federal transportation dollars) &mdash; different from state/local MBE/WBE. The City's DPS Certification Division handles DBE applications for this federal-aid work.</li>
+        </ul>
+
+        <div class="pb-subhead"><i class="fas fa-file-signature"></i><h3>APPLICATION / REGISTRATION PROCESS</h3></div>
+        <ol>
+          <li>Obtain a UEI (Unique Entity Identifier) &mdash; issued automatically inside SAM.gov, replaces the old DUNS number.</li>
+          <li>Register at SAM.gov: EIN, legal business name (must exactly match IRS records), physical address, banking/EFT details, NAICS/PSC codes.</li>
+          <li>Complete the &ldquo;Reps &amp; Certs&rdquo; section &mdash; legally binding statements about size, ownership, and compliance; false statements carry real liability (False Claims Act exposure), so review carefully, don't rush.</li>
+          <li>Submit and wait for IRS/DLA validation &mdash; commonly 1&ndash;3 weeks; a CAGE code is assigned automatically for U.S. entities.</li>
+          <li>Renew every 365 days without fail &mdash; an expired registration blocks new awards and payments on existing contracts.</li>
+          <li>Separately pursue any SBA socioeconomic certifications relevant to ownership structure, once SAM registration is active.</li>
+        </ol>
+
+        <div class="pb-subhead"><i class="fas fa-gavel"></i><h3>BIDDING PROCESS</h3></div>
+        <ul>
+          <li>Federal solicitations range from simplified acquisitions (under $250K, quicker/less formal) to formal sealed bids (IFBs) and negotiated proposals (RFPs) for larger work.</li>
+          <li>Read the full Statement of Work / Performance Work Statement, note bonding and insurance requirements (federal construction often requires Miller Act payment/performance bonds), and confirm SAM registration and required certifications are active <em>before</em> submitting &mdash; inactive status at time of proposal or award is disqualifying.</li>
+          <li>Debrief requests: if you lose, you can request a debrief from the contracting officer &mdash; a legitimate way to learn why and improve the next bid.</li>
+        </ul>
+
+        <div class="workflow-block">
+          <h4><i class="fas fa-route"></i> CRADLE-TO-GRAVE WORKFLOW &mdash; FEDERAL</h4>
+          <ol>
+            <li>Confirm/renew SAM.gov registration &rarr; confirm NAICS codes are current and complete.</li>
+            <li>Set up saved searches/alerts on SAM.gov Contract Opportunities for your NAICS codes + &ldquo;Chicago&rdquo;/&ldquo;Illinois&rdquo; place of performance.</li>
+            <li>Consult the Illinois APEX Accelerator for a capability statement review and a walk-through of any set-asides you may qualify for.</li>
+            <li>Monitor alert emails; triage each opportunity against shop capacity, bonding capability, and true capability match &mdash; don't chase codes without real experience.</li>
+            <li>For a live opportunity: read the solicitation in full, confirm registration/certifications current, prepare capability statement + past performance references, price the job, submit before deadline.</li>
+            <li>Track the submission in the Contracts CRM with a follow-up date for the award decision.</li>
+            <li>If awarded: execute per Statement of Work, maintain compliance documentation (certified payroll, DBE utilization reporting if applicable), invoice per contract terms.</li>
+            <li>If not awarded: request debrief, log lessons learned, requeue for the next relevant opportunity.</li>
+            <li>Annually: renew SAM.gov registration 30&ndash;60 days before expiration; review/refresh NAICS codes and capability statement.</li>
+          </ol>
+        </div>
+      </section>
+
+      <!-- SECTION B: STATE -->
+      <section class="pb-section" id="section-b">
+        <div class="channel-head"><span class="letter-badge">B</span><h2>State of Illinois</h2></div>
+
+        <div class="pb-subhead"><i class="fas fa-magnifying-glass"></i><h3>LEAD GENERATION</h3></div>
+        <ul>
+          <li><strong>Illinois Procurement Bulletins</strong> &mdash; the state runs four separate bulletin boards by Chief Procurement Officer portfolio: General Services (via BidBuy), Construction (Capital Development Board &mdash; CDB), Higher Education (IPHEC), and IDOT. Register on whichever bulletin(s) match your NIGP commodity codes &mdash; certification alone does <strong>not</strong> auto-subscribe you to solicitation notices.</li>
+          <li><strong>BidBuy</strong> (bidbuy.illinois.gov) &mdash; the state's primary eProcurement platform for general services/goods solicitations; register as a vendor directly.</li>
+          <li><strong>Illinois Procurement Gateway (IPG)</strong> &mdash; pre-registers disclosures/documentation so you're ready to respond quickly when a solicitation comes up.</li>
+          <li><strong>Illinois Tollway, CTA/Metra/Pace</strong> &mdash; each maintains its own certification participation and procurement postings; worth registering with each individually for transit-adjacent metal work.</li>
+        </ul>
+
+        <div class="pb-subhead"><i class="fas fa-clipboard-check"></i><h3>CERTIFICATIONS / QUALIFICATIONS NEEDED</h3></div>
+        <ul>
+          <li><strong>BEP (Business Enterprise Program)</strong> certification through the Illinois Commission on Equity and Inclusion (CEI) &mdash; free, and since the shop is already MBE/WBE/DBE certified with the City, it qualifies for the <strong>fast-track reciprocal &ldquo;Be Enrolled&rdquo; application</strong>, typically ~7 business days instead of the full ~60-day review.</li>
+          <li>State agencies and universities carry an aspirational goal of <strong>20&ndash;30% of contract dollars to BEP-certified vendors</strong> depending on the entity &mdash; real leverage as a prime or sub.</li>
+          <li><strong>VBP (Veterans Business Program)</strong> &mdash; separate certification if applicable to ownership.</li>
+          <li>Certification is valid 5 years with an annual &ldquo;No Change Affidavit&rdquo;; a fast-track/reciprocal certification via another agency's status is valid 1 year and should be renewed alongside the City certification.</li>
+        </ul>
+
+        <div class="pb-subhead"><i class="fas fa-file-signature"></i><h3>APPLICATION / REGISTRATION PROCESS</h3></div>
+        <ol>
+          <li>Submit the BE-BEP (fast-track) application through CEI's certification and compliance portal, referencing the existing City MBE/WBE/DBE certification as the basis for reciprocity.</li>
+          <li>Separately register as a vendor on BidBuy and/or the relevant bulletin board(s) (CDB for construction, IPHEC for university work, IDOT for transportation).</li>
+          <li>Complete the Illinois Procurement Gateway (IPG) vendor disclosure profile.</li>
+          <li>Once BEP-certified, the firm appears in CEI's public vendor directory, visible to state agencies and to prime contractors seeking to fulfill diversity participation goals.</li>
+        </ol>
+
+        <div class="pb-subhead"><i class="fas fa-gavel"></i><h3>BIDDING PROCESS</h3></div>
+        <ul>
+          <li>State solicitations follow the Illinois Procurement Code; smaller purchases may be direct quotes (agencies are required to solicit from BEP-certified vendors within certain dollar thresholds), while larger work goes through formal sealed bid or RFP on BidBuy or CDB's board.</li>
+          <li>On larger contracts with a stated BEP participation goal, primes must submit a <strong>Utilization Plan</strong> showing how they'll meet the goal &mdash; an opening as a subcontractor even on jobs you can't prime.</li>
+          <li>For purchases in the <strong>$20,000&ndash;$99,999 range</strong>, agencies must obtain at least one of three competitive quotes from a BEP-certified vendor &mdash; meaning state buyers are sometimes <em>required</em> to reach out directly if you're in the right commodity code and directory listing.</li>
+        </ul>
+
+        <div class="workflow-block">
+          <h4><i class="fas fa-route"></i> CRADLE-TO-GRAVE WORKFLOW &mdash; STATE OF ILLINOIS</h4>
+          <ol>
+            <li>File the BE-BEP fast-track reciprocal application referencing City certification.</li>
+            <li>Register on BidBuy, CDB, IPHEC, and IDOT bulletins as relevant.</li>
+            <li>Complete the IPG vendor profile.</li>
+            <li>Set up recurring searches/alerts on each registered bulletin for your commodity codes.</li>
+            <li>When a live solicitation is found: confirm BEP status current, prepare bid/quote, submit by deadline; for prime bids with a stated goal, prepare to also serve or be served by other BEP subs.</li>
+            <li>Track submissions and outcomes in the Contracts CRM.</li>
+            <li>Recertify annually (No Change Affidavit) and renew reciprocal status alongside City recertification.</li>
+          </ol>
+        </div>
+      </section>
+
+      <!-- SECTION C: CITY -->
+      <section class="pb-section" id="section-c">
+        <div class="channel-head"><span class="letter-badge">C</span><h2>Local / City of Chicago Municipal (+ Cook County)</h2></div>
+
+        <div class="pb-subhead"><i class="fas fa-magnifying-glass"></i><h3>LEAD GENERATION</h3></div>
+        <ul>
+          <li><strong>City of Chicago DPS Bid Opportunity List</strong> &mdash; the primary source of city solicitations (chicago.gov/dps).</li>
+          <li><strong>DPS quarterly &ldquo;Buying Plan&rdquo;</strong> &mdash; a forward-looking forecast of what the City intends to buy, letting you plan capacity and relationship-building before a bid drops, rather than reacting cold.</li>
+          <li><strong>DPS workshops</strong> &mdash; free quarterly/monthly sessions on procurement fundamentals, certification, and compliance, in person and posted to the DPS YouTube channel; genuinely useful for staying current and face time with procurement staff.</li>
+          <li><strong>Sister agencies</strong> &mdash; Chicago Public Schools, Chicago Park District, Chicago Housing Authority, City Colleges of Chicago, and the CTA all run separate procurement processes but generally recognize City MBE/WBE certification &mdash; worth registering with each directly.</li>
+          <li><strong>Cook County Office of the Chief Procurement Officer</strong> &mdash; separate bid postings; City certification carries over via reciprocity, so only separate vendor/bid registration is needed.</li>
+          <li><strong>Prime contractor relationships</strong> &mdash; the City sets participation goals (historically ~25% MBE / 5% WBE on non-construction contracts, with construction goals set per-project) that primes must meet; getting known to the GCs who regularly win City work is often more productive than waiting for prime opportunities alone.</li>
+        </ul>
+
+        <div class="pb-subhead"><i class="fas fa-clipboard-check"></i><h3>CERTIFICATIONS / QUALIFICATIONS NEEDED</h3></div>
+        <ul>
+          <li><strong>Already held: MBE/WBE/DBE certification through DPS Certification &amp; Compliance Division.</strong> Confirm it's current (5-year validity with No Change Affidavit) and listed correctly in the public directory with an accurate area-of-specialty (welding/metal fabrication) &mdash; bid credit only applies within the certified specialty.</li>
+          <li><strong>VBE (Veteran Business Enterprise)</strong> &mdash; separate certification if applicable.</li>
+          <li><strong>BEPD</strong> (Business Enterprise Owned or Operated by People with Disabilities) &mdash; separate certification if applicable.</li>
+          <li><strong>DBE/ACDBE</strong> &mdash; only needed for O'Hare/Midway work funded by federal DOT/FAA dollars; a separate application from local MBE/WBE even though DPS administers both.</li>
+          <li>Depending on scope: City of Chicago contractor licensing and standard business license &mdash; confirm current status.</li>
+          <li>For construction-value contracts, <strong>prequalification</strong> with the City may be required above certain thresholds &mdash; a separate step from certification, confirming bonding capacity, safety record, and financial capacity.</li>
+        </ul>
+
+        <div class="pb-subhead"><i class="fas fa-file-signature"></i><h3>APPLICATION / REGISTRATION PROCESS</h3></div>
+        <p>Already complete for base MBE/WBE/DBE certification. Ongoing maintenance:</p>
+        <ol>
+          <li>File the annual No Change Affidavit to keep certification active.</li>
+          <li>Confirm the listing in the public MBE/WBE/DBE directory is accurate and complete (what primes search when filling their utilization plans).</li>
+          <li>Register separately for bid notifications (certification does not auto-subscribe you).</li>
+          <li>If pursuing VBE/BEPD in addition, file those applications with DPS Certification &amp; Compliance.</li>
+          <li>Register with Cook County's procurement portal and any sister agencies (CPS, Park District, CHA, CTA) pursued directly.</li>
+        </ol>
+
+        <div class="pb-subhead"><i class="fas fa-gavel"></i><h3>BIDDING PROCESS</h3></div>
+        <ul>
+          <li>City contracts follow formal sealed bid, RFP, or RFQ processes depending on value and complexity; smaller purchases may go through informal quotes.</li>
+          <li>On contracts with stated MBE/WBE goals, bidders (as prime) submit a Schedule B/C participation plan and, if using subs, Letters of Intent (Schedule C-1) from each MBE/WBE sub committing to specific scope and dollar value.</li>
+          <li>As a subcontractor, expect to sign a Letter of Intent confirming scope and price &mdash; keep a standard template ready to turn these around quickly when a prime reaches out.</li>
+          <li>Contract close-out requires documentation of &ldquo;Good Faith Efforts&rdquo; and quarterly payment reporting from primes to MBE/WBE subs &mdash; respond promptly to any prime's payment-confirmation request; slow responses hurt standing with that prime on future jobs.</li>
+        </ul>
+
+        <div class="workflow-block">
+          <h4><i class="fas fa-route"></i> CRADLE-TO-GRAVE WORKFLOW &mdash; CITY OF CHICAGO</h4>
+          <ol>
+            <li>Confirm MBE/WBE/DBE certification current and directory listing accurate.</li>
+            <li>Register for DPS Bid Opportunity List notifications and review the current quarterly Buying Plan.</li>
+            <li>Attend at least one DPS workshop to build relationships with Certification &amp; Compliance staff.</li>
+            <li>Build and maintain a short list of GCs/primes who regularly win City work in your trade &mdash; introduce the shop directly, provide a capability statement, ask to be added to their MBE/WBE bid list.</li>
+            <li>For a live prime bid: confirm certification status, submit competitive quote/scope, provide a Letter of Intent if requested.</li>
+            <li>For a direct City solicitation: submit sealed bid/RFP response per instructions, ensure certification documentation is attached.</li>
+            <li>Track submissions/outcomes in the Contracts CRM.</li>
+            <li>If awarded (prime or sub): execute work, respond promptly to any payment-verification requests, maintain compliance documentation.</li>
+            <li>Annually: file No Change Affidavit; refresh capability statement and directory listing.</li>
+          </ol>
+        </div>
+      </section>
+
+      <!-- SECTION D: CORPORATE -->
+      <section class="pb-section" id="section-d">
+        <div class="channel-head"><span class="letter-badge">D</span><h2>Corporate (Private Sector Supplier Diversity &amp; GC Subcontracting)</h2></div>
+
+        <div class="pb-subhead"><i class="fas fa-magnifying-glass"></i><h3>LEAD GENERATION</h3></div>
+        <ul>
+          <li><strong>NMSDC certification path</strong> unlocks the <strong>NMSDC Hub</strong>, a searchable national database that 1,750+ corporate members (most Fortune 500 companies with supplier diversity programs) use to source vendors directly &mdash; a genuinely different and larger market than government work (corporate supplier diversity spend nationally runs well over $100B/year).</li>
+          <li><strong>Chicago Minority Supplier Development Council (CMSDC)</strong> &mdash; the local NMSDC affiliate council; join for direct access to matchmaking events with corporate buyers headquartered in or near Chicago.</li>
+          <li><strong>Direct GC relationships</strong> &mdash; corporate/private construction work (warehouses, distribution centers, corporate campuses, hospital expansions) is typically won by pursuing relationships with the GCs who build for those clients, not by bidding the corporate client directly.</li>
+          <li><strong>Trade associations</strong> &mdash; American Welding Society Chicago section, National Ornamental &amp; Miscellaneous Metals Association (NOMMA), and local contractor associations for networking and legitimacy signaling.</li>
+        </ul>
+
+        <div class="pb-subhead"><i class="fas fa-clipboard-check"></i><h3>CERTIFICATIONS / QUALIFICATIONS NEEDED</h3></div>
+        <ul>
+          <li><strong>NMSDC MBE certification</strong> &mdash; the private-sector standard; a <em>separate, paid</em> certification from government MBE/WBE (roughly $270&ndash;$1,700/year, scaled by revenue), processed through the regional affiliate council (CMSDC). Many corporations <em>require</em> NMSDC certification specifically to count a purchase toward supplier diversity goals &mdash; the City certification does not automatically satisfy this.</li>
+          <li><strong>WBENC</strong> &mdash; parallel national certification if pursuing corporate work on the woman-owned side.</li>
+          <li>No certification is required simply to <em>bid</em> corporate work generally &mdash; but certification is often the difference between being found proactively versus needing to cold-outreach.</li>
+        </ul>
+
+        <div class="pb-subhead"><i class="fas fa-file-signature"></i><h3>APPLICATION / REGISTRATION PROCESS</h3></div>
+        <ol>
+          <li>Identify the correct regional NMSDC affiliate (Chicago Minority Supplier Development Council, or Mid-States MSDC depending on exact coverage).</li>
+          <li>Complete the pre-application questionnaire and full application with ownership/control documentation (largely reusable from the existing MBE/WBE application).</li>
+          <li>Pay the tiered certification fee.</li>
+          <li>Expect a site visit as part of the review, followed by committee decision &mdash; budget roughly 45&ndash;90 days.</li>
+          <li>Once certified, build a complete NMSDC Hub profile (capability statement, photos, NAICS codes) since corporate buyers search this directly.</li>
+        </ol>
+
+        <div class="pb-subhead"><i class="fas fa-gavel"></i><h3>BIDDING PROCESS</h3></div>
+        <ul>
+          <li>Corporate procurement rarely uses public sealed bids; expect RFQs/RFPs sent directly to a shortlist, vendor portal registration (many large corporations use Ariba, Coupa, or similar e-procurement for vendor onboarding and PO issuance), and relationship-driven award decisions.</li>
+          <li>As a subcontractor to a GC on corporate work, the &ldquo;bid&rdquo; is typically a scope + price submitted directly to the GC's estimator, not a public process &mdash; cultivating a short list of estimators who call for quotes is the real engine here.</li>
+          <li>Corporate matchmaking events (run by CMSDC and NMSDC nationally) are a legitimate and common way first contact is made with a corporate buyer.</li>
+        </ul>
+
+        <div class="workflow-block">
+          <h4><i class="fas fa-route"></i> CRADLE-TO-GRAVE WORKFLOW &mdash; CORPORATE</h4>
+          <ol>
+            <li>Apply for NMSDC certification through Chicago Minority Supplier Development Council.</li>
+            <li>Build a complete NMSDC Hub profile once certified.</li>
+            <li>Join CMSDC as a member; attend quarterly matchmaker events.</li>
+            <li>Build direct relationships with 5&ndash;10 target GCs who build corporate/industrial work in the Chicago area; provide capability statement, ask to be added as an approved sub.</li>
+            <li>Register in any corporate vendor portals (Ariba/Coupa/etc.) that specific target buyers require.</li>
+            <li>Respond to RFQs/RFPs as they come from GCs or corporate buyers directly.</li>
+            <li>Track submissions/outcomes in the Contracts CRM.</li>
+            <li>If awarded: execute per PO/contract terms, invoice through the buyer's system, maintain the relationship for repeat work (corporate work is heavily relationship- and repeat-business-driven).</li>
+            <li>Annually: renew NMSDC certification, refresh Hub profile, reassess GC target list.</li>
+          </ol>
+        </div>
+      </section>
+
+      <!-- SECTION E: INDUSTRIAL -->
+      <section class="pb-section" id="section-e">
+        <div class="channel-head"><span class="letter-badge">E</span><h2>Industrial (Direct Facility &amp; Maintenance Contracts)</h2></div>
+
+        <div class="pb-subhead"><i class="fas fa-magnifying-glass"></i><h3>LEAD GENERATION</h3></div>
+        <ul>
+          <li><strong>Approved vendor lists</strong> &mdash; most industrial facilities (manufacturing plants, distribution centers, food processors, rail yards) maintain a formal approved-vendor list for maintenance/repair welding; getting on that list is the actual goal, more than &ldquo;bidding&rdquo; in the traditional sense.</li>
+          <li><strong>Plant maintenance/facilities managers</strong> &mdash; direct outreach to maintenance managers at industrial facilities within a reasonable service radius; many are willing to do a trial job to evaluate a new vendor before adding them to the approved list.</li>
+          <li><strong>Industrial parks and corridors</strong> &mdash; Chicago's south/southeast side industrial corridors, the I-55/I-80 logistics corridor, and similar concentrations are worth systematic outreach campaigns.</li>
+          <li><strong>Emergency/mobile repair positioning</strong> &mdash; industrial plants value a shop that can respond fast to a breakdown; marketing 24-hour or rapid-response mobile welding capability is a strong wedge into first contact with a plant that already has vendors but wants a backup option.</li>
+          <li><strong>Referrals from existing corporate/GC relationships</strong> &mdash; once doing work for one facility in a corporate group, ask for introductions to sister facilities.</li>
+        </ul>
+
+        <div class="pb-subhead"><i class="fas fa-clipboard-check"></i><h3>CERTIFICATIONS / QUALIFICATIONS NEEDED</h3></div>
+        <ul>
+          <li><strong>AWS certifications relevant to the work</strong> (structural welder certification per AWS D1.1, applicable process certifications) &mdash; industrial buyers will often ask for proof of welder qualifications directly, more so than business-level certifications.</li>
+          <li><strong>Insurance/COI (Certificate of Insurance)</strong> at the liability limits the facility requires &mdash; typically the actual gatekeeping document for industrial vendor approval, more than any diversity certification.</li>
+          <li><strong>Safety program documentation</strong> &mdash; OSHA 10/30 records for welders, a written safety program, and (for some facilities) a clean EMR (Experience Modification Rate) from the workers' comp carrier.</li>
+          <li>MBE/WBE/NMSDC certifications are a plus (especially if the facility is owned by a corporation with supplier diversity goals) but are secondary to insurance/safety/quality documentation in this channel.</li>
+        </ul>
+
+        <div class="pb-subhead"><i class="fas fa-file-signature"></i><h3>APPLICATION / REGISTRATION PROCESS</h3></div>
+        <ol>
+          <li>Prepare a standard &ldquo;vendor packet&rdquo;: COI, safety program summary, welder certifications, capability statement, references.</li>
+          <li>Contact the facility's maintenance/procurement manager directly; request the vendor approval application/process.</li>
+          <li>Complete facility-specific vendor onboarding forms (varies by facility &mdash; some use a formal system like ISNetworld or Avetta for safety/insurance prequalification, common in industrial/manufacturing settings).</li>
+          <li>Provide a trial-job quote if offered, to demonstrate quality/reliability before formal approved-vendor status.</li>
+        </ol>
+
+        <div class="pb-subhead"><i class="fas fa-gavel"></i><h3>BIDDING PROCESS</h3></div>
+        <ul>
+          <li>Typically informal: a maintenance manager calls or emails with a scope, a quote is provided (often within 24&ndash;48 hours), and the work is awarded directly if already on the approved list.</li>
+          <li>Larger capital projects at industrial facilities may go through a more formal RFQ process, sometimes managed by the GC handling the broader project rather than the facility directly.</li>
+          <li>Response speed and consistency matter more in this channel than any other &mdash; plants often default back to whichever vendor answers fastest and shows up reliably.</li>
+        </ul>
+
+        <div class="workflow-block">
+          <h4><i class="fas fa-route"></i> CRADLE-TO-GRAVE WORKFLOW &mdash; INDUSTRIAL</h4>
+          <ol>
+            <li>Assemble the standard vendor packet (COI, safety docs, welder certs, capability statement, references).</li>
+            <li>Build a target list of industrial facilities within service radius; prioritize by facility size and existing relationship/referral potential.</li>
+            <li>Direct outreach to maintenance/procurement contacts; request vendor approval process.</li>
+            <li>Complete facility-specific onboarding (including ISNetworld/Avetta-type prequalification if required).</li>
+            <li>Quote and win a trial job if offered.</li>
+            <li>Track approved-vendor status per facility in the Contracts CRM.</li>
+            <li>Respond to ongoing quote requests promptly; log every job won/lost per facility.</li>
+            <li>Ask satisfied clients for referrals to sister facilities or other plants in their network.</li>
+            <li>Annually: refresh COI, safety documentation, and welder certification records with every approved facility before they lapse.</li>
+          </ol>
+        </div>
+      </section>
+
+      <!-- THE JOB -->
+      <section class="pb-section" id="the-job">
+        <span class="eyebrow" style="color:var(--spark);">The Role</span>
+        <h2 style="font-size:clamp(1.3rem,2.8vw,1.7rem); margin:10px 0 20px;">Government &amp; Corporate Contracts Specialist</h2>
+
+        <div class="job-card-block">
+          <div class="meta-row">
+            <div><strong>Alternate Title</strong>Business Development &amp; Contracts Acquisition Manager</div>
+            <div><strong>Reports To</strong>Owner / General Manager</div>
+          </div>
+          <p>Owns the full cradle-to-grave process of identifying, qualifying, bidding, winning, and maintaining contract relationships across federal, state, City of Chicago/Cook County, corporate, and industrial channels. This is a hybrid business-development and compliance role &mdash; half hunting for and qualifying opportunities, half maintaining the certifications, registrations, and documentation that make the shop eligible to win them.</p>
+
+          <div class="pb-subhead" style="margin-top:24px;"><i class="fas fa-list-check"></i><h3>CORE RESPONSIBILITIES</h3></div>
+          <ol>
+            <li><strong>Certification &amp; registration maintenance</strong> &mdash; keep SAM.gov, City MBE/WBE/DBE, Illinois BEP, NMSDC, and any facility-specific vendor prequalifications (ISNetworld/Avetta-type) current and accurately listed; file recertifications/affidavits before they lapse.</li>
+            <li><strong>Lead generation</strong> &mdash; monitor SAM.gov, BidBuy/CDB/IPHEC/IDOT bulletins, DPS Bid Opportunity List, NMSDC Hub, and direct facility/GC relationships per the cadence in each channel above.</li>
+            <li><strong>Opportunity qualification</strong> &mdash; triage each lead against shop capacity, true capability match, bonding/insurance requirements, and realistic win probability before committing bid-prep time.</li>
+            <li><strong>Bid/proposal preparation</strong> &mdash; assemble capability statements, past performance references, pricing, and required forms (Letters of Intent, Utilization Plans, etc.) for each submission.</li>
+            <li><strong>Relationship management</strong> &mdash; maintain an active target list of GC estimators, plant maintenance managers, and procurement contacts; conduct regular direct outreach rather than waiting only for inbound solicitations.</li>
+            <li><strong>Contracts CRM ownership</strong> &mdash; maintain a tracking system logging every opportunity: source, deadline, status, outcome, and follow-up date.</li>
+            <li><strong>Compliance during contract execution</strong> &mdash; ensure required reporting (certified payroll, MBE/WBE utilization/payment confirmations, DBE reporting) is submitted on time.</li>
+            <li><strong>Post-award/post-loss review</strong> &mdash; request debriefs on losses, log lessons learned, close the loop on collections/final invoicing for wins.</li>
+          </ol>
+
+          <div class="pb-subhead" style="margin-top:24px;"><i class="fas fa-user-check"></i><h3>QUALIFICATIONS</h3></div>
+          <ul>
+            <li>2+ years in business development, estimating, or contracts administration &mdash; construction/industrial/fabrication industry strongly preferred.</li>
+            <li>Working familiarity with public procurement processes (federal, state, or municipal) is a strong plus; willingness to learn quickly is a requirement if not already familiar.</li>
+            <li>Comfortable with government/corporate web portals (SAM.gov, BidBuy, NMSDC Hub, Ariba/Coupa-type systems) and basic document preparation (capability statements, COIs, bid forms).</li>
+            <li>Strong organizational discipline &mdash; this role lives and dies by deadlines and recertification dates; nothing here should be tracked from memory.</li>
+            <li>Relationship-building instincts &mdash; a meaningful share of this job is direct outreach and follow-up, not just monitoring portals.</li>
+          </ul>
+
+          <div class="pb-subhead" style="margin-top:24px;"><i class="fas fa-chart-line"></i><h3>SUCCESS METRICS (SUGGESTED)</h3></div>
+          <div class="metrics-grid">
+            <div class="metric-item"><i class="fas fa-check-double"></i>Number of active certifications/registrations maintained without lapse.</div>
+            <div class="metric-item"><i class="fas fa-check-double"></i>Number of qualified opportunities identified and bid per month/quarter.</div>
+            <div class="metric-item"><i class="fas fa-check-double"></i>Win rate by channel.</div>
+            <div class="metric-item"><i class="fas fa-check-double"></i>Revenue sourced by channel &mdash; shows which of the five channels is actually paying off.</div>
+            <div class="metric-item"><i class="fas fa-check-double"></i>Approved-vendor status count across target industrial facilities.</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ORG CHART -->
+      <section class="pb-section" id="org-chart">
+        <span class="eyebrow" style="color:var(--spark);">Planning Reference &mdash; Not Yet Open Roles</span>
+        <h2 style="font-size:clamp(1.3rem,2.8vw,1.7rem); margin:10px 0 8px;">Full Org Chart</h2>
+        <p style="margin-bottom:0;">Complete draft job descriptions for the roles the shop could grow into, across all six functional areas. Only the Welder Trainee and Government &amp; Corporate Contracts Specialist are actual open postings today (see their full listings on the <a href="/careers.html" style="color:var(--spark); font-weight:600;">careers page</a>) &mdash; everything else here is planning reference, not a live opening. Not every role needs to be a separate hire on day one; see the right-sizing note at the end.</p>
+
+        <div class="dept-jumplinks">
+          <a href="#dept-leadership">Leadership</a>
+          <a href="#dept-shop-floor">Shop Floor / Production</a>
+          <a href="#dept-bizdev">Business Development / Contracts</a>
+          <a href="#dept-quality">Quality, Safety &amp; Compliance</a>
+          <a href="#dept-office">Office &amp; Administration</a>
+          <a href="#dept-marketing">Marketing / Digital</a>
+          <a href="#dept-sales">Sales / Customer-Facing</a>
+        </div>
+
+        <div class="dept-head" id="dept-leadership"><i class="fas fa-star"></i><h3>Leadership</h3></div>
+
+        <div class="job-card-block">
+          <div class="meta-row"><div><strong>Reports To</strong>N/A</div></div>
+          <h3 style="font-size:1rem; margin-bottom:10px; text-transform:none;">Owner / President</h3>
+          <p>Sets overall business strategy, holds final authority on major decisions (financial, contractual, hiring), and represents the company in its most important external relationships (major clients, bonding/insurance carriers, banking).</p>
+          <div class="pb-subhead" style="margin-top:16px;"><i class="fas fa-list-check"></i><h3>KEY RESPONSIBILITIES</h3></div>
+          <ul>
+            <li>Set annual business goals and budget across production, business development, and overhead</li>
+            <li>Approve major contracts, bids above a defined dollar threshold, and capital purchases</li>
+            <li>Maintain relationships with bonding agent, insurance broker, and bank</li>
+            <li>Final decision-maker on hiring for leadership-level roles</li>
+            <li>Represent the company at industry associations, corporate matchmaking events, and key client meetings</li>
+          </ul>
+          <div class="pb-subhead" style="margin-top:16px;"><i class="fas fa-user-check"></i><h3>QUALIFICATIONS</h3></div>
+          <ul>
+            <li>Deep knowledge of the trade and the business</li>
+            <li>Financial literacy sufficient to read P&amp;L, cash flow, and bonding capacity reports</li>
+            <li>Comfortable being the final signature on contracts and legal documents</li>
+          </ul>
+        </div>
+
+        <div class="job-card-block">
+          <div class="meta-row"><div><strong>Reports To</strong>Owner / President</div></div>
+          <h3 style="font-size:1rem; margin-bottom:10px; text-transform:none;">General Manager</h3>
+          <p>Runs day-to-day operations across shop floor, office, and business development so the Owner can focus on strategy and growth. Appropriate once the shop has grown beyond owner-operator scale.</p>
+          <div class="pb-subhead" style="margin-top:16px;"><i class="fas fa-list-check"></i><h3>KEY RESPONSIBILITIES</h3></div>
+          <ul>
+            <li>Oversee Shop Foreman, Office Manager, and Contracts Specialist to ensure coordinated operations</li>
+            <li>Manage overall production schedule and capacity planning across active jobs</li>
+            <li>Resolve cross-department issues (e.g., a bid win that needs shop capacity confirmed before commitment)</li>
+            <li>Report shop performance (production, safety, financials) to the Owner on a regular cadence</li>
+          </ul>
+          <div class="pb-subhead" style="margin-top:16px;"><i class="fas fa-user-check"></i><h3>QUALIFICATIONS</h3></div>
+          <ul>
+            <li>5+ years in shop operations or trade business management</li>
+            <li>Strong organizational and people-management skills</li>
+            <li>Working knowledge of welding/fabrication processes (does not need to weld personally)</li>
+          </ul>
+        </div>
+
+        <div class="dept-head" id="dept-shop-floor"><i class="fas fa-fire"></i><h3>Shop Floor / Production</h3></div>
+
+        <div class="job-card-block">
+          <div class="meta-row"><div><strong>Reports To</strong>General Manager (or Owner directly, in a smaller shop)</div></div>
+          <h3 style="font-size:1rem; margin-bottom:10px; text-transform:none;">Shop Foreman / Lead Welder</h3>
+          <p>Runs the daily shop floor &mdash; assigns work, ensures quality and safety, and trains junior welders. The senior production authority in the building day-to-day.</p>
+          <div class="pb-subhead" style="margin-top:16px;"><i class="fas fa-list-check"></i><h3>KEY RESPONSIBILITIES</h3></div>
+          <ul>
+            <li>Assign daily job tasks to welders, fabricators, and trainees based on skill level and job priority</li>
+            <li>Perform and sign off on quality checks for completed welds/fabrications</li>
+            <li>Train and mentor Welder I/II staff and Trainees</li>
+            <li>Enforce shop safety procedures and PPE compliance</li>
+            <li>Flag material, tooling, or scheduling issues to management before they become problems</li>
+            <li>Perform hands-on welding on complex or high-priority jobs personally</li>
+          </ul>
+          <div class="pb-subhead" style="margin-top:16px;"><i class="fas fa-user-check"></i><h3>QUALIFICATIONS</h3></div>
+          <ul>
+            <li>AWS D1.1 (or relevant process) certification required</li>
+            <li>5+ years welding experience, with at least 1-2 years in a lead/supervisory capacity</li>
+            <li>Strong blueprint reading and layout skills</li>
+            <li>Demonstrated ability to train others, not just perform the work personally</li>
+          </ul>
+        </div>
+
+        <div class="job-card-block">
+          <div class="meta-row"><div><strong>Reports To</strong>Shop Foreman</div></div>
+          <h3 style="font-size:1rem; margin-bottom:10px; text-transform:none;">Welder II / Journeyman Welder</h3>
+          <p>Full-capability certified welder who works independently across the shop's range of processes and job types with minimal supervision.</p>
+          <div class="pb-subhead" style="margin-top:16px;"><i class="fas fa-list-check"></i><h3>KEY RESPONSIBILITIES</h3></div>
+          <ul>
+            <li>Perform welding across MIG, stick, and/or TIG processes as required by the job</li>
+            <li>Read and execute from blueprints/weld symbols without supervision</li>
+            <li>Perform quality self-checks before handing work to the Foreman for final sign-off</li>
+            <li>Assist in training Welder I staff and Trainees as needed</li>
+            <li>Maintain own equipment and work area</li>
+          </ul>
+          <div class="pb-subhead" style="margin-top:16px;"><i class="fas fa-user-check"></i><h3>QUALIFICATIONS</h3></div>
+          <ul>
+            <li>AWS certification in at least one relevant process/position</li>
+            <li>3+ years of independent welding experience</li>
+            <li>Strong blueprint reading ability</li>
+            <li>Reliable, safety-conscious work habits</li>
+          </ul>
+        </div>
+
+        <div class="job-card-block">
+          <div class="meta-row"><div><strong>Reports To</strong>Shop Foreman</div></div>
+          <h3 style="font-size:1rem; margin-bottom:10px; text-transform:none;">Welder I / Production Welder</h3>
+          <p>Works independently on routine, well-defined jobs; has completed initial certification and moved past the Trainee stage but has not yet reached full Journeyman range.</p>
+          <div class="pb-subhead" style="margin-top:16px;"><i class="fas fa-list-check"></i><h3>KEY RESPONSIBILITIES</h3></div>
+          <ul>
+            <li>Perform welding on routine production jobs with light supervision</li>
+            <li>Follow provided specs/drawings accurately</li>
+            <li>Perform basic self-quality-checks</li>
+            <li>Continue skill development toward additional certifications</li>
+            <li>Maintain a clean, organized, safe work area</li>
+          </ul>
+          <div class="pb-subhead" style="margin-top:16px;"><i class="fas fa-user-check"></i><h3>QUALIFICATIONS</h3></div>
+          <ul>
+            <li>At least one AWS certification (typically the first earned after the Trainee period)</li>
+            <li>1-2 years of shop experience, including completion of a Trainee program</li>
+            <li>Basic blueprint reading ability</li>
+            <li>Reliable attendance and safety compliance</li>
+          </ul>
+        </div>
+
+        <div class="job-card-block compact">
+          <div class="meta-row">
+            <div><strong>Reports To</strong>Shop Foreman / Lead Welder</div>
+            <div><strong>Status</strong>Actual open posting</div>
+          </div>
+          <h3 style="font-size:1rem; margin-bottom:10px; text-transform:none;">Welder Trainee / Apprentice Welder</h3>
+          <p>Entry-level, no prior welding experience required &mdash; structured training path to AWS certification. This one's a real open role right now. See the <a href="/careers/welder-trainee.html" style="color:var(--spark); font-weight:600;">full posting and apply page &rarr;</a></p>
+        </div>
+
+        <div class="job-card-block">
+          <div class="meta-row"><div><strong>Reports To</strong>Shop Foreman</div></div>
+          <h3 style="font-size:1rem; margin-bottom:10px; text-transform:none;">Fabricator / Fitter</h3>
+          <p>Handles layout, cutting, and fit-up of material before it goes to a welder &mdash; the precision-measurement stage that determines whether a weld job goes together correctly.</p>
+          <div class="pb-subhead" style="margin-top:16px;"><i class="fas fa-list-check"></i><h3>KEY RESPONSIBILITIES</h3></div>
+          <ul>
+            <li>Read blueprints/drawings and lay out cut lines and dimensions on raw material</li>
+            <li>Operate cutting equipment (plasma, saw, shear) to size material</li>
+            <li>Fit and clamp/tack components into position ahead of final welding</li>
+            <li>Verify dimensions and squareness before handing off to a welder</li>
+            <li>Maintain cutting equipment and work area</li>
+          </ul>
+          <div class="pb-subhead" style="margin-top:16px;"><i class="fas fa-user-check"></i><h3>QUALIFICATIONS</h3></div>
+          <ul>
+            <li>2+ years fabrication/fitting experience</li>
+            <li>Strong blueprint reading and measurement skills</li>
+            <li>Familiarity with plasma cutting, saws, and other shop cutting equipment</li>
+            <li>Attention to detail &mdash; errors at this stage compound through the rest of the job</li>
+          </ul>
+        </div>
+
+        <div class="job-card-block">
+          <div class="meta-row"><div><strong>Reports To</strong>Shop Foreman</div></div>
+          <h3 style="font-size:1rem; margin-bottom:10px; text-transform:none;">CNC/Plasma Operator</h3>
+          <p>Runs CNC plasma (or laser, if equipped) cutting equipment for precision and decorative work &mdash; signage, decorative panels, security enclosure mesh, and any job requiring CAD-driven cut files.</p>
+          <div class="pb-subhead" style="margin-top:16px;"><i class="fas fa-list-check"></i><h3>KEY RESPONSIBILITIES</h3></div>
+          <ul>
+            <li>Set up and run CNC plasma/laser cutting jobs from provided CAD files</li>
+            <li>Perform basic file adjustments/nesting to optimize material usage</li>
+            <li>Perform machine maintenance and troubleshoot basic operational issues</li>
+            <li>Inspect finished cut parts for accuracy and quality</li>
+            <li>Coordinate with Fabricators/Welders on downstream assembly needs</li>
+          </ul>
+          <div class="pb-subhead" style="margin-top:16px;"><i class="fas fa-user-check"></i><h3>QUALIFICATIONS</h3></div>
+          <ul>
+            <li>Experience operating CNC plasma or laser cutting equipment</li>
+            <li>Basic CAD file familiarity (import/nest, not necessarily full design)</li>
+            <li>Strong attention to detail and material-efficiency mindset</li>
+          </ul>
+        </div>
+
+        <div class="job-card-block">
+          <div class="meta-row"><div><strong>Reports To</strong>Shop Foreman</div></div>
+          <h3 style="font-size:1rem; margin-bottom:10px; text-transform:none;">Painter / Finisher</h3>
+          <p>Handles surface prep, priming, painting, and coordination with outside powder-coat partners so finished work leaves the shop looking professional.</p>
+          <div class="pb-subhead" style="margin-top:16px;"><i class="fas fa-list-check"></i><h3>KEY RESPONSIBILITIES</h3></div>
+          <ul>
+            <li>Prep welded/fabricated parts for finishing (grinding, cleaning, masking)</li>
+            <li>Apply primer and/or paint per job specification</li>
+            <li>Coordinate drop-off/pickup with outside powder-coat vendors when used</li>
+            <li>Perform final quality inspection on finish before delivery</li>
+            <li>Maintain spray equipment and finishing area</li>
+          </ul>
+          <div class="pb-subhead" style="margin-top:16px;"><i class="fas fa-user-check"></i><h3>QUALIFICATIONS</h3></div>
+          <ul>
+            <li>Experience with industrial painting/finishing processes</li>
+            <li>Familiarity with surface prep standards for steel</li>
+            <li>Attention to detail on final appearance, since this is often the customer's first impression of quality</li>
+          </ul>
+        </div>
+
+        <div class="job-card-block">
+          <div class="meta-row"><div><strong>Reports To</strong>Shop Foreman</div></div>
+          <h3 style="font-size:1rem; margin-bottom:10px; text-transform:none;">Yard/Materials Handler</h3>
+          <p>Manages material receiving, storage, and staging so the shop floor always has what it needs when it needs it.</p>
+          <div class="pb-subhead" style="margin-top:16px;"><i class="fas fa-list-check"></i><h3>KEY RESPONSIBILITIES</h3></div>
+          <ul>
+            <li>Receive and check in material deliveries against purchase orders</li>
+            <li>Organize and maintain yard/warehouse inventory</li>
+            <li>Stage material for upcoming jobs per the production schedule</li>
+            <li>Operate forklift/material handling equipment as needed</li>
+            <li>Flag low-stock items to the Foreman/Office before they cause a delay</li>
+          </ul>
+          <div class="pb-subhead" style="margin-top:16px;"><i class="fas fa-user-check"></i><h3>QUALIFICATIONS</h3></div>
+          <ul>
+            <li>Forklift certification (or willingness to obtain)</li>
+            <li>Basic inventory/organizational skills</li>
+            <li>Physical capability for material handling</li>
+          </ul>
+        </div>
+
+        <div class="dept-head" id="dept-bizdev"><i class="fas fa-file-contract"></i><h3>Business Development / Contracts</h3></div>
+
+        <div class="job-card-block compact">
+          <div class="meta-row">
+            <div><strong>Reports To</strong>Owner / General Manager</div>
+            <div><strong>Status</strong>Actual open posting</div>
+          </div>
+          <h3 style="font-size:1rem; margin-bottom:10px; text-transform:none;">Government &amp; Corporate Contracts Specialist</h3>
+          <p>Owns the full cradle-to-grave process of identifying, qualifying, bidding, winning, and maintaining contract relationships across federal, state, city, corporate, and industrial channels. This one's a real open role right now &mdash; full detail on the <a href="#the-job" style="color:var(--spark); font-weight:600;">Playbook's Contracts Specialist section</a> above, or <a href="/careers/contracts-specialist.html" style="color:var(--spark); font-weight:600;">the public posting &rarr;</a></p>
+        </div>
+
+        <div class="job-card-block">
+          <div class="meta-row">
+            <div><strong>Reports To</strong>General Manager (or works closely alongside Contracts Specialist)</div>
+            <div><strong>Overlap Note</strong>Split off from Contracts Specialist once bid volume justifies a dedicated estimator</div>
+          </div>
+          <h3 style="font-size:1rem; margin-bottom:10px; text-transform:none;">Estimator</h3>
+          <p>Prices jobs &mdash; takes a set of drawings/specs or a scope description and produces an accurate, competitive bid price the shop can actually deliver at. Can be combined with the Contracts Specialist role in a smaller shop.</p>
+          <div class="pb-subhead" style="margin-top:16px;"><i class="fas fa-list-check"></i><h3>KEY RESPONSIBILITIES</h3></div>
+          <ul>
+            <li>Perform material and labor takeoffs from drawings/specs</li>
+            <li>Price jobs using current material costs, labor rates, and shop overhead</li>
+            <li>Build bid packages in coordination with the Contracts Specialist</li>
+            <li>Track actual job costs against estimates to improve future accuracy</li>
+            <li>Maintain current pricing on common materials/consumables</li>
+          </ul>
+          <div class="pb-subhead" style="margin-top:16px;"><i class="fas fa-user-check"></i><h3>QUALIFICATIONS</h3></div>
+          <ul>
+            <li>2+ years estimating experience in welding/fabrication, metal building, or related construction trade</li>
+            <li>Strong math and spreadsheet skills</li>
+            <li>Ability to read blueprints and translate them into accurate material/labor counts</li>
+          </ul>
+        </div>
+
+        <div class="job-card-block">
+          <div class="meta-row"><div><strong>Reports To</strong>General Manager</div></div>
+          <h3 style="font-size:1rem; margin-bottom:10px; text-transform:none;">Project Manager</h3>
+          <p>Owns an individual job from award through completion and final invoicing &mdash; the customer's main point of contact and the person making sure the shop delivers what was promised, on time.</p>
+          <div class="pb-subhead" style="margin-top:16px;"><i class="fas fa-list-check"></i><h3>KEY RESPONSIBILITIES</h3></div>
+          <ul>
+            <li>Serve as primary customer contact once a job is awarded</li>
+            <li>Coordinate scheduling between the shop floor and the customer/site</li>
+            <li>Track job progress against timeline and budget</li>
+            <li>Manage any change orders and get them properly documented/priced</li>
+            <li>Coordinate final delivery/installation and customer sign-off</li>
+            <li>Ensure final invoicing happens promptly and accurately</li>
+          </ul>
+          <div class="pb-subhead" style="margin-top:16px;"><i class="fas fa-user-check"></i><h3>QUALIFICATIONS</h3></div>
+          <ul>
+            <li>2+ years project management experience, construction/fabrication industry preferred</li>
+            <li>Strong communication skills &mdash; this role is the face of the shop to the customer</li>
+            <li>Organizational skills sufficient to run multiple jobs at different stages simultaneously</li>
+          </ul>
+        </div>
+
+        <div class="dept-head" id="dept-quality"><i class="fas fa-shield-halved"></i><h3>Quality, Safety &amp; Compliance</h3></div>
+
+        <div class="job-card-block">
+          <div class="meta-row"><div><strong>Reports To</strong>General Manager</div></div>
+          <h3 style="font-size:1rem; margin-bottom:10px; text-transform:none;">Safety Officer / Safety Coordinator</h3>
+          <p>Owns shop safety compliance &mdash; the documentation and programs that keep the shop legally compliant and that industrial/corporate clients require before adding a vendor to their approved list.</p>
+          <div class="pb-subhead" style="margin-top:16px;"><i class="fas fa-list-check"></i><h3>KEY RESPONSIBILITIES</h3></div>
+          <ul>
+            <li>Maintain the shop's written safety program and OSHA compliance documentation</li>
+            <li>Track OSHA 10/30 training records for all welders</li>
+            <li>Manage COI (Certificate of Insurance) requests and facility-specific safety prequalification (ISNetworld/Avetta-type systems)</li>
+            <li>Investigate any safety incidents and maintain required incident records</li>
+            <li>Conduct periodic safety walkthroughs/toolbox talks</li>
+          </ul>
+          <div class="pb-subhead" style="margin-top:16px;"><i class="fas fa-user-check"></i><h3>QUALIFICATIONS</h3></div>
+          <ul>
+            <li>OSHA 30 certification (minimum) required</li>
+            <li>2+ years safety program experience, industrial/construction setting preferred</li>
+            <li>Strong recordkeeping discipline</li>
+          </ul>
+        </div>
+
+        <div class="job-card-block">
+          <div class="meta-row"><div><strong>Reports To</strong>Shop Foreman or General Manager</div></div>
+          <h3 style="font-size:1rem; margin-bottom:10px; text-transform:none;">Certified Welding Inspector (CWI)</h3>
+          <p>Provides independent quality sign-off on welds, especially valuable once the shop pursues ASME/structural code work where third-party or documented inspection is required. Can be a part-time/contract role rather than full-time depending on job volume requiring certified inspection.</p>
+          <div class="pb-subhead" style="margin-top:16px;"><i class="fas fa-list-check"></i><h3>KEY RESPONSIBILITIES</h3></div>
+          <ul>
+            <li>Inspect completed welds against applicable code (AWS D1.1, ASME, etc.)</li>
+            <li>Document inspection results and maintain QC records for code-required jobs</li>
+            <li>Flag non-conforming work for repair before it ships/installs</li>
+            <li>Advise on weld procedure specifications (WPS) as needed</li>
+          </ul>
+          <div class="pb-subhead" style="margin-top:16px;"><i class="fas fa-user-check"></i><h3>QUALIFICATIONS</h3></div>
+          <ul>
+            <li>AWS CWI certification required</li>
+            <li>Strong knowledge of applicable welding codes</li>
+          </ul>
+        </div>
+
+        <div class="dept-head" id="dept-office"><i class="fas fa-folder-open"></i><h3>Office &amp; Administration</h3></div>
+
+        <div class="job-card-block">
+          <div class="meta-row"><div><strong>Reports To</strong>General Manager / Owner</div></div>
+          <h3 style="font-size:1rem; margin-bottom:10px; text-transform:none;">Office Manager / Administrative Assistant</h3>
+          <p>Keeps the office running &mdash; scheduling, correspondence, filing, and the general administrative backbone that supports both production and business development.</p>
+          <div class="pb-subhead" style="margin-top:16px;"><i class="fas fa-list-check"></i><h3>KEY RESPONSIBILITIES</h3></div>
+          <ul>
+            <li>Manage phones, email, and general correspondence</li>
+            <li>Maintain scheduling for the shop and any customer-facing appointments</li>
+            <li>Organize and file business documentation (contracts, certifications, insurance)</li>
+            <li>Support the Contracts Specialist with document preparation as needed</li>
+            <li>Order office supplies and manage light administrative purchasing</li>
+          </ul>
+          <div class="pb-subhead" style="margin-top:16px;"><i class="fas fa-user-check"></i><h3>QUALIFICATIONS</h3></div>
+          <ul>
+            <li>2+ years administrative experience</li>
+            <li>Strong organizational skills and attention to detail</li>
+            <li>Comfortable with standard office software; can combine with HR duties in a smaller shop</li>
+          </ul>
+        </div>
+
+        <div class="job-card-block">
+          <div class="meta-row">
+            <div><strong>Reports To</strong>Owner / General Manager</div>
+            <div><strong>Overlap Note</strong>Can be outsourced or part-time in a smaller shop</div>
+          </div>
+          <h3 style="font-size:1rem; margin-bottom:10px; text-transform:none;">Bookkeeper / Accountant</h3>
+          <p>Handles the shop's financial recordkeeping &mdash; invoicing, payroll, accounts payable/receivable, and financial reporting.</p>
+          <div class="pb-subhead" style="margin-top:16px;"><i class="fas fa-list-check"></i><h3>KEY RESPONSIBILITIES</h3></div>
+          <ul>
+            <li>Process invoicing and track accounts receivable</li>
+            <li>Manage accounts payable and vendor payments</li>
+            <li>Run payroll</li>
+            <li>Maintain financial records sufficient for tax filing and for bonding/insurance underwriting reviews</li>
+            <li>Provide the Owner with regular financial reports (P&amp;L, cash flow)</li>
+          </ul>
+          <div class="pb-subhead" style="margin-top:16px;"><i class="fas fa-user-check"></i><h3>QUALIFICATIONS</h3></div>
+          <ul>
+            <li>Bookkeeping/accounting experience, construction industry experience a plus</li>
+            <li>Familiarity with relevant accounting software</li>
+            <li>High accuracy and confidentiality standards</li>
+          </ul>
+        </div>
+
+        <div class="job-card-block">
+          <div class="meta-row">
+            <div><strong>Reports To</strong>General Manager / Owner</div>
+            <div><strong>Overlap Note</strong>Can be combined with the Office Manager role in a smaller shop</div>
+          </div>
+          <h3 style="font-size:1rem; margin-bottom:10px; text-transform:none;">HR Coordinator</h3>
+          <p>Manages hiring, onboarding, and the trainee program administration &mdash; increasingly important as the shop grows its Welder Trainee pipeline.</p>
+          <div class="pb-subhead" style="margin-top:16px;"><i class="fas fa-list-check"></i><h3>KEY RESPONSIBILITIES</h3></div>
+          <ul>
+            <li>Post and manage job openings, screen applicants</li>
+            <li>Coordinate onboarding paperwork and orientation for new hires</li>
+            <li>Track trainee program milestones (90-day, 6-month, certification achievement) and coordinate associated pay increases</li>
+            <li>Maintain personnel files and required employment documentation</li>
+            <li>Coordinate any required training/certification renewals for staff</li>
+          </ul>
+          <div class="pb-subhead" style="margin-top:16px;"><i class="fas fa-user-check"></i><h3>QUALIFICATIONS</h3></div>
+          <ul>
+            <li>1-2 years HR/hiring experience</li>
+            <li>Strong organizational and interpersonal skills</li>
+            <li>Familiarity with basic employment law compliance (can be supplemented with outside HR/legal support)</li>
+          </ul>
+        </div>
+
+        <div class="dept-head" id="dept-marketing"><i class="fas fa-bullhorn"></i><h3>Marketing / Digital</h3></div>
+
+        <div class="job-card-block">
+          <div class="meta-row"><div><strong>Reports To</strong>General Manager / Owner</div></div>
+          <h3 style="font-size:1rem; margin-bottom:10px; text-transform:none;">Marketing Coordinator</h3>
+          <p>Manages the shop's outward-facing content &mdash; product pages, image libraries (jerk pits, security features, and future product lines), and general marketing content calendar.</p>
+          <div class="pb-subhead" style="margin-top:16px;"><i class="fas fa-list-check"></i><h3>KEY RESPONSIBILITIES</h3></div>
+          <ul>
+            <li>Maintain and update product/service pages on the website</li>
+            <li>Coordinate photography of completed jobs to replace placeholder/generated images over time</li>
+            <li>Manage social media and any advertising/promotional content</li>
+            <li>Coordinate with the Contracts Specialist on capability statement and marketing collateral consistency</li>
+            <li>Track which product lines/pages are driving the most inbound interest</li>
+          </ul>
+          <div class="pb-subhead" style="margin-top:16px;"><i class="fas fa-user-check"></i><h3>QUALIFICATIONS</h3></div>
+          <ul>
+            <li>1-2 years marketing/content experience</li>
+            <li>Basic photography and content writing skills</li>
+            <li>Comfortable working with a CMS or web platform (or coordinating with a developer who does)</li>
+          </ul>
+        </div>
+
+        <div class="job-card-block">
+          <div class="meta-row">
+            <div><strong>Reports To</strong>General Manager / Owner</div>
+            <div><strong>Overlap Note</strong>Often a contractor rather than a full-time hire</div>
+          </div>
+          <h3 style="font-size:1rem; margin-bottom:10px; text-transform:none;">Web Developer / Site Administrator</h3>
+          <p>Maintains the Supabase-backed website &mdash; the configurator tools, gallery upload system, quote request forms, and general technical health of the site.</p>
+          <div class="pb-subhead" style="margin-top:16px;"><i class="fas fa-list-check"></i><h3>KEY RESPONSIBILITIES</h3></div>
+          <ul>
+            <li>Maintain and troubleshoot the website's Supabase backend and front-end pages</li>
+            <li>Build/update configurator logic and gallery display systems as new product lines are added</li>
+            <li>Manage quote form submissions routing and any client portal functionality</li>
+            <li>Implement security and backup best practices for the site's data</li>
+            <li>Support Marketing Coordinator with technical implementation of content updates</li>
+          </ul>
+          <div class="pb-subhead" style="margin-top:16px;"><i class="fas fa-user-check"></i><h3>QUALIFICATIONS</h3></div>
+          <ul>
+            <li>Experience with Supabase (or comparable Postgres-backed) systems</li>
+            <li>Front-end web development skills (HTML/CSS/JS at minimum)</li>
+            <li>Can be structured as an ongoing contractor relationship rather than a full-time hire, especially early on</li>
+          </ul>
+        </div>
+
+        <div class="dept-head" id="dept-sales"><i class="fas fa-handshake"></i><h3>Sales / Customer-Facing</h3></div>
+
+        <div class="job-card-block">
+          <div class="meta-row"><div><strong>Reports To</strong>General Manager (or Marketing Coordinator, depending on org structure)</div></div>
+          <h3 style="font-size:1rem; margin-bottom:10px; text-transform:none;">Sales / Customer Service Representative</h3>
+          <p>Handles inbound quote requests and configurator follow-ups, walking customers through product options (jerk pits, security features, and other custom lines) and converting inquiries into booked jobs.</p>
+          <div class="pb-subhead" style="margin-top:16px;"><i class="fas fa-list-check"></i><h3>KEY RESPONSIBILITIES</h3></div>
+          <ul>
+            <li>Respond promptly to inbound quote requests and configurator submissions</li>
+            <li>Walk customers through product options and help them land on the right build</li>
+            <li>Hand off qualified leads to the Estimator/Project Manager once scope is defined</li>
+            <li>Follow up on outstanding quotes to close the loop on won/lost business</li>
+            <li>Maintain basic CRM records on customer inquiries and outcomes</li>
+          </ul>
+          <div class="pb-subhead" style="margin-top:16px;"><i class="fas fa-user-check"></i><h3>QUALIFICATIONS</h3></div>
+          <ul>
+            <li>Customer service or sales experience, ideally in a trade/construction-adjacent business</li>
+            <li>Comfortable explaining technical options to non-technical customers</li>
+            <li>Responsiveness &mdash; this role often determines whether an inbound lead converts at all</li>
+          </ul>
+        </div>
+
+        <div class="action-box" style="background:var(--spark-soft); border-color:rgba(143,227,239,0.3); margin-top:10px;">
+          <h4 style="color:var(--spark);"><i class="fas fa-circle-info"></i> Right-Sizing for Shop Size</h4>
+          <p style="margin:0; font-size:0.9rem;">Not every role above needs to be a separate hire on day one. In a smaller shop, common combinations include: Owner also serving as Estimator/GM; Office Manager also handling HR; Marketing Coordinator and Web Developer combined or contracted out; Safety Officer combined with the Shop Foreman role until volume justifies a dedicated position. Worth deciding which roles are must-hire-now versus combine/defer based on current shop size and job volume.</p>
+        </div>
+      </section>
+
+      <!-- MASTER CADENCE -->
+      <section class="pb-section" id="cadence">
+        <span class="eyebrow" style="color:var(--spark);">Operating Rhythm</span>
+        <h2 style="font-size:clamp(1.3rem,2.8vw,1.7rem); margin:10px 0 20px;">Master Cadence &mdash; Cross-Channel Checklist</h2>
+        <div class="cadence-grid">
+          <div class="cadence-card">
+            <h4>DAILY</h4>
+            <ul>
+              <li>Check SAM.gov, DPS Bid Opportunity List, and any registered state bulletin alerts.</li>
+              <li>Respond to any inbound industrial quote requests within 24 hours.</li>
+            </ul>
+          </div>
+          <div class="cadence-card">
+            <h4>WEEKLY</h4>
+            <ul>
+              <li>Review NMSDC Hub and CMSDC event calendar.</li>
+              <li>Outreach to at least 2&ndash;3 target GC estimators or plant maintenance managers.</li>
+              <li>Update the Contracts CRM with all new leads, submissions, and status changes.</li>
+            </ul>
+          </div>
+          <div class="cadence-card">
+            <h4>MONTHLY</h4>
+            <ul>
+              <li>Review the City's quarterly Buying Plan for upcoming relevant opportunities.</li>
+              <li>Review win/loss data by channel; adjust time allocation across channels accordingly.</li>
+            </ul>
+          </div>
+          <div class="cadence-card">
+            <h4>ANNUALLY (calendar explicitly)</h4>
+            <ul>
+              <li>SAM.gov registration renewal (start 30&ndash;60 days before expiration).</li>
+              <li>City of Chicago MBE/WBE/DBE No Change Affidavit.</li>
+              <li>Illinois BEP reciprocal certification renewal.</li>
+              <li>NMSDC certification renewal.</li>
+              <li>COI, safety documentation, and welder certification refresh for all approved industrial facilities.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- SOURCES -->
+      <section class="pb-section" id="sources">
+        <span class="eyebrow" style="color:var(--spark);">Verify Before Relying On</span>
+        <h2 style="font-size:clamp(1.3rem,2.8vw,1.7rem); margin:10px 0 8px;">Sources / Where to Verify Current Details</h2>
+        <p style="margin-bottom:18px;">Procurement portals, fees, and requirements change; before relying on any specific number or deadline above, verify against the primary source.</p>
+        <ul class="sources-list">
+          <li><span class="src-name">SAM.gov</span><span class="src-url">sam.gov</span></li>
+          <li><span class="src-name">City of Chicago DPS</span><span class="src-url">chicago.gov/dps</span></li>
+          <li><span class="src-name">Illinois CEI / BEP</span><span class="src-url">cei.illinois.gov</span></li>
+          <li><span class="src-name">Illinois BidBuy</span><span class="src-url">bidbuy.illinois.gov</span></li>
+          <li><span class="src-name">NMSDC</span><span class="src-url">nmsdc.org</span></li>
+          <li><span class="src-name">SBA certifications (8(a), HUBZone, WOSB)</span><span class="src-url">sba.gov</span></li>
+          <li><span class="src-name">VA Veterans First (VOSB/SDVOSB)</span><span class="src-url">va.gov/osdbu</span></li>
+        </ul>
+      </section>
+
+      <!-- OWNER ACTION ITEMS -->
+      <section class="pb-section" id="next-steps">
+        <span class="eyebrow" style="color:var(--warn);">Before This Goes Live</span>
+        <h2 style="font-size:clamp(1.3rem,2.8vw,1.7rem); margin:10px 0 8px;">Owner Action Items</h2>
+        <div class="action-box">
+          <h4><i class="fas fa-triangle-exclamation"></i> Confirm before the specialist starts using this</h4>
+          <ol>
+            <li>Confirm the MBE/WBE/DBE certification is currently listed with the correct area-of-specialty (welding/metal fabrication) in the DPS directory &mdash; this determines what it actually counts toward.</li>
+            <li>Decide whether to pursue NMSDC certification now (a real cost and separate from the existing certification) or defer until corporate channel traction justifies it.</li>
+            <li>Confirm current insurance/bonding capacity, since several channels (federal Miller Act bonds, industrial COI limits) gate on this before certifications matter at all.</li>
+          </ol>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div id="crmPane" style="display:none;">
+    <div class="crm-section">
+      <div class="crm-section-head">
+        <h2>Certifications &amp; Registrations</h2>
+      </div>
+      <div class="cert-grid" id="certGrid"></div>
+    </div>
+
+    <div class="crm-section">
+      <div class="crm-section-head">
+        <h2>Opportunities Pipeline</h2>
+        <div class="filters-row">
+          <select class="crm-input" id="oppChannelFilter">
+            <option value="">All Channels</option>
+            <option value="federal">Federal</option>
+            <option value="state">State</option>
+            <option value="city">City</option>
+            <option value="corporate">Corporate</option>
+            <option value="industrial">Industrial</option>
+          </select>
+          <select class="crm-input" id="oppStatusFilter">
+            <option value="">All Statuses</option>
+            <option value="identified">Identified</option>
+            <option value="qualifying">Qualifying</option>
+            <option value="bid_submitted">Bid Submitted</option>
+            <option value="awarded">Awarded</option>
+            <option value="lost">Lost</option>
+            <option value="declined">Declined</option>
+            <option value="no_bid">No Bid</option>
+          </select>
+          <button class="btn primary" id="newOppBtn"><i class="fas fa-plus"></i> New Opportunity</button>
+        </div>
+      </div>
+      <div id="oppTableWrap"></div>
+    </div>
+
+    <div class="crm-section">
+      <div class="crm-section-head">
+        <h2>Job Applications</h2>
+      </div>
+      <div id="appsTableWrap"></div>
+    </div>
+  </div>
+</div>
+
+<div id="oppOverlay"></div>
+<div id="oppPanel"></div>
+
+<button class="to-top" id="toTopBtn" title="Back to top"><i class="fas fa-arrow-up"></i></button>
+
+<script src="/assets/js/supabase-client.js"></script>
+<script>
+(function () {
+  var client = null;
+  var currentStaff = null;
+  var allCertifications = [];
+  var allOpportunities = [];
+  var oppsById = {};
+
+  function escapeHtml(s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+      return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c];
+    });
+  }
+
+  function showLoginGate() {
+    document.getElementById('loadingGate').style.display = 'none';
+    document.getElementById('loginGate').style.display = '';
+    document.getElementById('playbookApp').style.display = 'none';
+  }
+
+  document.getElementById('staffLoginBtn').addEventListener('click', async function () {
+    var msgEl = document.getElementById('staffLoginMsg');
+    msgEl.textContent = ''; msgEl.className = 'form-msg';
+    var email = document.getElementById('staffEmail').value.trim();
+    if (!email) { msgEl.textContent = 'Enter your staff email.'; msgEl.className = 'form-msg error'; return; }
+
+    var btn = this;
+    btn.disabled = true; btn.textContent = 'Sending...';
+    var result = await client.auth.signInWithOtp({ email: email, options: { emailRedirectTo: 'https://clrainford.com/contracts.html' } });
+    btn.disabled = false; btn.textContent = 'Send Login Link';
+
+    if (result.error) {
+      msgEl.textContent = 'Something went wrong: ' + result.error.message;
+      msgEl.className = 'form-msg error';
+    } else {
+      msgEl.textContent = 'Check your inbox for a login link.';
+      msgEl.className = 'form-msg success';
+    }
+  });
+
+  document.getElementById('logoutBtn').addEventListener('click', async function () {
+    await client.auth.signOut();
+    location.reload();
+  });
+
+  document.getElementById('toTopBtn').addEventListener('click', function () {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  function wireScrollSpy() {
+    var links = Array.prototype.slice.call(document.querySelectorAll('.pb-nav a'));
+    var targets = links.map(function (a) { return document.getElementById(a.getAttribute('data-target')); }).filter(Boolean);
+    window.addEventListener('scroll', function () {
+      var atBottom = window.scrollY + window.innerHeight >= document.body.scrollHeight - 4;
+      var pos = window.scrollY + 120;
+      var current = atBottom ? targets[targets.length - 1] : targets[0];
+      if (!atBottom) targets.forEach(function (t) { if (t.offsetTop <= pos) current = t; });
+      links.forEach(function (a) {
+        a.classList.toggle('active', current && a.getAttribute('data-target') === current.id);
+      });
+    }, { passive: true });
+  }
+
+  async function loadPlaybook() {
+    document.getElementById('loadingGate').style.display = 'none';
+    document.getElementById('loginGate').style.display = 'none';
+    document.getElementById('playbookApp').style.display = 'block';
+
+    await client.rpc('clrwf_link_my_auth_user');
+
+    var staffRes = await client.from('clrwf_staff').select('*').eq('auth_user_id', (await client.auth.getUser()).data.user.id).maybeSingle();
+    if (staffRes.error || !staffRes.data) {
+      document.getElementById('playbookApp').style.display = 'none';
+      showLoginGate();
+      document.getElementById('staffLoginMsg').textContent = 'This account is not set up as shop staff.';
+      document.getElementById('staffLoginMsg').className = 'form-msg error';
+      return;
+    }
+    currentStaff = staffRes.data;
+    document.getElementById('staffName').textContent = currentStaff.name;
+    document.getElementById('staffRole').textContent = currentStaff.role;
+
+    wireScrollSpy();
+    wireTabs();
+  }
+
+  function wireTabs() {
+    document.querySelectorAll('.shop-tab').forEach(function (tab) {
+      tab.addEventListener('click', function () {
+        document.querySelectorAll('.shop-tab').forEach(function (t) { t.classList.remove('active'); });
+        tab.classList.add('active');
+        var name = tab.getAttribute('data-tab');
+        document.getElementById('playbookPane').style.display = name === 'playbook' ? '' : 'none';
+        document.getElementById('crmPane').style.display = name === 'crm' ? '' : 'none';
+        if (name === 'crm' && !wireTabs._loaded) { wireTabs._loaded = true; loadCrm(); }
+      });
+    });
+  }
+
+  // ---------- CRM: Certifications ----------
+  var CHANNEL_LABELS = { federal: 'Federal', state: 'State', city: 'City', corporate: 'Corporate', industrial: 'Industrial' };
+  var CERT_STATUS_LABELS = { not_started: 'Not Started', in_progress: 'In Progress', active: 'Active', expiring_soon: 'Expiring Soon', expired: 'Expired' };
+  var OPP_STATUS_LABELS = { identified: 'Identified', qualifying: 'Qualifying', bid_submitted: 'Bid Submitted', awarded: 'Awarded', lost: 'Lost', declined: 'Declined', no_bid: 'No Bid' };
+
+  function daysUntil(dateStr) {
+    if (!dateStr) return null;
+    var ms = new Date(dateStr + 'T00:00:00').getTime() - new Date(new Date().toDateString()).getTime();
+    return Math.round(ms / 86400000);
+  }
+
+  async function loadCertifications() {
+    var r = await client.from('clrwf_certifications').select('*').order('channel');
+    allCertifications = r.data || [];
+    renderCertifications();
+  }
+
+  function renderCertifications() {
+    document.getElementById('certGrid').innerHTML = allCertifications.map(renderCertCard).join('') ||
+      '<p class="empty-note">No certifications on file yet.</p>';
+  }
+
+  function renderCertCard(cert) {
+    var expiryLine = '';
+    if (cert.expires_at) {
+      var days = daysUntil(cert.expires_at);
+      var cls = days < 0 ? 'danger' : (days <= 60 ? 'warn' : '');
+      expiryLine = '<div class="expiry-line ' + cls + '">' +
+        (days < 0 ? 'Expired ' + Math.abs(days) + ' days ago' : 'Expires in ' + days + ' days (' + cert.expires_at + ')') +
+        '</div>';
+    }
+    return (
+      '<div class="cert-card" data-cert-id="' + cert.id + '">' +
+        '<div class="top-row">' +
+          '<h3>' + escapeHtml(cert.name) + '</h3>' +
+          '<span class="channel-pill">' + (CHANNEL_LABELS[cert.channel] || cert.channel) + '</span>' +
+        '</div>' +
+        '<span class="status-pill ' + cert.status + '">' + (CERT_STATUS_LABELS[cert.status] || cert.status) + '</span>' +
+        expiryLine +
+        (cert.notes ? '<div class="notes" style="margin-top:8px;">' + escapeHtml(cert.notes) + '</div>' : '') +
+        '<button class="btn ghost small" style="margin-top:12px;" data-toggle-edit="' + cert.id + '">Update</button>' +
+        '<div class="cert-edit-form" id="certEdit-' + cert.id + '">' +
+          '<label>Status</label>' +
+          '<select class="crm-input" data-field="status">' +
+            Object.keys(CERT_STATUS_LABELS).map(function (s) {
+              return '<option value="' + s + '"' + (cert.status === s ? ' selected' : '') + '>' + CERT_STATUS_LABELS[s] + '</option>';
+            }).join('') +
+          '</select>' +
+          '<label>Issued</label><input class="crm-input" type="date" data-field="issued_at" value="' + (cert.issued_at || '') + '">' +
+          '<label>Expires</label><input class="crm-input" type="date" data-field="expires_at" value="' + (cert.expires_at || '') + '">' +
+          '<label>Notes</label><textarea class="crm-input" data-field="notes">' + escapeHtml(cert.notes || '') + '</textarea>' +
+          '<button class="btn primary small" data-save-cert="' + cert.id + '">Save</button>' +
+        '</div>' +
+      '</div>'
+    );
+  }
+
+  document.getElementById('certGrid').addEventListener('click', async function (e) {
+    var toggle = e.target.closest('[data-toggle-edit]');
+    if (toggle) {
+      document.getElementById('certEdit-' + toggle.getAttribute('data-toggle-edit')).classList.toggle('open');
+      return;
+    }
+    var save = e.target.closest('[data-save-cert]');
+    if (save) {
+      var certId = save.getAttribute('data-save-cert');
+      var form = document.getElementById('certEdit-' + certId);
+      var updates = {
+        status: form.querySelector('[data-field="status"]').value,
+        issued_at: form.querySelector('[data-field="issued_at"]').value || null,
+        expires_at: form.querySelector('[data-field="expires_at"]').value || null,
+        notes: form.querySelector('[data-field="notes"]').value || null,
+        updated_by: currentStaff.id,
+      };
+      var r = await client.from('clrwf_certifications').update(updates).eq('id', certId);
+      if (r.error) { showToast(r.error.message.replace(/^.*?: /, '')); return; }
+      showToast('Certification updated.');
+      await loadCertifications();
+    }
+  });
+
+  // ---------- CRM: Opportunities ----------
+  async function loadOpportunities() {
+    var channel = document.getElementById('oppChannelFilter').value;
+    var status = document.getElementById('oppStatusFilter').value;
+    var q = client.from('clrwf_contract_opportunities').select('*').order('deadline', { ascending: true, nullsFirst: false });
+    if (channel) q = q.eq('channel', channel);
+    if (status) q = q.eq('status', status);
+    var r = await q;
+    allOpportunities = r.data || [];
+    oppsById = {};
+    allOpportunities.forEach(function (o) { oppsById[o.id] = o; });
+    renderOpportunities();
+  }
+
+  function renderOpportunities() {
+    if (!allOpportunities.length) {
+      document.getElementById('oppTableWrap').innerHTML = '<p class="empty-note">No opportunities logged yet. Click &ldquo;New Opportunity&rdquo; to start tracking the pipeline.</p>';
+      return;
+    }
+    var rows = allOpportunities.map(function (o) {
+      var days = daysUntil(o.deadline);
+      var deadlineCls = days == null ? '' : (days < 0 ? 'overdue' : (days <= 7 ? 'soon' : ''));
+      return (
+        '<tr class="opp-row" data-opp-id="' + o.id + '">' +
+          '<td><span class="channel-pill">' + (CHANNEL_LABELS[o.channel] || o.channel) + '</span></td>' +
+          '<td>' + escapeHtml(o.title) + (o.agency_or_buyer ? '<div style="color:var(--ink-faint); font-size:0.78rem; margin-top:2px;">' + escapeHtml(o.agency_or_buyer) + '</div>' : '') + '</td>' +
+          '<td class="deadline-cell ' + deadlineCls + '">' + (o.deadline || '&mdash;') + '</td>' +
+          '<td><span class="status-pill ' + o.status + '">' + (OPP_STATUS_LABELS[o.status] || o.status) + '</span></td>' +
+          '<td>' + (o.estimated_value != null ? '$' + Number(o.estimated_value).toLocaleString() : '&mdash;') + '</td>' +
+        '</tr>'
+      );
+    }).join('');
+    document.getElementById('oppTableWrap').innerHTML =
+      '<table class="opp-table"><thead><tr><th>Channel</th><th>Opportunity</th><th>Deadline</th><th>Status</th><th>Est. Value</th></tr></thead><tbody>' +
+      rows + '</tbody></table>';
+
+    document.querySelectorAll('.opp-row').forEach(function (row) {
+      row.addEventListener('click', function () { openOppPanel(row.getAttribute('data-opp-id')); });
+    });
+  }
+
+  document.getElementById('oppChannelFilter').addEventListener('change', loadOpportunities);
+  document.getElementById('oppStatusFilter').addEventListener('change', loadOpportunities);
+  document.getElementById('newOppBtn').addEventListener('click', function () { openOppPanel(null); });
+
+  function closeOppPanel() {
+    document.getElementById('oppOverlay').style.display = 'none';
+    document.getElementById('oppPanel').style.display = 'none';
+  }
+
+  function openOppPanel(oppId) {
+    var opp = oppId ? oppsById[oppId] : null;
+    document.getElementById('oppPanel').innerHTML =
+      '<button class="close-btn" id="closeOppBtn"><i class="fas fa-xmark"></i></button>' +
+      '<h2>' + (opp ? 'Edit Opportunity' : 'New Opportunity') + '</h2>' +
+      '<div class="opp-field"><label>Channel</label><select id="oppChannel">' +
+        Object.keys(CHANNEL_LABELS).map(function (c) { return '<option value="' + c + '"' + (opp && opp.channel === c ? ' selected' : '') + '>' + CHANNEL_LABELS[c] + '</option>'; }).join('') +
+      '</select></div>' +
+      '<div class="opp-field"><label>Title</label><input type="text" id="oppTitle" value="' + escapeHtml(opp ? opp.title : '') + '" placeholder="e.g. O\'Hare structural steel repair RFQ"></div>' +
+      '<div class="opp-field"><label>Agency / Buyer</label><input type="text" id="oppAgency" value="' + escapeHtml(opp ? opp.agency_or_buyer || '' : '') + '"></div>' +
+      '<div class="opp-field"><label>Source</label><input type="text" id="oppSource" value="' + escapeHtml(opp ? opp.source || '' : '') + '" placeholder="e.g. SAM.gov, BidBuy, direct GC outreach"></div>' +
+      '<div class="opp-field"><label>Description</label><textarea id="oppDescription">' + escapeHtml(opp ? opp.description || '' : '') + '</textarea></div>' +
+      '<div class="opp-field"><label>Estimated Value ($)</label><input type="number" id="oppValue" value="' + (opp && opp.estimated_value != null ? opp.estimated_value : '') + '"></div>' +
+      '<div class="opp-field"><label>Deadline</label><input type="date" id="oppDeadline" value="' + (opp ? opp.deadline || '' : '') + '"></div>' +
+      '<div class="opp-field"><label>Status</label><select id="oppStatus">' +
+        Object.keys(OPP_STATUS_LABELS).map(function (s) { return '<option value="' + s + '"' + (opp && opp.status === s ? ' selected' : (!opp && s === 'identified' ? ' selected' : '')) + '>' + OPP_STATUS_LABELS[s] + '</option>'; }).join('') +
+      '</select></div>' +
+      '<div class="opp-field"><label>Outcome Notes</label><textarea id="oppOutcomeNotes">' + escapeHtml(opp ? opp.outcome_notes || '' : '') + '</textarea></div>' +
+      '<button class="btn primary" id="saveOppBtn" style="width:100%; justify-content:center;">' + (opp ? 'Save Changes' : 'Log Opportunity') + '</button>' +
+      (opp ? '<button class="btn ghost" id="deleteOppBtn" style="width:100%; justify-content:center; margin-top:10px;">Delete</button>' : '') +
+      '<div class="crm-msg" id="oppMsg"></div>';
+
+    document.getElementById('oppOverlay').style.display = 'block';
+    document.getElementById('oppPanel').style.display = 'block';
+    document.getElementById('closeOppBtn').addEventListener('click', closeOppPanel);
+    document.getElementById('oppOverlay').addEventListener('click', closeOppPanel);
+
+    document.getElementById('saveOppBtn').addEventListener('click', async function () {
+      var msgEl = document.getElementById('oppMsg');
+      var title = document.getElementById('oppTitle').value.trim();
+      if (!title) { msgEl.textContent = 'Title is required.'; msgEl.className = 'crm-msg error'; return; }
+      var payload = {
+        channel: document.getElementById('oppChannel').value,
+        title: title,
+        agency_or_buyer: document.getElementById('oppAgency').value.trim() || null,
+        source: document.getElementById('oppSource').value.trim() || null,
+        description: document.getElementById('oppDescription').value.trim() || null,
+        estimated_value: document.getElementById('oppValue').value ? Number(document.getElementById('oppValue').value) : null,
+        deadline: document.getElementById('oppDeadline').value || null,
+        status: document.getElementById('oppStatus').value,
+        outcome_notes: document.getElementById('oppOutcomeNotes').value.trim() || null,
+      };
+      var r;
+      if (opp) {
+        r = await client.from('clrwf_contract_opportunities').update(payload).eq('id', opp.id);
+      } else {
+        payload.created_by = currentStaff.id;
+        r = await client.from('clrwf_contract_opportunities').insert(payload);
+      }
+      if (r.error) { msgEl.textContent = r.error.message.replace(/^.*?: /, ''); msgEl.className = 'crm-msg error'; return; }
+      showToast(opp ? 'Opportunity updated.' : 'Opportunity logged.');
+      closeOppPanel();
+      loadOpportunities();
+    });
+
+    if (opp) {
+      document.getElementById('deleteOppBtn').addEventListener('click', async function () {
+        if (!confirm('Delete this opportunity? This cannot be undone.')) return;
+        var r = await client.from('clrwf_contract_opportunities').delete().eq('id', opp.id);
+        if (r.error) { showToast(r.error.message.replace(/^.*?: /, '')); return; }
+        showToast('Opportunity deleted.');
+        closeOppPanel();
+        loadOpportunities();
+      });
+    }
+  }
+
+  function showToast(msg) {
+    var t = document.getElementById('crmToast');
+    if (!t) {
+      t = document.createElement('div');
+      t.id = 'crmToast';
+      t.className = 'toast';
+      t.style.cssText = 'position:fixed; bottom:24px; left:50%; transform:translateX(-50%); background:var(--surface-3); border:1px solid var(--line-strong); border-left:3px solid var(--accent); color:var(--ink); padding:14px 20px; border-radius:6px; font-size:0.86rem; z-index:200; max-width:440px;';
+      document.body.appendChild(t);
+    }
+    t.textContent = msg;
+    t.style.display = 'block';
+    clearTimeout(showToast._timer);
+    showToast._timer = setTimeout(function () { t.style.display = 'none'; }, 4000);
+  }
+
+  // ---------- CRM: Job Applications ----------
+  var APP_STATUS_LABELS = { new: 'New', reviewing: 'Reviewing', interviewing: 'Interviewing', hired: 'Hired', rejected: 'Rejected' };
+
+  async function loadApplications() {
+    var r = await client.from('clrwf_job_applications').select('*').order('created_at', { ascending: false });
+    renderApplications(r.data || []);
+  }
+
+  function renderApplications(apps) {
+    if (!apps.length) {
+      document.getElementById('appsTableWrap').innerHTML = '<p class="empty-note">No applications yet.</p>';
+      return;
+    }
+    var rows = apps.map(function (a) {
+      return (
+        '<tr>' +
+          '<td>' + escapeHtml(a.full_name) + '<div style="color:var(--ink-faint); font-size:0.78rem; margin-top:2px;">' + escapeHtml(a.email) + (a.phone ? ' &middot; ' + escapeHtml(a.phone) : '') + '</div></td>' +
+          '<td><span class="channel-pill">' + escapeHtml(a.position) + '</span></td>' +
+          '<td style="max-width:260px; white-space:normal;">' + (a.cover_letter ? escapeHtml(a.cover_letter).slice(0, 160) + (a.cover_letter.length > 160 ? '&hellip;' : '') : '<span style="color:var(--ink-faint);">&mdash;</span>') + '</td>' +
+          '<td>' +
+            (a.resume_path ? '<a href="#" class="file-link" data-bucket="clrwf-resumes" data-path="' + escapeHtml(a.resume_path) + '" style="color:var(--spark);"><i class="fas fa-file-pdf"></i> Resume</a>' : '<span style="color:var(--ink-faint);">No resume</span>') +
+            ((a.voice_note_paths || []).length ? '<br><a href="#" class="file-link" data-bucket="clrwf-voice-notes" data-path="' + escapeHtml(a.voice_note_paths[0]) + '" style="color:var(--spark);"><i class="fas fa-microphone"></i> Voice note</a>' : '') +
+          '</td>' +
+          '<td><select class="crm-input" data-app-id="' + a.id + '">' +
+            Object.keys(APP_STATUS_LABELS).map(function (s) { return '<option value="' + s + '"' + (a.status === s ? ' selected' : '') + '>' + APP_STATUS_LABELS[s] + '</option>'; }).join('') +
+          '</select></td>' +
+        '</tr>'
+      );
+    }).join('');
+    document.getElementById('appsTableWrap').innerHTML =
+      '<table class="opp-table"><thead><tr><th>Applicant</th><th>Position</th><th>Why Interested</th><th>Files</th><th>Status</th></tr></thead><tbody>' + rows + '</tbody></table>';
+
+    document.querySelectorAll('#appsTableWrap select[data-app-id]').forEach(function (sel) {
+      sel.addEventListener('change', async function () {
+        var r = await client.from('clrwf_job_applications').update({ status: sel.value }).eq('id', sel.getAttribute('data-app-id'));
+        if (r.error) { showToast(r.error.message.replace(/^.*?: /, '')); return; }
+        showToast('Application status updated.');
+      });
+    });
+
+    document.querySelectorAll('#appsTableWrap .file-link').forEach(function (a) {
+      a.addEventListener('click', async function (e) {
+        e.preventDefault();
+        var bucket = a.getAttribute('data-bucket');
+        var path = a.getAttribute('data-path');
+        var r = await client.storage.from(bucket).createSignedUrl(path, 300);
+        if (r.error || !r.data) { showToast('Could not open file: ' + (r.error ? r.error.message : 'unknown error')); return; }
+        window.open(r.data.signedUrl, '_blank');
+      });
+    });
+  }
+
+  async function loadCrm() {
+    await loadCertifications();
+    await loadOpportunities();
+    await loadApplications();
+
+    client.channel('clrwf-contracts-crm')
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'clrwf_certifications' }, loadCertifications)
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'clrwf_contract_opportunities' }, loadOpportunities)
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'clrwf_job_applications' }, loadApplications)
+      .subscribe();
+  }
+
+  (async function init() {
+    client = await window.sfSupabaseReady;
+    var session = await client.auth.getSession();
+    if (session.data.session) {
+      loadPlaybook();
+    } else {
+      showLoginGate();
+    }
+  })();
+})();
+</script>
+</body>
+</html>
