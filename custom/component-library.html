@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Browse the full BBQ & Jerk Pit component library — pit bodies, cooking surfaces, fire systems, doors, airflow, and custom features — from C. L. Rainford Welding & Fabrication in Chicago, IL.">
+<title>Component Library | C. L. Rainford Welding &amp; Fabrication</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Public+Sans:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+  :root{
+    --ground:#17191C; --surface:#202327; --surface-2:#282C31;
+    --ink:#F2F1EC; --ink-soft:#A9ACB1; --ink-faint:#6E7278;
+    --line:rgba(242,241,236,0.10); --line-strong:rgba(242,241,236,0.20);
+    --accent:#E8571F; --accent-deep:#B8431A; --accent-soft:rgba(232,87,31,0.14);
+    --spark:#8FE3EF; --spark-soft:rgba(143,227,239,0.12); --good:#6FBF8B; --warn:#E0B84A; --warn-soft:rgba(224,184,74,0.14);
+  }
+  *{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%; text-size-adjust:100%;}
+  html{scroll-behavior:smooth;}
+  body{margin:0; background:var(--ground); color:var(--ink); font-family:"Public Sans",-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; line-height:1.6;}
+  a{color:inherit; text-decoration:none;}
+  img{max-width:100%; display:block;}
+  h1,h2,h3{font-family:"Oswald",Impact,"Arial Narrow",sans-serif; font-weight:700; text-transform:uppercase; letter-spacing:0.01em; text-wrap:balance; margin:0;}
+  .eyebrow{font-family:"Oswald",sans-serif; font-weight:600; font-size:0.74rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--accent);}
+  .hazard-strip{height:8px; background:repeating-linear-gradient(135deg, var(--accent), var(--accent) 18px, var(--ground) 18px, var(--ground) 36px);}
+
+  header.site-header{display:flex; align-items:center; justify-content:space-between; gap:20px; padding:20px 32px; background:var(--ground); border-bottom:1px solid var(--line); position:sticky; top:0; z-index:50; flex-wrap:wrap;}
+  .wordmark{display:flex; flex-direction:column; line-height:1.1;}
+  .wordmark .mark{font-family:"Oswald",sans-serif; font-weight:700; font-size:1.3rem; letter-spacing:0.02em; color:var(--ink);}
+  .wordmark .mark span{color:var(--accent);}
+  .wordmark .sub{font-size:0.62rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--ink-faint); margin-top:3px;}
+  nav.main-nav ul{list-style:none; display:flex; gap:26px; margin:0; padding:0; flex-wrap:wrap;}
+  nav.main-nav a{font-size:0.84rem; font-weight:600; color:var(--ink-soft); padding:6px 0; border-bottom:2px solid transparent;}
+  nav.main-nav a:hover{color:var(--ink); border-color:var(--accent);}
+  nav.main-nav a.active{color:var(--ink); border-color:var(--accent);}
+  .header-cta{display:flex; gap:10px; flex-wrap:wrap;}
+  .btn{display:inline-flex; align-items:center; gap:9px; font-family:"Oswald",sans-serif; font-weight:600; font-size:0.82rem; letter-spacing:0.04em; text-transform:uppercase; padding:12px 22px; border-radius:3px; border:1.5px solid transparent; cursor:pointer; white-space:nowrap;}
+  .btn.primary{background:var(--accent); color:#17191C;} .btn.primary:hover{background:#ff6b2e;}
+  .btn.ghost{background:transparent; border-color:var(--line-strong); color:var(--ink);} .btn.ghost:hover{border-color:var(--ink);}
+  .btn.small{padding:9px 16px; font-size:0.74rem;}
+
+  main{max-width:1240px; margin:0 auto;}
+  .back-bar{padding:14px 32px 0;}
+  .back-bar a{font-size:0.82rem; font-weight:600; color:var(--ink-soft); display:inline-flex; align-items:center; gap:8px;}
+  .back-bar a:hover{color:var(--accent);}
+
+  .page-hero{padding:44px 32px 10px;}
+  .page-hero p.lede{color:var(--ink-soft); font-size:1.05rem; max-width:68ch; margin:14px 0 0;}
+
+  .filter-bar{padding:22px 32px 0; display:flex; gap:8px; flex-wrap:wrap; position:sticky; top:73px; background:var(--ground); z-index:30;}
+  .filter-chip{font-family:"Oswald",sans-serif; font-weight:600; font-size:0.74rem; letter-spacing:0.03em; text-transform:uppercase; padding:8px 16px; border-radius:20px; border:1.5px solid var(--line-strong); background:transparent; color:var(--ink-soft); cursor:pointer;}
+  .filter-chip.active{background:var(--accent-soft); border-color:var(--accent); color:var(--accent);}
+  .filter-chip:hover{border-color:var(--ink);}
+
+  section.cat-section{padding:40px 32px 10px;}
+  .cat-head{display:flex; align-items:baseline; gap:12px; margin-bottom:20px; padding-bottom:12px; border-bottom:1px solid var(--line);}
+  .cat-head h2{font-size:1.15rem;}
+  .cat-count{font-family:"Oswald",sans-serif; font-size:0.72rem; color:var(--ink-faint); background:var(--surface-2); padding:3px 10px; border-radius:10px;}
+  .cat-badge-soon{font-family:"Oswald",sans-serif; font-size:0.62rem; font-weight:700; letter-spacing:0.05em; text-transform:uppercase; background:var(--warn-soft); color:var(--warn); padding:3px 10px; border-radius:10px;}
+
+  .comp-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:16px;}
+  .comp-card{background:var(--surface); border:1px solid var(--line); border-radius:10px; overflow:hidden; display:flex; flex-direction:column;}
+  .comp-card .thumb{aspect-ratio:1/1; background:#fff; display:flex; align-items:center; justify-content:center; overflow:hidden; position:relative;}
+  .comp-card .thumb img{width:100%; height:100%; object-fit:contain; padding:10px;}
+  .comp-card.soon .thumb img{opacity:0.25; padding:26px;}
+  .comp-card .thumb .soon-tag{position:absolute; font-family:"Oswald",sans-serif; font-size:0.6rem; font-weight:700; letter-spacing:0.05em; text-transform:uppercase; color:var(--ink-faint); background:rgba(23,25,28,0.85); padding:4px 10px; border-radius:10px;}
+  .comp-card .body{padding:14px 16px; flex:1; display:flex; flex-direction:column;}
+  .comp-card h3{font-size:0.86rem; text-transform:none; letter-spacing:0; margin-bottom:10px; flex:1;}
+  .comp-card .ask-link{font-size:0.76rem; font-weight:700; color:var(--spark); display:inline-flex; align-items:center; gap:6px;}
+  .comp-card .ask-link:hover{color:#fff;}
+  .comp-card.soon .ask-link{color:var(--ink-faint); pointer-events:none;}
+
+  .cta-band{margin:50px 32px 60px; background:linear-gradient(120deg, var(--accent-deep), var(--accent)); color:#1a1204; padding:44px 32px; text-align:center; border-radius:12px;}
+  .cta-band h2{color:#1a1204; font-size:clamp(1.3rem,3vw,1.8rem);}
+  .cta-band p{color:rgba(26,18,4,0.78); margin:10px 0 22px; font-size:0.96rem;}
+  .cta-band .btn.primary{background:#17191C; color:var(--ink);} .cta-band .btn.primary:hover{background:#000;}
+
+  footer{border-top:1px solid var(--line); padding:40px 32px 26px; margin-top:20px;}
+  .footer-bottom{max-width:1240px; margin:0 auto; color:var(--ink-faint); font-size:0.78rem; display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px;}
+</style>
+</head>
+<body>
+
+<div class="hazard-strip"></div>
+
+<header class="site-header" role="banner">
+  <div class="wordmark">
+    <a href="/" style="color:inherit;"><span class="mark">C.L. RAINFORD <span>WELDING &amp; FABRICATION</span></span></a>
+    <span class="sub">Chicago, IL &middot; Since 2015</span>
+  </div>
+  <nav class="main-nav" role="navigation" aria-label="Main navigation">
+    <ul>
+      <li><a href="/">Home</a></li>
+      <li><a href="/capabilities.html">What We Do</a></li>
+      <li><a href="/residential.html">Residential</a></li>
+      <li><a href="/commercial.html">Commercial</a></li>
+      <li><a href="/custom/" class="active">Custom</a></li>
+      <li><a href="/gallery.html">Gallery</a></li>
+      <li><a href="/about.html">About</a></li>
+      <li><a href="/contact.html">Contact</a></li>
+      <li><a href="/careers.html">Careers</a></li>
+    </ul>
+  </nav>
+  <div class="header-cta">
+    <a class="btn primary small" href="/custom/jerk-pits.html"><i class="fas fa-sliders"></i> Build Your Pit</a>
+  </div>
+</header>
+
+<main>
+  <div class="back-bar"><a href="/custom/jerk-pits.html"><i class="fas fa-arrow-left"></i> Back to Jerk Pits</a></div>
+
+  <div class="page-hero">
+    <span class="eyebrow"><i class="fas fa-layer-group" style="margin-right:6px;"></i>Component Library</span>
+    <h1 style="font-size:clamp(1.7rem,3.6vw,2.4rem); margin-top:10px;">Every Piece, So You Know What You're Asking For</h1>
+    <p class="lede">Custom pits and smokers are built from real, namable parts. Browse pit bodies, cooking surfaces, fire systems, doors, airflow, and add-ons below — see something you want, tap it to start a quote already knowing the term for it.</p>
+  </div>
+
+  <div class="filter-bar" id="filterBar">
+    <button class="filter-chip active" data-filter="all">All</button>
+    <button class="filter-chip" data-filter="pit-bodies">Pit Bodies</button>
+    <button class="filter-chip" data-filter="cooking-surfaces">Cooking Surfaces</button>
+    <button class="filter-chip" data-filter="fire-systems">Fire Systems</button>
+    <button class="filter-chip" data-filter="doors-access">Doors &amp; Access</button>
+    <button class="filter-chip" data-filter="airflow">Airflow</button>
+    <button class="filter-chip" data-filter="custom-features">Custom Features</button>
+  </div>
+
+  <section class="cat-section" data-cat="pit-bodies">
+    <div class="cat-head"><h2>Pit Bodies</h2><span class="cat-count">10</span></div>
+    <div class="comp-grid" id="grid-pit-bodies"></div>
+  </section>
+
+  <section class="cat-section" data-cat="cooking-surfaces">
+    <div class="cat-head"><h2>Cooking Surfaces</h2><span class="cat-count">10</span></div>
+    <div class="comp-grid" id="grid-cooking-surfaces"></div>
+  </section>
+
+  <section class="cat-section" data-cat="fire-systems">
+    <div class="cat-head"><h2>Fire Systems</h2><span class="cat-count">10</span></div>
+    <div class="comp-grid" id="grid-fire-systems"></div>
+  </section>
+
+  <section class="cat-section" data-cat="doors-access">
+    <div class="cat-head"><h2>Doors &amp; Access</h2><span class="cat-count">10</span></div>
+    <div class="comp-grid" id="grid-doors-access"></div>
+  </section>
+
+  <section class="cat-section" data-cat="airflow">
+    <div class="cat-head"><h2>Airflow</h2><span class="cat-count" id="count-airflow"></span></div>
+    <div class="comp-grid" id="grid-airflow"></div>
+  </section>
+
+  <section class="cat-section" data-cat="custom-features">
+    <div class="cat-head"><h2>Custom Features</h2><span class="cat-count" id="count-custom-features"></span></div>
+    <div class="comp-grid" id="grid-custom-features"></div>
+  </section>
+
+  <div class="cta-band">
+    <h2>Don't See Exactly What You Need?</h2>
+    <p>This library keeps growing — and if it's not listed yet, we can probably still build it.</p>
+    <a class="btn primary" href="/quote.html?type=custom-jerk-pit"><i class="fas fa-file-lines"></i> Ask Us Directly</a>
+  </div>
+</main>
+
+<footer>
+  <div class="footer-bottom">
+    <span>&copy; <span id="clrwf-year"></span> C. L. Rainford Welding &amp; Fabrication, Inc. &middot; Chicago, IL</span>
+    <span><a href="/" style="color:var(--ink-soft);">&larr; Back to Home</a></span>
+  </div>
+</footer>
+
+<script>document.getElementById('clrwf-year').textContent = new Date().getFullYear();</script>
+<script>
+(function () {
+  var IMG_BASE = '/custom/img/components/';
+  var PLACEHOLDER = '/assets/images/placeholder.svg';
+
+  var CATEGORIES = {
+    'pit-bodies': [
+      ['01_offset_smoker_trailer', 'Offset Smoker (Trailer-Mounted)'],
+      ['02_offset_smoker_backyard', 'Offset Smoker (Backyard)'],
+      ['03_vertical_smoker', 'Vertical Smoker'],
+      ['04_barrel_pit', 'Barrel Pit'],
+      ['05_box_pit', 'Box Pit'],
+      ['06_open_jerk_pit', 'Open Jerk Pit'],
+      ['07_enclosed_jerk_pit', 'Enclosed Jerk Pit'],
+      ['08_combination_smoker_grill', 'Combination Smoker/Grill'],
+      ['09_commercial_double_pit', 'Commercial Double Pit'],
+      ['10_kamado_style_grill', 'Kamado-Style Grill'],
+    ],
+    'cooking-surfaces': [
+      ['11_expanded_metal_grate', 'Expanded-Metal Grate'],
+      ['12_stainless_steel_grate', 'Stainless-Steel Grate'],
+      ['13_cast_iron_grate', 'Cast-Iron Grate'],
+      ['14_adjustable_height_grate', 'Adjustable-Height Grate'],
+      ['15_sliding_grate', 'Sliding Grate'],
+      ['16_multi_level_grate_rack', 'Multi-Level Grate Rack'],
+      ['17_rotisserie_assembly', 'Rotisserie Assembly'],
+      ['18_jerk_rack', 'Jerk Rack'],
+      ['19_spit_rod', 'Spit Rod'],
+      ['20_hanging_hooks', 'Hanging Hooks'],
+    ],
+    'fire-systems': [
+      ['21_offset_firebox', 'Offset Firebox'],
+      ['22_internal_firebox', 'Internal Firebox'],
+      ['23_removable_firebox', 'Removable Firebox'],
+      ['24_charcoal_basket', 'Charcoal Basket'],
+      ['25_wood_rack', 'Wood Rack'],
+      ['26_adjustable_air_intake', 'Adjustable Air Intake'],
+      ['27_ash_pan', 'Ash Pan'],
+      ['28_firebrick_liner', 'Firebrick Liner'],
+      ['29_baffle_plate', 'Baffle Plate'],
+      ['30_tuning_plate', 'Tuning Plate'],
+    ],
+    'doors-access': [
+      ['31_main_cooking_door', 'Main Cooking Door'],
+      ['32_firebox_door', 'Firebox Door'],
+      ['33_ash_door', 'Ash Door'],
+      ['34_double_doors', 'Double Doors'],
+      ['35_lift_up_lid', 'Lift-Up Lid'],
+      ['36_sliding_access_door', 'Sliding Access Door'],
+      ['37_inspection_door', 'Inspection Door'],
+      ['38_roll_top_lid', 'Roll-Top Lid'],
+      ['39_glass_view_door', 'Glass View Door'],
+      ['40_high_temperature_door_gasket', 'High-Temperature Door Gasket'],
+    ],
+    'airflow': [
+      ['67_intake_vent', 'Intake Vent'],
+      ['68_adjustable_damper', 'Adjustable Damper'],
+      ['69_chimney_pipe', 'Chimney Pipe'],
+      ['70_adjustable_chimney_cap', 'Adjustable Chimney Cap'],
+      ['71_dual_chimney_assembly', 'Dual Chimney Assembly'],
+      ['72_chimney_elbow', 'Chimney Elbow'],
+    ],
+    'custom-features': [
+      ['41_prep_table', 'Prep Table'],
+      ['42_side_shelf', 'Side Shelf'],
+      ['43_front_shelf', 'Front Shelf'],
+      ['44_stainless_utility_shelf', 'Stainless Utility Shelf'],
+      ['45_cutting_board', 'Cutting Board'],
+      ['46_bottle_opener', 'Bottle Opener'],
+      ['47_tool_hooks', 'Tool Hooks'],
+      ['48_clamp_on_utensil_holder', 'Clamp-On Utensil Holder'],
+      ['49_grease_drain_valve', 'Grease Drain Valve'],
+      ['50_drip_pan', 'Drip Pan'],
+      ['51_grease_catch_tray', 'Grease Catch Tray'],
+      ['64_grease_drain_plug', 'Grease Drain Plug'],
+      ['52_heavy_duty_wheel', 'Heavy-Duty Wheel'],
+      ['53_swivel_caster', 'Swivel Caster'],
+      ['54_locking_caster', 'Locking Caster'],
+      ['55_trailer_hitch_ball', 'Trailer Hitch Ball'],
+      ['56_trailer_safety_chains', 'Trailer Safety Chains'],
+      ['57_trailer_tongue_jack', 'Trailer Tongue Jack'],
+      ['58_locking_door_latch', 'Locking Door Latch'],
+      ['59_custom_logo_plate', 'Custom Logo Plate'],
+      ['60_propane_tank_mount', 'Propane Tank Mount'],
+      ['61_mesh_storage_basket', 'Mesh Storage Basket'],
+      ['62_slide_out_storage_drawer', 'Slide-Out Storage Drawer'],
+      ['63_slide_out_utility_tray', 'Slide-Out Utility Tray'],
+      ['65_accessory_mount_arm', 'Accessory Mount Arm'],
+      ['66_led_work_light', 'LED Work Light'],
+      ['73_analog_thermometer', 'Analog Thermometer'],
+      ['74_digital_temperature_controller', 'Digital Temperature Controller'],
+    ],
+  };
+
+  function renderCard(slug, name) {
+    var hasImage = !!slug;
+    var imgSrc = hasImage ? IMG_BASE + slug + '.webp' : PLACEHOLDER;
+    var quoteUrl = '/quote.html?type=custom-jerk-pit&need=' + encodeURIComponent(name);
+    return (
+      '<div class="comp-card' + (hasImage ? '' : ' soon') + '">' +
+        '<div class="thumb"><img src="' + imgSrc + '" alt="' + name + '" loading="lazy">' +
+          (hasImage ? '' : '<span class="soon-tag">Coming Soon</span>') +
+        '</div>' +
+        '<div class="body">' +
+          '<h3>' + name + '</h3>' +
+          (hasImage
+            ? '<a class="ask-link" href="' + quoteUrl + '">Ask About This <i class="fas fa-arrow-right"></i></a>'
+            : '<span class="ask-link">Photo coming soon</span>') +
+        '</div>' +
+      '</div>'
+    );
+  }
+
+  Object.keys(CATEGORIES).forEach(function (cat) {
+    var grid = document.getElementById('grid-' + cat);
+    if (!grid) return;
+    grid.innerHTML = CATEGORIES[cat].map(function (item) { return renderCard(item[0], item[1]); }).join('');
+    var countEl = document.getElementById('count-' + cat);
+    if (countEl) {
+      var withPhotos = CATEGORIES[cat].filter(function (item) { return !!item[0]; }).length;
+      countEl.textContent = withPhotos + ' / ' + CATEGORIES[cat].length;
+    }
+  });
+
+  document.getElementById('filterBar').addEventListener('click', function (e) {
+    var chip = e.target.closest('.filter-chip');
+    if (!chip) return;
+    document.querySelectorAll('.filter-chip').forEach(function (c) { c.classList.remove('active'); });
+    chip.classList.add('active');
+    var filter = chip.getAttribute('data-filter');
+    document.querySelectorAll('.cat-section').forEach(function (sec) {
+      sec.style.display = (filter === 'all' || sec.getAttribute('data-cat') === filter) ? '' : 'none';
+    });
+  });
+})();
+</script>
+</body>
+</html>

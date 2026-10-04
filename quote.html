@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Request a quote from C. L. Rainford Welding & Fabrication — residential, commercial, or custom metal fabrication in Chicago, IL.">
+<title>Request a Quote | C. L. Rainford Welding & Fabrication</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Public+Sans:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+  :root{
+    --ground:#17191C;
+    --surface:#202327;
+    --surface-2:#282C31;
+    --ink:#F2F1EC;
+    --ink-soft:#A9ACB1;
+    --ink-faint:#6E7278;
+    --line:rgba(242,241,236,0.10);
+    --line-strong:rgba(242,241,236,0.20);
+    --accent:#E8571F;
+    --accent-deep:#B8431A;
+    --accent-soft:rgba(232,87,31,0.14);
+    --spark:#8FE3EF;
+    --good:#6FBF8B;
+    --flag:#E8571F;
+  }
+  *{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%; text-size-adjust:100%;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0; background:var(--ground); color:var(--ink);
+    font-family:"Public Sans",-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.6;
+  }
+  a{color:inherit; text-decoration:none;}
+  h1,h2,h3{font-family:"Oswald",Impact,"Arial Narrow",sans-serif; font-weight:700; text-transform:uppercase; letter-spacing:0.01em; text-wrap:balance; margin:0;}
+  .eyebrow{font-family:"Oswald",sans-serif; font-weight:600; font-size:0.74rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--accent);}
+
+  .hazard-strip{height:8px; background:repeating-linear-gradient(135deg, var(--accent), var(--accent) 18px, var(--ground) 18px, var(--ground) 36px);}
+
+  header.site-header{
+    display:flex; align-items:center; justify-content:space-between; gap:20px;
+    padding:20px 32px; background:var(--ground); border-bottom:1px solid var(--line);
+    position:sticky; top:0; z-index:50; flex-wrap:wrap;
+  }
+  .wordmark{display:flex; flex-direction:column; line-height:1.1;}
+  .wordmark .mark{font-family:"Oswald",sans-serif; font-weight:700; font-size:1.3rem; letter-spacing:0.02em; color:var(--ink);}
+  .wordmark .mark span{color:var(--accent);}
+  .wordmark .sub{font-size:0.62rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--ink-faint); margin-top:3px;}
+  nav.main-nav ul{list-style:none; display:flex; gap:26px; margin:0; padding:0; flex-wrap:wrap;}
+  nav.main-nav a{font-size:0.84rem; font-weight:600; color:var(--ink-soft); padding:6px 0; border-bottom:2px solid transparent;}
+  nav.main-nav a:hover{color:var(--ink); border-color:var(--accent);}
+  nav.main-nav a.active{color:var(--ink); border-color:var(--accent);}
+  .header-cta{display:flex; gap:10px; flex-wrap:wrap;}
+  .btn{
+    display:inline-flex; align-items:center; gap:9px; font-family:"Oswald",sans-serif; font-weight:600;
+    font-size:0.82rem; letter-spacing:0.04em; text-transform:uppercase; padding:12px 22px;
+    border-radius:3px; border:1.5px solid transparent; cursor:pointer; white-space:nowrap;
+  }
+  .btn.primary{background:var(--accent); color:#17191C;}
+  .btn.primary:hover{background:#ff6b2e;}
+  .btn.primary:disabled{opacity:0.55; cursor:not-allowed;}
+  .btn.ghost{background:transparent; border-color:var(--line-strong); color:var(--ink);}
+  .btn.ghost:hover{border-color:var(--ink);}
+  .btn.small{padding:9px 16px; font-size:0.74rem;}
+
+  main{max-width:1180px; margin:0 auto;}
+  .back-bar{padding:14px 32px 0;}
+  .back-bar a{font-size:0.82rem; font-weight:600; color:var(--ink-soft); display:inline-flex; align-items:center; gap:8px;}
+  .back-bar a:hover{color:var(--accent);}
+
+  .page-hero{padding:44px 32px 10px;}
+  .page-hero p.lede{color:var(--ink-soft); font-size:1rem; max-width:60ch; margin:14px 0 0;}
+
+  .quote-wrap{padding:36px 32px 90px; display:grid; grid-template-columns:1.5fr 1fr; gap:36px;}
+  @media (max-width:900px){ .quote-wrap{grid-template-columns:1fr;} }
+
+  .form-card{background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:32px;}
+  .form-row{display:grid; grid-template-columns:1fr 1fr; gap:16px;}
+  @media (max-width:560px){ .form-row{grid-template-columns:1fr;} }
+  label{display:block; font-family:"Oswald",sans-serif; font-size:0.72rem; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; color:var(--ink-soft); margin:20px 0 7px;}
+  label.first{margin-top:0;}
+  label .opt{color:var(--ink-faint); text-transform:none; letter-spacing:0; font-family:"Public Sans",sans-serif; font-weight:400;}
+  input[type="text"], input[type="email"], input[type="tel"], select, textarea{
+    width:100%; padding:12px 14px; border:1.5px solid var(--line-strong); border-radius:5px;
+    font-size:0.94rem; font-family:inherit; background:var(--surface-2); color:var(--ink);
+  }
+  input::placeholder, textarea::placeholder{color:var(--ink-faint);}
+  input:focus, select:focus, textarea:focus{outline:none; border-color:var(--accent);}
+  textarea{min-height:110px; resize:vertical;}
+  select{appearance:none; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='9'%3E%3Cpath d='M1 1l6 6 6-6' stroke='%23A9ACB1' stroke-width='1.6' fill='none' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right 14px center; padding-right:38px;}
+
+  .file-drop{
+    border:1.5px dashed var(--line-strong); border-radius:6px; padding:22px; text-align:center;
+    color:var(--ink-soft); font-size:0.86rem; cursor:pointer; background:var(--surface-2);
+  }
+  .file-drop:hover{border-color:var(--accent);}
+  .file-drop i{font-size:1.2rem; color:var(--accent); display:block; margin-bottom:8px;}
+  .file-list{margin-top:10px; font-size:0.82rem; color:var(--ink-soft);}
+  .file-list li{list-style:none; padding:0;}
+
+  .submit-row{margin-top:28px; display:flex; align-items:center; gap:16px; flex-wrap:wrap;}
+  .form-msg{font-size:0.9rem; margin-top:16px;}
+  .form-msg.error{color:#FF9A73;}
+  .form-msg.success{color:var(--good);}
+
+  .voice-mount{margin-top:10px; display:flex; align-items:center; gap:12px; flex-wrap:wrap;}
+  .voice-btn{
+    display:inline-flex; align-items:center; gap:8px; background:var(--surface-2); border:1.5px solid var(--spark);
+    color:var(--spark); font-family:"Oswald",sans-serif; font-weight:600; font-size:0.74rem; letter-spacing:0.03em;
+    text-transform:uppercase; padding:9px 16px; border-radius:20px; cursor:pointer;
+  }
+  .voice-btn:hover{background:var(--spark-soft, rgba(143,227,239,0.12));}
+  .voice-btn.recording{background:#E0685A; border-color:#E0685A; color:#fff;}
+  .voice-status{font-size:0.8rem; color:var(--ink-soft);}
+  .rec-dot{display:inline-block; width:8px; height:8px; border-radius:50%; background:#E0685A; animation:voice-pulse 1s infinite;}
+  @keyframes voice-pulse{0%,100%{opacity:1;} 50%{opacity:0.25;}}
+
+  .side-card{background:var(--surface-2); border:1px solid var(--line); border-radius:10px; padding:26px; margin-bottom:20px;}
+  .side-card h3{font-size:1rem; margin-bottom:10px;}
+  .side-card p{color:var(--ink-soft); font-size:0.88rem; margin:0;}
+  .side-card ul{margin:10px 0 0; padding-left:18px; color:var(--ink-soft); font-size:0.88rem;}
+  .side-card li{margin-bottom:6px;}
+
+  footer{border-top:1px solid var(--line); padding:40px 32px 26px; margin-top:20px;}
+  .footer-bottom{max-width:1180px; margin:0 auto; color:var(--ink-faint); font-size:0.78rem; display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px;}
+</style>
+</head>
+<body>
+
+<div class="hazard-strip"></div>
+
+<header class="site-header" role="banner">
+  <div class="wordmark">
+    <a href="/" style="color:inherit;"><span class="mark">C.L. RAINFORD <span>WELDING &amp; FABRICATION</span></span></a>
+    <span class="sub">Chicago, IL &middot; Since 2015</span>
+  </div>
+  <nav class="main-nav" role="navigation" aria-label="Main navigation">
+    <ul>
+      <li><a href="/">Home</a></li>
+      <li><a href="/capabilities.html">What We Do</a></li>
+      <li><a href="/residential.html">Residential</a></li>
+      <li><a href="/commercial.html">Commercial</a></li>
+      <li><a href="/custom/">Custom</a></li>
+      <li><a href="/gallery.html">Gallery</a></li>
+      <li><a href="/about.html">About</a></li>
+      <li><a href="/contact.html">Contact</a></li>
+      <li><a href="/careers.html">Careers</a></li>
+    </ul>
+  </nav>
+  <div class="header-cta">
+    <a class="btn ghost small" href="/portal.html"><i class="fas fa-user"></i> Client Login</a>
+  </div>
+</header>
+
+<main>
+  <div class="back-bar"><a href="/"><i class="fas fa-arrow-left"></i> Back to Home</a></div>
+
+  <div class="page-hero">
+    <span class="eyebrow">Get Started</span>
+    <h1 style="font-size:clamp(1.9rem,4vw,2.6rem); margin-top:10px;">Request a Quote</h1>
+    <p class="lede">Tell us what you need — a repair, a build, or a full custom fabrication job — and we'll follow up at the email you give us.</p>
+  </div>
+
+  <div class="quote-wrap">
+    <div class="form-card">
+      <div id="formArea">
+        <label class="first" for="fullName">Your Name</label>
+        <input type="text" id="fullName" required>
+
+        <div class="form-row">
+          <div>
+            <label for="email">Email</label>
+            <input type="email" id="email" required>
+          </div>
+          <div>
+            <label for="phone">Phone <span class="opt">(optional)</span></label>
+            <input type="tel" id="phone">
+          </div>
+        </div>
+
+        <label for="category">Job Type</label>
+        <select id="category">
+          <option value="residential">Residential</option>
+          <option value="commercial">Commercial</option>
+          <option value="custom-jerk-pit">Custom — Jerk Pit</option>
+          <option value="custom-other">Custom — Other</option>
+        </select>
+
+        <label for="description">Tell Us About the Job</label>
+        <textarea id="description" placeholder="What needs fixing, building, or fabricating? Dimensions, materials, location, anything that helps us scope it."></textarea>
+        <div class="voice-mount" id="description-voice-mount"></div>
+
+        <div class="form-row">
+          <div>
+            <label for="budgetRange">Budget Range <span class="opt">(optional)</span></label>
+            <select id="budgetRange">
+              <option value="">Not sure yet</option>
+              <option value="Under $500">Under $500</option>
+              <option value="$500-$1,500">$500 &ndash; $1,500</option>
+              <option value="$1,500-$5,000">$1,500 &ndash; $5,000</option>
+              <option value="$5,000+">$5,000+</option>
+            </select>
+          </div>
+          <div>
+            <label for="timeline">Timeline <span class="opt">(optional)</span></label>
+            <select id="timeline">
+              <option value="">Flexible</option>
+              <option value="ASAP">ASAP</option>
+              <option value="Within a month">Within a month</option>
+              <option value="Within a few months">Within a few months</option>
+              <option value="Just researching">Just researching</option>
+            </select>
+          </div>
+        </div>
+
+        <label for="photos">Photos <span class="opt">(optional, up to 5)</span></label>
+        <div class="file-drop" id="fileDropZone">
+          <i class="fas fa-camera"></i>
+          Click to add photos of the job, site, or reference images
+        </div>
+        <input type="file" id="photos" accept="image/*" multiple style="display:none;">
+        <ul class="file-list" id="fileList"></ul>
+
+        <div id="pitConfigNotice" style="display:none; margin-top:18px; background:var(--surface-2); border:1px solid var(--line-strong); border-left:3px solid var(--spark); border-radius:6px; padding:14px 16px; font-size:0.86rem; color:var(--ink-soft);">
+          <i class="fas fa-check-circle" style="color:var(--spark); margin-right:8px;"></i>
+          Your Jerk Pit configuration from the builder is attached to this request.
+        </div>
+
+        <div class="submit-row">
+          <button class="btn primary" id="submitBtn" type="button">Submit Request</button>
+        </div>
+        <div class="form-msg" id="formMsg"></div>
+      </div>
+    </div>
+
+    <div>
+      <div class="side-card">
+        <h3><i class="fas fa-clock" style="color:var(--accent); margin-right:8px;"></i>What Happens Next</h3>
+        <p>Your request goes straight to our shop — no waiting on a callback queue. We'll follow up at the email or phone you give us to confirm details and provide a quote.</p>
+      </div>
+      <div class="side-card">
+        <h3><i class="fas fa-circle-check" style="color:var(--accent); margin-right:8px;"></i>Helps Us Move Faster</h3>
+        <ul>
+          <li>Photos of the job site or existing piece</li>
+          <li>Rough dimensions, if you have them</li>
+          <li>Material preferences, if any</li>
+          <li>Whether it's time-sensitive</li>
+        </ul>
+      </div>
+      <div class="side-card">
+        <h3><i class="fas fa-fire" style="color:var(--spark); margin-right:8px;"></i>Building a Jerk Pit?</h3>
+        <p>See our <a href="/custom/jerk-pits.html" style="color:var(--spark); font-weight:600;">custom Jerk Pit page</a> for sizes and configurations before you submit.</p>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="footer-bottom">
+    <span>&copy; <span id="clrwf-year"></span> C. L. Rainford Welding &amp; Fabrication, Inc. &middot; Chicago, IL</span>
+    <span><a href="/" style="color:var(--ink-soft);">&larr; Back to Home</a></span>
+  </div>
+</footer>
+
+<script>document.getElementById('clrwf-year').textContent = new Date().getFullYear();</script>
+<script src="/assets/js/supabase-client.js"></script>
+<script src="/assets/voice-input.js"></script>
+<script>
+(function () {
+  var descriptionVoice = window.ClrwfVoiceInput.attach('description', 'description-voice-mount');
+  var selectedFiles = [];
+  var MAX_FILES = 5;
+
+  // Pre-selects the job-type dropdown from ?type=residential|commercial|
+  // custom-jerk-pit|custom-other, matching the Site Spec's "Quote form
+  // pre-filtered to 'Custom — Jerk Pit'" requirement for the Jerk Pit page
+  // (and equally useful from Residential/Commercial's own quote links).
+  var presetType = new URLSearchParams(location.search).get('type');
+  if (presetType) {
+    var categorySelect = document.getElementById('category');
+    if (Array.prototype.some.call(categorySelect.options, function (o) { return o.value === presetType; })) {
+      categorySelect.value = presetType;
+    }
+  }
+
+  // Picked up from a capabilities-search result (see capabilities.html) --
+  // pre-fills the description so staff see exactly which listed capability
+  // the customer matched to, without needing a second DB round-trip here.
+  var presetNeed = new URLSearchParams(location.search).get('need');
+  if (presetNeed) {
+    document.getElementById('description').value = 'Interested in: ' + presetNeed;
+  }
+
+  // Picked up from the Jerk Pit configurator (see custom/jerk-pits.html) --
+  // read once, shown as a notice, and attached on submit; cleared only
+  // after a successful submit so a failed/retried submit doesn't lose it.
+  var pitConfiguration = null;
+  try {
+    var stored = sessionStorage.getItem('clrwf_pit_configuration');
+    if (stored) {
+      pitConfiguration = JSON.parse(stored);
+      document.getElementById('pitConfigNotice').style.display = '';
+    }
+  } catch (e) { /* sessionStorage unavailable or corrupt -- submit still works without it */ }
+
+  var dropZone = document.getElementById('fileDropZone');
+  var fileInput = document.getElementById('photos');
+  var fileListEl = document.getElementById('fileList');
+
+  dropZone.addEventListener('click', function () { fileInput.click(); });
+
+  fileInput.addEventListener('change', function () {
+    var incoming = Array.prototype.slice.call(fileInput.files);
+    selectedFiles = selectedFiles.concat(incoming).slice(0, MAX_FILES);
+    renderFileList();
+    fileInput.value = '';
+  });
+
+  function renderFileList() {
+    fileListEl.innerHTML = selectedFiles.map(function (f, i) {
+      return '<li><i class="fas fa-image" style="margin-right:6px;"></i>' + f.name + ' <a href="#" data-idx="' + i + '" class="remove-file" style="color:var(--accent); margin-left:8px;">remove</a></li>';
+    }).join('');
+    fileListEl.querySelectorAll('.remove-file').forEach(function (a) {
+      a.addEventListener('click', function (e) {
+        e.preventDefault();
+        selectedFiles.splice(Number(a.getAttribute('data-idx')), 1);
+        renderFileList();
+      });
+    });
+  }
+
+  document.getElementById('submitBtn').addEventListener('click', async function () {
+    var msgEl = document.getElementById('formMsg');
+    msgEl.textContent = '';
+    msgEl.className = 'form-msg';
+
+    var fullName = document.getElementById('fullName').value.trim();
+    var email = document.getElementById('email').value.trim();
+    var phone = document.getElementById('phone').value.trim();
+    var category = document.getElementById('category').value;
+    var description = document.getElementById('description').value.trim();
+    var budgetRange = document.getElementById('budgetRange').value;
+    var timeline = document.getElementById('timeline').value;
+
+    if (!fullName || !email) {
+      msgEl.textContent = 'Name and email are required.';
+      msgEl.className = 'form-msg error';
+      return;
+    }
+
+    var btn = document.getElementById('submitBtn');
+    btn.disabled = true;
+    btn.textContent = 'Submitting...';
+
+    try {
+      var descBlob = descriptionVoice ? descriptionVoice.getBlob() : null;
+      await window.sfSupabase.submitClrwfQuoteRequest({
+        fullName: fullName, email: email, phone: phone, category: category,
+        description: description, budgetRange: budgetRange, timeline: timeline,
+        photoFiles: selectedFiles, pitConfiguration: pitConfiguration,
+        voiceNotes: descBlob ? [{ blob: descBlob, mimeType: descriptionVoice.getMimeType() }] : [],
+      });
+      msgEl.textContent = 'Request sent — we\'ll follow up at ' + email + ' soon.';
+      msgEl.className = 'form-msg success';
+      document.getElementById('formArea').querySelectorAll('input[type="text"], input[type="email"], input[type="tel"], textarea').forEach(function (el) { el.value = ''; });
+      document.getElementById('category').selectedIndex = 0;
+      document.getElementById('budgetRange').selectedIndex = 0;
+      document.getElementById('timeline').selectedIndex = 0;
+      selectedFiles = [];
+      renderFileList();
+      if (descriptionVoice) descriptionVoice.reset();
+      try { sessionStorage.removeItem('clrwf_pit_configuration'); } catch (e) {}
+      pitConfiguration = null;
+      document.getElementById('pitConfigNotice').style.display = 'none';
+      btn.textContent = 'Submit Request';
+      btn.disabled = false;
+    } catch (err) {
+      msgEl.textContent = 'Something went wrong: ' + (err && err.message ? err.message : 'please try again.');
+      msgEl.className = 'form-msg error';
+      btn.textContent = 'Submit Request';
+      btn.disabled = false;
+    }
+  });
+})();
+</script>
+</body>
+</html>

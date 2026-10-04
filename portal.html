@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<meta name="description" content="Client portal for C. L. Rainford Welding & Fabrication — check the status of your job.">
+<title>Client Portal | C. L. Rainford Welding &amp; Fabrication</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Public+Sans:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+  :root{
+    --ground:#17191C; --surface:#202327; --surface-2:#282C31;
+    --ink:#F2F1EC; --ink-soft:#A9ACB1; --ink-faint:#6E7278;
+    --line:rgba(242,241,236,0.10); --line-strong:rgba(242,241,236,0.20);
+    --accent:#E8571F; --accent-deep:#B8431A; --accent-soft:rgba(232,87,31,0.14); --spark:#8FE3EF; --good:#6FBF8B;
+  }
+  *{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%; text-size-adjust:100%;}
+  html{scroll-behavior:smooth;}
+  body{margin:0; background:var(--ground); color:var(--ink); font-family:"Public Sans",-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; line-height:1.6;}
+  a{color:inherit; text-decoration:none;}
+  img{max-width:100%; display:block;}
+  h1,h2,h3{font-family:"Oswald",Impact,"Arial Narrow",sans-serif; font-weight:700; text-transform:uppercase; letter-spacing:0.01em; text-wrap:balance; margin:0;}
+  .eyebrow{font-family:"Oswald",sans-serif; font-weight:600; font-size:0.74rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--accent);}
+  .hazard-strip{height:8px; background:repeating-linear-gradient(135deg, var(--accent), var(--accent) 18px, var(--ground) 18px, var(--ground) 36px);}
+
+  header.site-header{display:flex; align-items:center; justify-content:space-between; gap:20px; padding:20px 32px; background:var(--ground); border-bottom:1px solid var(--line); position:sticky; top:0; z-index:50; flex-wrap:wrap;}
+  .wordmark{display:flex; flex-direction:column; line-height:1.1;}
+  .wordmark .mark{font-family:"Oswald",sans-serif; font-weight:700; font-size:1.3rem; letter-spacing:0.02em; color:var(--ink);}
+  .wordmark .mark span{color:var(--accent);}
+  .wordmark .sub{font-size:0.62rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--ink-faint); margin-top:3px;}
+  .header-cta{display:flex; gap:10px; flex-wrap:wrap;}
+  .btn{display:inline-flex; align-items:center; gap:9px; font-family:"Oswald",sans-serif; font-weight:600; font-size:0.82rem; letter-spacing:0.04em; text-transform:uppercase; padding:12px 22px; border-radius:3px; border:1.5px solid transparent; cursor:pointer; white-space:nowrap;}
+  .btn.primary{background:var(--accent); color:#17191C;} .btn.primary:hover{background:#ff6b2e;}
+  .btn.primary:disabled{opacity:0.55; cursor:not-allowed;}
+  .btn.ghost{background:transparent; border-color:var(--line-strong); color:var(--ink);} .btn.ghost:hover{border-color:var(--ink);}
+  .btn.small{padding:9px 16px; font-size:0.74rem;}
+
+  main{max-width:900px; margin:0 auto;}
+  .back-bar{padding:14px 32px 0;}
+  .back-bar a{font-size:0.82rem; font-weight:600; color:var(--ink-soft); display:inline-flex; align-items:center; gap:8px;}
+  .back-bar a:hover{color:var(--accent);}
+  section{padding:50px 32px;}
+
+  .page-hero{padding:40px 32px 8px; text-align:center;}
+  .page-hero p.lede{color:var(--ink-soft); font-size:1.02rem; max-width:56ch; margin:14px auto 0;}
+
+  .login-card{background:var(--surface); border:1px solid var(--line); border-top:3px solid var(--accent); border-radius:10px; padding:36px; max-width:440px; margin:0 auto;}
+  label{display:block; font-family:"Oswald",sans-serif; font-size:0.72rem; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; color:var(--ink-soft); margin:0 0 8px;}
+  input[type="email"]{width:100%; padding:12px 14px; border:1.5px solid var(--line-strong); border-radius:5px; font-size:0.94rem; font-family:inherit; background:var(--surface-2); color:var(--ink);}
+  input:focus{outline:none; border-color:var(--accent);}
+  .submit-row{margin-top:20px;}
+  .submit-row .btn{width:100%; justify-content:center;}
+  .form-msg{font-size:0.88rem; margin-top:16px; text-align:center;}
+  .form-msg.error{color:#FF9A73;}
+  .form-msg.success{color:var(--good);}
+
+  #loadingState{text-align:center; padding:60px 0; color:var(--ink-soft);}
+
+  .jobs-header{display:flex; justify-content:space-between; align-items:center; margin-bottom:24px; flex-wrap:wrap; gap:12px;}
+  .jobs-header h2{font-size:1.3rem;}
+  .jobs-header .logout{font-size:0.82rem; color:var(--ink-soft); font-weight:600; cursor:pointer;}
+  .jobs-header .logout:hover{color:var(--accent);}
+
+  .job-card{background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:26px; margin-bottom:18px;}
+  .job-card .top-row{display:flex; justify-content:space-between; align-items:baseline; flex-wrap:wrap; gap:8px; margin-bottom:18px;}
+  .job-card h3{font-size:1.02rem;}
+  .job-card .job-date{color:var(--ink-faint); font-size:0.8rem;}
+
+  .milestone-track{display:flex; align-items:center; margin-top:6px;}
+  .milestone{flex:1; text-align:center; position:relative;}
+  .milestone .dot{width:16px; height:16px; border-radius:50%; background:var(--surface-2); border:2px solid var(--line-strong); margin:0 auto 8px; position:relative; z-index:2;}
+  .milestone.done .dot{background:var(--good); border-color:var(--good);}
+  .milestone.current .dot{background:var(--accent); border-color:var(--accent); box-shadow:0 0 0 4px var(--accent-soft);}
+  .milestone .line{position:absolute; top:7px; left:-50%; width:100%; height:2px; background:var(--line-strong); z-index:1;}
+  .milestone:first-child .line{display:none;}
+  .milestone.done .line, .milestone.current .line{background:var(--good);}
+  .milestone .lbl{font-size:0.68rem; color:var(--ink-faint); text-transform:uppercase; letter-spacing:0.02em; line-height:1.3;}
+  .milestone.current .lbl{color:var(--ink); font-weight:700;}
+  .milestone.done .lbl{color:var(--ink-soft);}
+  @media (max-width:600px){ .milestone .lbl{font-size:0.6rem;} }
+
+  .empty-state{text-align:center; padding:60px 28px; color:var(--ink-soft);}
+  .empty-state i{font-size:1.8rem; color:var(--accent); margin-bottom:14px; display:block;}
+
+  footer{border-top:1px solid var(--line); padding:40px 32px 26px; margin-top:20px;}
+  .footer-bottom{max-width:1180px; margin:0 auto; color:var(--ink-faint); font-size:0.78rem; display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px;}
+</style>
+</head>
+<body>
+
+<div class="hazard-strip"></div>
+
+<header class="site-header" role="banner">
+  <div class="wordmark">
+    <a href="/" style="color:inherit;"><span class="mark">C.L. RAINFORD <span>WELDING &amp; FABRICATION</span></span></a>
+    <span class="sub">Chicago, IL &middot; Since 2015</span>
+  </div>
+  <div class="header-cta">
+    <a class="btn ghost small" href="/quote.html">Request a Quote</a>
+  </div>
+</header>
+
+<main>
+  <div class="back-bar"><a href="/"><i class="fas fa-arrow-left"></i> Back to Home</a></div>
+
+  <div id="loadingState"><i class="fas fa-spinner fa-spin"></i> Loading&hellip;</div>
+
+  <div id="loginArea" style="display:none;">
+    <div class="page-hero">
+      <span class="eyebrow"><i class="fas fa-user-lock" style="margin-right:6px;"></i>Client Portal</span>
+      <h1 style="font-size:clamp(1.7rem,3.6vw,2.2rem); margin-top:10px;">Check Your Job Status</h1>
+      <p class="lede">Enter the email you used on your quote request — we'll send you a secure login link, no password needed.</p>
+    </div>
+    <section>
+      <div class="login-card">
+        <label for="loginEmail">Email</label>
+        <input type="email" id="loginEmail" placeholder="you@example.com">
+        <div class="submit-row">
+          <button class="btn primary" id="loginBtn">Send Login Link</button>
+        </div>
+        <div class="form-msg" id="loginMsg"></div>
+      </div>
+    </section>
+  </div>
+
+  <div id="jobsArea" style="display:none;">
+    <section>
+      <div class="jobs-header">
+        <h2>Your Jobs</h2>
+        <span class="logout" id="logoutBtn"><i class="fas fa-arrow-right-from-bracket" style="margin-right:6px;"></i>Log Out</span>
+      </div>
+      <div id="jobsList"></div>
+    </section>
+  </div>
+</main>
+
+<footer>
+  <div class="footer-bottom">
+    <span>&copy; <span id="clrwf-year"></span> C. L. Rainford Welding &amp; Fabrication, Inc. &middot; Chicago, IL</span>
+    <span><a href="/" style="color:var(--ink-soft);">&larr; Back to Home</a></span>
+  </div>
+</footer>
+
+<script>document.getElementById('clrwf-year').textContent = new Date().getFullYear();</script>
+<script src="/assets/js/supabase-client.js"></script>
+<script>
+(function () {
+  // Plain-language milestones (Site Spec) mapped from the internal 13-stage
+  // Kanban -- clients never see review_status, assigned_to, materials, or
+  // pricing (clrwf_jobs_portal already excludes those columns at the DB
+  // level; this mapping is purely cosmetic on top of that).
+  var MILESTONES = ['Order Received', 'In Design', 'In Fabrication', 'Finishing', 'Ready for Pickup/Delivery', 'Delivered'];
+  var STAGE_TO_MILESTONE = {
+    intake: 'Order Received', quoted: 'Order Received',
+    design_signoff: 'In Design', materials_sourcing: 'In Design', materials_staged: 'In Design', equipment_readiness_check: 'In Design',
+    cutting: 'In Fabrication', welding_assembly: 'In Fabrication',
+    finishing: 'Finishing', quality_check: 'Finishing',
+    ready_for_pickup: 'Ready for Pickup/Delivery',
+    delivered_invoiced: 'Delivered', archived: 'Delivered',
+  };
+  var CATEGORY_LABELS = { residential: 'Residential', commercial: 'Commercial', 'custom-jerk-pit': 'Custom — Jerk Pit', 'custom-other': 'Custom' };
+
+  function escapeHtml(s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+      return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c];
+    });
+  }
+
+  function showLogin() {
+    document.getElementById('loadingState').style.display = 'none';
+    document.getElementById('loginArea').style.display = '';
+    document.getElementById('jobsArea').style.display = 'none';
+  }
+
+  function renderJobCard(job) {
+    var currentMilestone = STAGE_TO_MILESTONE[job.stage] || 'Order Received';
+    var currentIdx = MILESTONES.indexOf(currentMilestone);
+    var dateStr = new Date(job.created_at).toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' });
+
+    var track = MILESTONES.map(function (m, i) {
+      var cls = i < currentIdx ? 'done' : (i === currentIdx ? 'current' : '');
+      return '<div class="milestone ' + cls + '"><div class="line"></div><div class="dot"></div><div class="lbl">' + escapeHtml(m) + '</div></div>';
+    }).join('');
+
+    return (
+      '<div class="job-card">' +
+        '<div class="top-row"><h3>' + escapeHtml(CATEGORY_LABELS[job.category] || job.category) + '</h3>' +
+        '<span class="job-date">Requested ' + dateStr + '</span></div>' +
+        '<div class="milestone-track">' + track + '</div>' +
+      '</div>'
+    );
+  }
+
+  async function loadJobs() {
+    document.getElementById('loadingState').style.display = 'none';
+    document.getElementById('loginArea').style.display = 'none';
+    document.getElementById('jobsArea').style.display = '';
+
+    var client = await window.sfSupabaseReady;
+    // Self-heal, same reasoning as clrwf_link_my_auth_user's comment: this
+    // shared Supabase project has other independent auth flows, so a
+    // client's auth.users row may already exist from an unrelated form
+    // before their first-ever portal login.
+    await client.rpc('clrwf_link_my_auth_user');
+
+    var result = await client.from('clrwf_jobs_portal').select('*').order('created_at', { ascending: false });
+    var listEl = document.getElementById('jobsList');
+    if (result.error || !result.data || !result.data.length) {
+      listEl.innerHTML = '<div class="empty-state"><i class="fas fa-clipboard-list"></i>No jobs on file yet for this account.<br>Once you submit a quote request, it will show up here.</div>';
+      return;
+    }
+    listEl.innerHTML = result.data.map(renderJobCard).join('');
+  }
+
+  document.getElementById('loginBtn').addEventListener('click', async function () {
+    var msgEl = document.getElementById('loginMsg');
+    msgEl.textContent = '';
+    msgEl.className = 'form-msg';
+    var email = document.getElementById('loginEmail').value.trim();
+    if (!email) {
+      msgEl.textContent = 'Enter your email first.';
+      msgEl.className = 'form-msg error';
+      return;
+    }
+
+    var btn = this;
+    btn.disabled = true;
+    btn.textContent = 'Checking...';
+
+    var client = await window.sfSupabaseReady;
+    var hasClient = await client.rpc('clrwf_email_has_client', { p_email: email });
+    if (hasClient.error || !hasClient.data) {
+      btn.disabled = false;
+      btn.textContent = 'Send Login Link';
+      msgEl.textContent = 'We don’t have a job on file for that email yet — submit a quote request first.';
+      msgEl.className = 'form-msg error';
+      return;
+    }
+
+    btn.textContent = 'Sending...';
+    var result = await client.auth.signInWithOtp({ email: email, options: { emailRedirectTo: 'https://selassiefest.com/portal.html' } });
+    btn.disabled = false;
+    btn.textContent = 'Send Login Link';
+
+    if (result.error) {
+      msgEl.textContent = 'Something went wrong: ' + result.error.message;
+      msgEl.className = 'form-msg error';
+    } else {
+      msgEl.textContent = 'Check your inbox — we sent a login link to ' + email + '.';
+      msgEl.className = 'form-msg success';
+    }
+  });
+
+  document.getElementById('logoutBtn').addEventListener('click', async function () {
+    var client = await window.sfSupabaseReady;
+    await client.auth.signOut();
+    showLogin();
+  });
+
+  (async function init() {
+    var client = await window.sfSupabaseReady;
+    var session = await client.auth.getSession();
+    if (session.data.session) {
+      loadJobs();
+    } else {
+      showLogin();
+    }
+  })();
+})();
+</script>
+</body>
+</html>

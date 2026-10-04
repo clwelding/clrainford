@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Custom Jerk Pits fabricated in Chicago, IL — built for restaurants, BBQ operators, and backyard pitmasters. Configure your build and request a quote.">
+<title>Custom Jerk Pits | C. L. Rainford Welding &amp; Fabrication</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Public+Sans:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+  :root{
+    --ground:#17191C; --surface:#202327; --surface-2:#282C31;
+    --ink:#F2F1EC; --ink-soft:#A9ACB1; --ink-faint:#6E7278;
+    --line:rgba(242,241,236,0.10); --line-strong:rgba(242,241,236,0.20);
+    --accent:#E8571F; --accent-deep:#B8431A; --accent-soft:rgba(232,87,31,0.14); --spark:#8FE3EF; --good:#6FBF8B;
+  }
+  *{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%; text-size-adjust:100%;}
+  html{scroll-behavior:smooth;}
+  body{margin:0; background:var(--ground); color:var(--ink); font-family:"Public Sans",-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; line-height:1.6;}
+  a{color:inherit; text-decoration:none;}
+  img{max-width:100%; display:block;}
+  h1,h2,h3{font-family:"Oswald",Impact,"Arial Narrow",sans-serif; font-weight:700; text-transform:uppercase; letter-spacing:0.01em; text-wrap:balance; margin:0;}
+  .eyebrow{font-family:"Oswald",sans-serif; font-weight:600; font-size:0.74rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--spark);}
+  .hazard-strip{height:8px; background:repeating-linear-gradient(135deg, var(--accent), var(--accent) 18px, var(--ground) 18px, var(--ground) 36px);}
+
+  header.site-header{display:flex; align-items:center; justify-content:space-between; gap:20px; padding:20px 32px; background:var(--ground); border-bottom:1px solid var(--line); position:sticky; top:0; z-index:50; flex-wrap:wrap;}
+  .wordmark{display:flex; flex-direction:column; line-height:1.1;}
+  .wordmark .mark{font-family:"Oswald",sans-serif; font-weight:700; font-size:1.3rem; letter-spacing:0.02em; color:var(--ink);}
+  .wordmark .mark span{color:var(--accent);}
+  .wordmark .sub{font-size:0.62rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--ink-faint); margin-top:3px;}
+  nav.main-nav ul{list-style:none; display:flex; gap:26px; margin:0; padding:0; flex-wrap:wrap;}
+  nav.main-nav a{font-size:0.84rem; font-weight:600; color:var(--ink-soft); padding:6px 0; border-bottom:2px solid transparent;}
+  nav.main-nav a:hover{color:var(--ink); border-color:var(--accent);}
+  nav.main-nav a.active{color:var(--ink); border-color:var(--accent);}
+  .header-cta{display:flex; gap:10px; flex-wrap:wrap;}
+  .btn{display:inline-flex; align-items:center; gap:9px; font-family:"Oswald",sans-serif; font-weight:600; font-size:0.82rem; letter-spacing:0.04em; text-transform:uppercase; padding:12px 22px; border-radius:3px; border:1.5px solid transparent; cursor:pointer; white-space:nowrap;}
+  .btn.primary{background:var(--accent); color:#17191C;} .btn.primary:hover{background:#ff6b2e;}
+  .btn.spark{background:var(--spark); color:#0c2b31;} .btn.spark:hover{background:#a9edf7;}
+  .btn.ghost{background:transparent; border-color:var(--line-strong); color:var(--ink);} .btn.ghost:hover{border-color:var(--ink);}
+  .btn.small{padding:9px 16px; font-size:0.74rem;}
+
+  main{max-width:1180px; margin:0 auto;}
+  .back-bar{padding:14px 32px 0;}
+  .back-bar a{font-size:0.82rem; font-weight:600; color:var(--ink-soft); display:inline-flex; align-items:center; gap:8px;}
+  .back-bar a:hover{color:var(--accent);}
+  section{padding:56px 32px;}
+
+  .page-hero{padding:40px 32px 8px;}
+  .page-hero p.lede{color:var(--ink-soft); font-size:1.02rem; max-width:62ch; margin:14px 0 0;}
+
+  .load-banner{
+    display:flex; align-items:center; gap:12px; background:var(--surface); border:1px solid var(--line);
+    border-left:3px solid var(--spark); border-radius:8px; padding:16px 20px; margin:24px 32px 0; font-size:0.9rem; color:var(--ink-soft);
+  }
+  .load-banner i{color:var(--spark);}
+  .load-banner strong{color:var(--ink);}
+
+  .info-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:20px; margin-top:8px;}
+  @media (max-width:820px){ .info-grid{grid-template-columns:1fr;} }
+  .info-card{background:var(--surface); border:1px solid var(--line); border-radius:8px; padding:24px 26px;}
+  .info-card h3{font-size:0.98rem; margin-bottom:10px;}
+  .info-card p, .info-card ul{color:var(--ink-soft); font-size:0.88rem; margin:0; padding-left:0; list-style:none;}
+  .info-card li{padding:4px 0; border-bottom:1px solid var(--line);}
+  .info-card li:last-child{border-bottom:none;}
+
+  .gallery-section{background:var(--surface);}
+  .gallery-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:14px;}
+  .gallery-grid img{width:100%; height:230px; object-fit:cover; border-radius:6px; border:1px solid var(--line);}
+  .gallery-empty{border:1.5px dashed var(--line-strong); border-radius:10px; padding:48px 28px; text-align:center; color:var(--ink-soft); font-size:0.94rem;}
+  .gallery-empty i{font-size:1.4rem; color:var(--accent); margin-bottom:12px; display:block;}
+  @media (max-width:820px){ .gallery-grid{grid-template-columns:1fr 1fr;} }
+  @media (max-width:560px){ .gallery-grid{grid-template-columns:1fr;} }
+
+  /* ---- Configurator ---- */
+  .configurator{background:linear-gradient(180deg, var(--surface), var(--ground)); border-top:1px solid var(--line); border-bottom:1px solid var(--line);}
+  .configurator-inner{display:grid; grid-template-columns:1fr 1.1fr; gap:44px; align-items:start;}
+  @media (max-width:940px){ .configurator-inner{grid-template-columns:1fr;} }
+
+  .preview-pane{position:sticky; top:96px;}
+  @media (max-width:940px){ .preview-pane{position:static;} }
+  .preview-card{background:var(--surface-2); border:1px solid var(--line-strong); border-radius:10px; padding:16px; text-align:center;}
+  .preview-card .hero-img{width:100%; aspect-ratio:1/1; background:#fff; border-radius:6px; overflow:hidden; display:flex; align-items:center; justify-content:center;}
+  .preview-card .hero-img img{width:100%; height:100%; object-fit:contain; padding:14px;}
+  .preview-card .hero-label{margin-top:10px; font-family:"Oswald",sans-serif; font-weight:700; font-size:0.94rem;}
+  .preview-meta{display:flex; justify-content:center; align-items:center; margin-top:8px; font-size:0.8rem; color:var(--ink-soft);}
+  .size-badge{font-family:"Oswald",sans-serif; font-weight:700; color:var(--spark); background:rgba(143,227,239,0.12); padding:4px 12px; border-radius:12px; font-size:0.78rem;}
+
+  .summary-card{background:var(--surface-2); border:1px solid var(--line); border-radius:10px; padding:16px 18px; margin-top:16px; font-size:0.86rem;}
+  .summary-card .row{display:flex; align-items:center; gap:10px; padding:8px 0; border-bottom:1px solid var(--line); color:var(--ink-soft);}
+  .summary-card .row:last-child{border-bottom:none;}
+  .summary-card .row .thumb{width:30px; height:30px; border-radius:4px; background:#fff; flex-shrink:0; overflow:hidden; display:flex; align-items:center; justify-content:center;}
+  .summary-card .row .thumb img{width:100%; height:100%; object-fit:contain;}
+  .summary-card .row .label{font-family:"Oswald",sans-serif; font-size:0.62rem; letter-spacing:0.05em; text-transform:uppercase; color:var(--ink-faint); display:block;}
+  .summary-card .row .v{color:var(--ink); font-weight:600; font-size:0.82rem;}
+
+  .step{margin-bottom:34px;}
+  .step-num{display:inline-flex; align-items:center; justify-content:center; width:26px; height:26px; border-radius:50%; background:var(--spark); color:#0c2b31; font-family:"Oswald",sans-serif; font-weight:700; font-size:0.82rem; margin-right:10px;}
+  .step-title{display:flex; align-items:center; font-size:1.02rem; margin-bottom:6px;}
+  .step-sub{color:var(--ink-faint); font-size:0.8rem; margin:0 0 14px 36px;}
+  .option-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:10px;}
+  @media (max-width:700px){ .option-grid{grid-template-columns:repeat(2,1fr);} }
+  .option-btn{
+    background:var(--surface); border:1.5px solid var(--line-strong); border-radius:6px; padding:14px 10px;
+    text-align:center; cursor:pointer; color:var(--ink-soft); font-size:0.84rem; font-weight:600;
+  }
+  .option-btn i{display:block; font-size:1.1rem; margin-bottom:6px; color:var(--ink-soft);}
+  .option-btn:hover{border-color:var(--spark);}
+  .option-btn.selected{border-color:var(--spark); background:rgba(143,227,239,0.1); color:var(--ink);}
+  .option-btn.selected i{color:var(--spark);}
+
+  .photo-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:10px;}
+  @media (max-width:820px){ .photo-grid{grid-template-columns:repeat(3,1fr);} }
+  @media (max-width:600px){ .photo-grid{grid-template-columns:repeat(2,1fr);} }
+  .photo-option{background:var(--surface); border:1.5px solid var(--line-strong); border-radius:8px; overflow:hidden; cursor:pointer; text-align:center;}
+  .photo-option:hover{border-color:var(--spark);}
+  .photo-option.selected{border-color:var(--spark); box-shadow:0 0 0 1px var(--spark);}
+  .photo-option .thumb{aspect-ratio:1/1; background:#fff; display:flex; align-items:center; justify-content:center; position:relative;}
+  .photo-option .thumb img{width:100%; height:100%; object-fit:contain; padding:8px;}
+  .photo-option .check-badge{position:absolute; top:6px; right:6px; width:20px; height:20px; border-radius:50%; background:var(--spark); color:#0c2b31; display:none; align-items:center; justify-content:center; font-size:0.7rem;}
+  .photo-option.selected .check-badge{display:flex;}
+  .photo-option .name{font-size:0.76rem; font-weight:600; color:var(--ink-soft); padding:8px 6px; background:var(--surface-2); line-height:1.25;}
+  .photo-option.selected .name{color:var(--ink);}
+  .photo-grid.scrollable{max-height:420px; overflow-y:auto; padding-right:4px;}
+
+  .feature-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:10px;}
+  @media (max-width:600px){ .feature-grid{grid-template-columns:1fr;} }
+  .feature-check{
+    display:flex; align-items:center; gap:10px; background:var(--surface); border:1.5px solid var(--line-strong);
+    border-radius:6px; padding:12px 14px; cursor:pointer; font-size:0.86rem; color:var(--ink-soft);
+  }
+  .feature-check:hover{border-color:var(--spark);}
+  .feature-check input{width:16px; height:16px; accent-color:var(--spark);}
+  .feature-check.checked{border-color:var(--spark); color:var(--ink);}
+
+  .configurator-cta{margin-top:30px; padding-top:24px; border-top:1px solid var(--line); display:flex; align-items:center; gap:16px; flex-wrap:wrap;}
+
+  .cta-band{background:linear-gradient(120deg, var(--accent-deep), var(--accent)); color:#1a1204; padding:56px 32px; text-align:center; border-radius:12px;}
+  .cta-band h2{color:#1a1204; font-size:clamp(1.5rem,3.4vw,2.1rem);}
+  .cta-band p{color:rgba(26,18,4,0.78); margin:12px 0 26px; font-size:1rem;}
+  .cta-band .btn.primary{background:#17191C; color:var(--ink);} .cta-band .btn.primary:hover{background:#000;}
+
+  footer{border-top:1px solid var(--line); padding:40px 32px 26px; margin-top:20px;}
+  .footer-bottom{max-width:1180px; margin:0 auto; color:var(--ink-faint); font-size:0.78rem; display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px;}
+</style>
+</head>
+<body>
+
+<div class="hazard-strip"></div>
+
+<header class="site-header" role="banner">
+  <div class="wordmark">
+    <a href="/" style="color:inherit;"><span class="mark">C.L. RAINFORD <span>WELDING &amp; FABRICATION</span></span></a>
+    <span class="sub">Chicago, IL &middot; Since 2015</span>
+  </div>
+  <nav class="main-nav" role="navigation" aria-label="Main navigation">
+    <ul>
+      <li><a href="/">Home</a></li>
+      <li><a href="/capabilities.html">What We Do</a></li>
+      <li><a href="/residential.html">Residential</a></li>
+      <li><a href="/commercial.html">Commercial</a></li>
+      <li><a href="/custom/" class="active">Custom</a></li>
+      <li><a href="/gallery.html">Gallery</a></li>
+      <li><a href="/about.html">About</a></li>
+      <li><a href="/contact.html">Contact</a></li>
+      <li><a href="/careers.html">Careers</a></li>
+    </ul>
+  </nav>
+  <div class="header-cta">
+    <a class="btn ghost small" href="/portal.html"><i class="fas fa-user"></i> Client Login</a>
+    <a class="btn primary small" href="/quote.html?type=custom-jerk-pit">Request a Quote</a>
+  </div>
+</header>
+
+<main>
+  <div class="back-bar"><a href="/custom/"><i class="fas fa-arrow-left"></i> Back to Custom Fabrication</a></div>
+
+  <div class="page-hero">
+    <span class="eyebrow"><i class="fas fa-fire-flame-curved" style="margin-right:6px;"></i>Flagship Custom Product</span>
+    <h1 style="font-size:clamp(1.9rem,4vw,2.6rem); margin-top:10px;">Custom Jerk Pits</h1>
+    <p class="lede">Built for restaurants and BBQ operators who cook every day, and for backyard pitmasters who want it built right — every pit is fabricated to your size, cooking style, and feature list.</p>
+  </div>
+
+  <div class="load-banner" id="loadBanner">
+    <i class="fas fa-gauge-high"></i>
+    <span id="loadBannerText">Checking current shop load&hellip;</span>
+  </div>
+
+  <section>
+    <div class="info-grid">
+      <div class="info-card">
+        <h3><i class="fas fa-ruler-combined" style="color:var(--spark); margin-right:8px;"></i>Sizes Offered</h3>
+        <ul>
+          <li>36" &mdash; backyard / small batch</li>
+          <li>48" &mdash; most popular</li>
+          <li>60" &mdash; high-volume</li>
+          <li>72" &mdash; commercial kitchen</li>
+          <li>Custom dimensions on request</li>
+        </ul>
+      </div>
+      <div class="info-card">
+        <h3><i class="fas fa-layer-group" style="color:var(--spark); margin-right:8px;"></i>Material Options</h3>
+        <ul>
+          <li>10-gauge or 1/4" steel body</li>
+          <li>Heat-resistant high-temp coating</li>
+          <li>Stainless or expanded-metal grates</li>
+          <li>Powder coat or raw steel finish</li>
+        </ul>
+      </div>
+      <div class="info-card">
+        <h3><i class="fas fa-store" style="color:var(--spark); margin-right:8px;"></i>Built For</h3>
+        <ul>
+          <li>Restaurants &amp; catering operations</li>
+          <li>BBQ &amp; jerk pop-up vendors</li>
+          <li>Backyard pitmasters</li>
+          <li>Community &amp; event cooking</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="gallery-section">
+    <span class="eyebrow" style="color:var(--accent);">Our Work</span>
+    <h2 style="font-size:clamp(1.5rem,3vw,2rem); margin:10px 0 30px;">Completed Jerk Pits</h2>
+    <div id="galleryContent">
+      <div class="gallery-empty"><i class="fas fa-spinner fa-spin"></i>Loading&hellip;</div>
+    </div>
+  </section>
+
+  <section>
+    <span class="eyebrow" style="color:var(--spark);">Concept Renders</span>
+    <h2 style="font-size:clamp(1.5rem,3vw,2rem); margin:10px 0 10px;">What a Custom Build Can Look Like</h2>
+    <p style="color:var(--ink-soft); max-width:64ch; margin:0 0 26px;">These are AI-generated concept renders, not photos of finished customer work &mdash; use them to picture the range of what's possible, not as examples of a specific past job. Real completed builds appear above as they're delivered.</p>
+    <div class="gallery-grid">
+      <img src="/custom/img/concepts/jerk-pits/concept-1.jpg" alt="Concept render of a custom jerk pit" loading="lazy">
+      <img src="/custom/img/concepts/jerk-pits/concept-2.jpg" alt="Concept render of a custom jerk pit" loading="lazy">
+      <img src="/custom/img/concepts/jerk-pits/concept-3.jpg" alt="Concept render of a custom jerk pit" loading="lazy">
+      <img src="/custom/img/concepts/jerk-pits/concept-4.jpg" alt="Concept render of a custom jerk pit" loading="lazy">
+      <img src="/custom/img/concepts/jerk-pits/concept-5.jpg" alt="Concept render of a custom jerk pit" loading="lazy">
+      <img src="/custom/img/concepts/jerk-pits/concept-6.jpg" alt="Concept render of a custom jerk pit" loading="lazy">
+    </div>
+  </section>
+
+  <section class="configurator" id="configurator">
+    <span class="eyebrow"><i class="fas fa-sliders" style="margin-right:6px;"></i>Build Your Pit</span>
+    <h2 style="font-size:clamp(1.6rem,3.2vw,2.1rem); margin:10px 0 14px;">Configure Your Jerk Pit</h2>
+    <p style="margin:0 0 30px;"><a href="/custom/component-library.html" style="color:var(--spark); font-weight:600;"><i class="fas fa-layer-group"></i> Not sure what a term means? Browse the full component library &rarr;</a></p>
+
+    <div class="configurator-inner">
+      <div class="preview-pane">
+        <div class="preview-card">
+          <div class="hero-img"><img id="heroImg" src="" alt=""></div>
+          <div class="hero-label" id="heroLabel"></div>
+        </div>
+        <div class="preview-meta">
+          <span class="size-badge" id="sizeBadge">48"</span>
+        </div>
+        <div class="summary-card" id="summaryCard"></div>
+      </div>
+
+      <div class="steps-pane">
+        <div class="step">
+          <div class="step-title"><span class="step-num">1</span>Choose Your Pit Body</div>
+          <p class="step-sub">Real photos &mdash; this is what your pit's base will actually look like.</p>
+          <div class="photo-grid" id="stepPitBody"></div>
+        </div>
+
+        <div class="step">
+          <div class="step-title"><span class="step-num">2</span>Choose Size</div>
+          <div class="option-grid" id="stepSize">
+            <div class="option-btn" data-value="36">36"</div>
+            <div class="option-btn" data-value="48">48"</div>
+            <div class="option-btn" data-value="60">60"</div>
+            <div class="option-btn" data-value="72">72"</div>
+            <div class="option-btn" data-value="custom" style="grid-column:span 4;">Custom Size</div>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-title"><span class="step-num">3</span>Cooking Surface</div>
+          <div class="photo-grid" id="stepCookingSurface"></div>
+        </div>
+
+        <div class="step">
+          <div class="step-title"><span class="step-num">4</span>Fire System</div>
+          <div class="photo-grid" id="stepFireSystem"></div>
+        </div>
+
+        <div class="step">
+          <div class="step-title"><span class="step-num">5</span>Doors &amp; Access</div>
+          <div class="photo-grid" id="stepDoors"></div>
+        </div>
+
+        <div class="step">
+          <div class="step-title"><span class="step-num">6</span>Airflow</div>
+          <p class="step-sub">Pick as many as apply.</p>
+          <div class="photo-grid" id="stepAirflow"></div>
+        </div>
+
+        <div class="step">
+          <div class="step-title"><span class="step-num">7</span>Add-Ons &amp; Custom Features</div>
+          <p class="step-sub">Pick as many as apply &mdash; shelves, hardware, mobility, lighting, and more.</p>
+          <div class="photo-grid scrollable" id="stepAddOns"></div>
+        </div>
+
+        <div class="configurator-cta">
+          <a class="btn spark" id="requestBuildBtn" href="/quote.html?type=custom-jerk-pit"><i class="fas fa-paper-plane"></i> Request This Build</a>
+          <span style="color:var(--ink-faint); font-size:0.84rem;">Your selections carry over to the quote form.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding-top:56px;">
+    <div class="cta-band">
+      <h2>Not Sure Which Setup You Need?</h2>
+      <p>Tell us how you cook and what you're feeding — we'll help you land on the right build.</p>
+      <a class="btn primary" href="/quote.html?type=custom-jerk-pit"><i class="fas fa-file-lines"></i> Request a Quote</a>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="footer-bottom">
+    <span>&copy; <span id="clrwf-year"></span> C. L. Rainford Welding &amp; Fabrication, Inc. &middot; Chicago, IL</span>
+    <span><a href="/" style="color:var(--ink-soft);">&larr; Back to Home</a></span>
+  </div>
+</footer>
+
+<script>document.getElementById('clrwf-year').textContent = new Date().getFullYear();</script>
+<script src="/assets/js/supabase-client.js"></script>
+<script>
+(function () {
+  var GALLERY_STORAGE_BASE = 'https://xdjbgcqaynnzykrglgnf.supabase.co/storage/v1/object/public/clrwf-gallery-photos';
+
+  // ---- Live gallery ----
+  (async function loadGallery() {
+    var el = document.getElementById('galleryContent');
+    try {
+      var client = await window.sfSupabaseReady;
+      var result = await client.from('clrwf_gallery_public').select('id, category, photo_paths, created_at')
+        .eq('category', 'custom-jerk-pit').order('created_at', { ascending: false }).limit(9);
+      if (result.error) throw result.error;
+      var photos = [];
+      (result.data || []).forEach(function (job) { (job.photo_paths || []).forEach(function (p) { photos.push(p); }); });
+      if (!photos.length) {
+        el.innerHTML = '<div class="gallery-empty"><i class="fas fa-camera-retro"></i>Completed Jerk Pits will appear here as builds are delivered &mdash; check back soon.</div>';
+        return;
+      }
+      el.innerHTML = '<div class="gallery-grid">' + photos.slice(0, 9).map(function (p) {
+        return '<img src="' + GALLERY_STORAGE_BASE + '/' + p + '" alt="Completed custom Jerk Pit" loading="lazy">';
+      }).join('') + '</div>';
+    } catch (e) {
+      el.innerHTML = '<div class="gallery-empty"><i class="fas fa-camera-retro"></i>Completed Jerk Pits will appear here as builds are delivered &mdash; check back soon.</div>';
+    }
+  })();
+
+  // ---- Live shop-load banner ----
+  // Honest, live-computed signal instead of a static lead-time promise
+  // (Site Spec: "pulled live from current Kanban load, not a static
+  // promise") -- counts real clrwf_jobs rows rather than guessing.
+  (async function loadShopLoad() {
+    var textEl = document.getElementById('loadBannerText');
+    try {
+      var client = await window.sfSupabaseReady;
+      var result = await client.from('clrwf_jobs').select('id', { count: 'exact', head: true })
+        .eq('category', 'custom-jerk-pit')
+        .not('stage', 'in', '(delivered_invoiced,archived)');
+      if (result.error) throw result.error;
+      var count = result.count || 0;
+      textEl.innerHTML = count > 0
+        ? '<strong>' + count + '</strong> Jerk Pit build' + (count === 1 ? '' : 's') + ' currently in the shop &mdash; new orders queue behind those.'
+        : '<strong>No Jerk Pit builds</strong> currently in queue &mdash; a new order could start right away.';
+    } catch (e) {
+      document.getElementById('loadBanner').style.display = 'none';
+    }
+  })();
+
+  // ---- Configurator ----
+  // Real photos, not a live-composited illustration -- these are
+  // independent photorealistic renders (own camera angle, own lighting),
+  // not flat layers sharing one coordinate system, so they can't overlay
+  // into a single evolving image the way the old SVG did. Instead: pick
+  // one per required step (pit body, cooking surface, fire system, doors),
+  // any number for the optional multi-select steps (airflow, add-ons),
+  // and the sticky pane shows a live "build sheet" -- big photo of the
+  // pit body plus a thumbnail list of every other choice -- rather than
+  // one impossible composite shot.
+  var IMG_BASE = '/custom/img/components/';
+
+  var PIT_BODY_OPTIONS = [
+    ['06_open_jerk_pit', 'Open Jerk Pit'],
+    ['07_enclosed_jerk_pit', 'Enclosed Jerk Pit'],
+    ['08_combination_smoker_grill', 'Combination Smoker/Grill'],
+    ['09_commercial_double_pit', 'Commercial Double Pit'],
+    ['04_barrel_pit', 'Barrel Pit'],
+    ['05_box_pit', 'Box Pit'],
+    ['01_offset_smoker_trailer', 'Offset Smoker (Trailer)'],
+    ['02_offset_smoker_backyard', 'Offset Smoker (Backyard)'],
+    ['03_vertical_smoker', 'Vertical Smoker'],
+    ['10_kamado_style_grill', 'Kamado-Style Grill'],
+  ];
+  var COOKING_SURFACE_OPTIONS = [
+    ['18_jerk_rack', 'Jerk Rack'],
+    ['11_expanded_metal_grate', 'Expanded-Metal Grate'],
+    ['12_stainless_steel_grate', 'Stainless-Steel Grate'],
+    ['13_cast_iron_grate', 'Cast-Iron Grate'],
+    ['14_adjustable_height_grate', 'Adjustable-Height Grate'],
+    ['15_sliding_grate', 'Sliding Grate'],
+    ['16_multi_level_grate_rack', 'Multi-Level Grate Rack'],
+    ['17_rotisserie_assembly', 'Rotisserie Assembly'],
+    ['19_spit_rod', 'Spit Rod'],
+    ['20_hanging_hooks', 'Hanging Hooks'],
+  ];
+  var FIRE_SYSTEM_OPTIONS = [
+    ['21_offset_firebox', 'Offset Firebox'],
+    ['22_internal_firebox', 'Internal Firebox'],
+    ['23_removable_firebox', 'Removable Firebox'],
+    ['24_charcoal_basket', 'Charcoal Basket'],
+    ['25_wood_rack', 'Wood Rack'],
+    ['26_adjustable_air_intake', 'Adjustable Air Intake'],
+    ['27_ash_pan', 'Ash Pan'],
+    ['28_firebrick_liner', 'Firebrick Liner'],
+    ['29_baffle_plate', 'Baffle Plate'],
+    ['30_tuning_plate', 'Tuning Plate'],
+  ];
+  var DOORS_OPTIONS = [
+    ['31_main_cooking_door', 'Main Cooking Door'],
+    ['32_firebox_door', 'Firebox Door'],
+    ['33_ash_door', 'Ash Door'],
+    ['34_double_doors', 'Double Doors'],
+    ['35_lift_up_lid', 'Lift-Up Lid'],
+    ['36_sliding_access_door', 'Sliding Access Door'],
+    ['37_inspection_door', 'Inspection Door'],
+    ['38_roll_top_lid', 'Roll-Top Lid'],
+    ['39_glass_view_door', 'Glass View Door'],
+    ['40_high_temperature_door_gasket', 'High-Temperature Door Gasket'],
+  ];
+  var AIRFLOW_OPTIONS = [
+    ['67_intake_vent', 'Intake Vent'],
+    ['68_adjustable_damper', 'Adjustable Damper'],
+    ['69_chimney_pipe', 'Chimney Pipe'],
+    ['70_adjustable_chimney_cap', 'Adjustable Chimney Cap'],
+    ['71_dual_chimney_assembly', 'Dual Chimney Assembly'],
+    ['72_chimney_elbow', 'Chimney Elbow'],
+  ];
+  var ADD_ON_OPTIONS = [
+    ['41_prep_table', 'Prep Table'],
+    ['42_side_shelf', 'Side Shelf'],
+    ['43_front_shelf', 'Front Shelf'],
+    ['44_stainless_utility_shelf', 'Stainless Utility Shelf'],
+    ['45_cutting_board', 'Cutting Board'],
+    ['46_bottle_opener', 'Bottle Opener'],
+    ['47_tool_hooks', 'Tool Hooks'],
+    ['48_clamp_on_utensil_holder', 'Clamp-On Utensil Holder'],
+    ['49_grease_drain_valve', 'Grease Drain Valve'],
+    ['50_drip_pan', 'Drip Pan'],
+    ['51_grease_catch_tray', 'Grease Catch Tray'],
+    ['64_grease_drain_plug', 'Grease Drain Plug'],
+    ['52_heavy_duty_wheel', 'Heavy-Duty Wheel'],
+    ['53_swivel_caster', 'Swivel Caster'],
+    ['54_locking_caster', 'Locking Caster'],
+    ['55_trailer_hitch_ball', 'Trailer Hitch Ball'],
+    ['56_trailer_safety_chains', 'Trailer Safety Chains'],
+    ['57_trailer_tongue_jack', 'Trailer Tongue Jack'],
+    ['58_locking_door_latch', 'Locking Door Latch'],
+    ['59_custom_logo_plate', 'Custom Logo Plate'],
+    ['60_propane_tank_mount', 'Propane Tank Mount'],
+    ['61_mesh_storage_basket', 'Mesh Storage Basket'],
+    ['62_slide_out_storage_drawer', 'Slide-Out Storage Drawer'],
+    ['63_slide_out_utility_tray', 'Slide-Out Utility Tray'],
+    ['65_accessory_mount_arm', 'Accessory Mount Arm'],
+    ['66_led_work_light', 'LED Work Light'],
+    ['73_analog_thermometer', 'Analog Thermometer'],
+    ['74_digital_temperature_controller', 'Digital Temperature Controller'],
+  ];
+
+  var state = {
+    pitBody: PIT_BODY_OPTIONS[0],
+    size: '48',
+    cookingSurface: COOKING_SURFACE_OPTIONS[0],
+    fireSystem: FIRE_SYSTEM_OPTIONS[0],
+    doors: DOORS_OPTIONS[0],
+    airflow: [],
+    addOns: [],
+  };
+
+  function photoCard(slug, name, selected) {
+    return (
+      '<div class="photo-option' + (selected ? ' selected' : '') + '" data-slug="' + slug + '" data-name="' + name + '">' +
+        '<div class="thumb"><img src="' + IMG_BASE + slug + '.webp" alt="' + name + '" loading="lazy"><span class="check-badge"><i class="fas fa-check"></i></span></div>' +
+        '<div class="name">' + name + '</div>' +
+      '</div>'
+    );
+  }
+
+  function renderSingleSelectGrid(containerId, options, stateKey) {
+    var grid = document.getElementById(containerId);
+    grid.innerHTML = options.map(function (o) { return photoCard(o[0], o[1], state[stateKey][0] === o[0]); }).join('');
+    grid.addEventListener('click', function (e) {
+      var card = e.target.closest('.photo-option');
+      if (!card) return;
+      var slug = card.getAttribute('data-slug');
+      var match = options.find(function (o) { return o[0] === slug; });
+      state[stateKey] = match;
+      grid.querySelectorAll('.photo-option').forEach(function (c) { c.classList.toggle('selected', c.getAttribute('data-slug') === slug); });
+      render();
+    });
+  }
+
+  function renderMultiSelectGrid(containerId, options, stateKey) {
+    var grid = document.getElementById(containerId);
+    grid.innerHTML = options.map(function (o) { return photoCard(o[0], o[1], state[stateKey].some(function (s) { return s[0] === o[0]; })); }).join('');
+    grid.addEventListener('click', function (e) {
+      var card = e.target.closest('.photo-option');
+      if (!card) return;
+      var slug = card.getAttribute('data-slug');
+      var match = options.find(function (o) { return o[0] === slug; });
+      var idx = state[stateKey].findIndex(function (s) { return s[0] === slug; });
+      if (idx === -1) state[stateKey].push(match); else state[stateKey].splice(idx, 1);
+      card.classList.toggle('selected');
+      render();
+    });
+  }
+
+  renderSingleSelectGrid('stepPitBody', PIT_BODY_OPTIONS, 'pitBody');
+  renderSingleSelectGrid('stepCookingSurface', COOKING_SURFACE_OPTIONS, 'cookingSurface');
+  renderSingleSelectGrid('stepFireSystem', FIRE_SYSTEM_OPTIONS, 'fireSystem');
+  renderSingleSelectGrid('stepDoors', DOORS_OPTIONS, 'doors');
+  renderMultiSelectGrid('stepAirflow', AIRFLOW_OPTIONS, 'airflow');
+  renderMultiSelectGrid('stepAddOns', ADD_ON_OPTIONS, 'addOns');
+
+  document.getElementById('stepSize').addEventListener('click', function (e) {
+    var btn = e.target.closest('.option-btn');
+    if (!btn) return;
+    this.querySelectorAll('.option-btn').forEach(function (b) { b.classList.toggle('selected', b === btn); });
+    state.size = btn.getAttribute('data-value');
+    render();
+  });
+  document.querySelector('#stepSize .option-btn[data-value="48"]').classList.add('selected');
+
+  function render() {
+    document.getElementById('heroImg').src = IMG_BASE + state.pitBody[0] + '.webp';
+    document.getElementById('heroImg').alt = state.pitBody[1];
+    document.getElementById('heroLabel').textContent = state.pitBody[1];
+    document.getElementById('sizeBadge').textContent = state.size === 'custom' ? 'Custom Size' : state.size + '"';
+
+    var rows = [
+      ['Pit Body', state.pitBody],
+      ['Cooking Surface', state.cookingSurface],
+      ['Fire System', state.fireSystem],
+      ['Doors', state.doors],
+    ].map(function (r) {
+      return '<div class="row"><span class="thumb"><img src="' + IMG_BASE + r[1][0] + '.webp" alt=""></span><span><span class="label">' + r[0] + '</span><span class="v">' + r[1][1] + '</span></span></div>';
+    });
+    if (state.airflow.length) {
+      rows.push('<div class="row"><span class="thumb"><img src="' + IMG_BASE + state.airflow[0][0] + '.webp" alt=""></span><span><span class="label">Airflow (' + state.airflow.length + ')</span><span class="v">' + state.airflow.map(function (a) { return a[1]; }).join(', ') + '</span></span></div>');
+    }
+    if (state.addOns.length) {
+      rows.push('<div class="row"><span class="thumb"><img src="' + IMG_BASE + state.addOns[0][0] + '.webp" alt=""></span><span><span class="label">Add-Ons (' + state.addOns.length + ')</span><span class="v">' + state.addOns.map(function (a) { return a[1]; }).join(', ') + '</span></span></div>');
+    }
+    document.getElementById('summaryCard').innerHTML = rows.join('');
+  }
+
+  render();
+
+  // Carries the configuration to the quote form via sessionStorage --
+  // read back by quote.html and attached as pit_configuration on submit.
+  document.getElementById('requestBuildBtn').addEventListener('click', function () {
+    try {
+      sessionStorage.setItem('clrwf_pit_configuration', JSON.stringify({
+        pitBody: state.pitBody[1],
+        size: state.size === 'custom' ? 'Custom' : state.size + '"',
+        cookingSurface: state.cookingSurface[1],
+        fireSystem: state.fireSystem[1],
+        doors: state.doors[1],
+        airflow: state.airflow.map(function (a) { return a[1]; }),
+        addOns: state.addOns.map(function (a) { return a[1]; }),
+      }));
+    } catch (e) { /* sessionStorage unavailable -- quote form still works without prefill */ }
+  });
+})();
+</script>
+</body>
+</html>

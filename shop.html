@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>Shop Board | C. L. Rainford Welding &amp; Fabrication</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Public+Sans:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+  :root{
+    --ground:#17191C; --surface:#202327; --surface-2:#282C31; --surface-3:#2E3339;
+    --ink:#F2F1EC; --ink-soft:#A9ACB1; --ink-faint:#6E7278;
+    --line:rgba(242,241,236,0.10); --line-strong:rgba(242,241,236,0.20);
+    --accent:#E8571F; --accent-deep:#B8431A; --accent-soft:rgba(232,87,31,0.14);
+    --spark:#8FE3EF; --spark-soft:rgba(143,227,239,0.12);
+    --good:#6FBF8B; --good-soft:rgba(111,191,139,0.14);
+    --warn:#E0B84A; --warn-soft:rgba(224,184,74,0.14);
+    --danger:#E0685A; --danger-soft:rgba(224,104,90,0.14);
+  }
+  *{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%; text-size-adjust:100%;}
+  body{margin:0; background:var(--ground); color:var(--ink); font-family:"Public Sans",-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; line-height:1.5;}
+  a{color:inherit;} img{max-width:100%; display:block;}
+  h1,h2,h3{font-family:"Oswald",Impact,"Arial Narrow",sans-serif; font-weight:700; text-transform:uppercase; letter-spacing:0.01em; margin:0;}
+  button{font-family:inherit;}
+
+  header.shop-header{
+    display:flex; align-items:center; justify-content:space-between; gap:16px;
+    padding:14px 24px; background:var(--surface); border-bottom:1px solid var(--line); flex-wrap:wrap;
+  }
+  .wordmark{font-family:"Oswald",sans-serif; font-weight:700; font-size:1.05rem;}
+  .wordmark span{color:var(--accent);}
+  .shop-tabs{display:flex; gap:6px;}
+  .shop-tab{
+    font-family:"Oswald",sans-serif; font-weight:600; font-size:0.78rem; letter-spacing:0.03em; text-transform:uppercase;
+    padding:9px 16px; border-radius:5px; border:1px solid transparent; background:transparent; color:var(--ink-soft); cursor:pointer;
+  }
+  .shop-tab.active{background:var(--accent-soft); color:var(--accent); border-color:rgba(232,87,31,0.3);}
+  .staff-badge{display:flex; align-items:center; gap:10px; font-size:0.84rem; color:var(--ink-soft);}
+  .staff-badge .name{color:var(--ink); font-weight:700;}
+  .staff-badge .role{font-family:"Oswald",sans-serif; font-size:0.65rem; font-weight:700; letter-spacing:0.05em; text-transform:uppercase; background:var(--spark-soft); color:var(--spark); padding:2px 8px; border-radius:8px;}
+  .logout-link{font-size:0.82rem; color:var(--ink-soft); cursor:pointer; font-weight:600;}
+  .logout-link:hover{color:var(--accent);}
+
+  .btn{display:inline-flex; align-items:center; gap:8px; font-family:"Oswald",sans-serif; font-weight:600; font-size:0.78rem; letter-spacing:0.03em; text-transform:uppercase; padding:10px 18px; border-radius:5px; border:1.5px solid transparent; cursor:pointer;}
+  .btn.primary{background:var(--accent); color:#17191C;} .btn.primary:hover{background:#ff6b2e;}
+  .btn.primary:disabled{opacity:0.5; cursor:not-allowed;}
+  .btn.ghost{background:transparent; border-color:var(--line-strong); color:var(--ink);} .btn.ghost:hover{border-color:var(--ink);}
+  .btn.small{padding:7px 13px; font-size:0.7rem;}
+  .btn.danger{background:var(--danger-soft); color:var(--danger); border-color:transparent;}
+
+  /* ---- Login gate ---- */
+  #loginGate{max-width:420px; margin:90px auto; padding:0 24px; text-align:center;}
+  #loginGate h1{font-size:1.4rem; margin-bottom:10px;}
+  #loginGate p{color:var(--ink-soft); font-size:0.9rem; margin-bottom:24px;}
+  .login-card{background:var(--surface); border:1px solid var(--line); border-top:3px solid var(--accent); border-radius:10px; padding:30px; text-align:left;}
+  .login-card label{display:block; font-family:"Oswald",sans-serif; font-size:0.7rem; font-weight:600; letter-spacing:0.05em; text-transform:uppercase; color:var(--ink-soft); margin-bottom:8px;}
+  .login-card input{width:100%; padding:12px 14px; border:1.5px solid var(--line-strong); border-radius:5px; font-size:0.94rem; background:var(--surface-2); color:var(--ink); font-family:inherit;}
+  .login-card input:focus{outline:none; border-color:var(--accent);}
+  .login-card .btn{width:100%; justify-content:center; margin-top:18px;}
+  .form-msg{font-size:0.86rem; margin-top:14px;}
+  .form-msg.error{color:var(--danger);}
+  .form-msg.success{color:var(--good);}
+
+  #loadingGate{text-align:center; padding:100px 0; color:var(--ink-soft);}
+
+  /* ---- Board ---- */
+  #boardPane{padding:20px 24px;}
+  .board-scroll{overflow-x:auto; padding-bottom:14px;}
+  .board{display:flex; gap:12px; min-width:max-content;}
+  .column{width:250px; flex-shrink:0; background:var(--surface); border-radius:8px; border:1px solid var(--line); display:flex; flex-direction:column;}
+  .column.lane-skilled{border-top:3px solid var(--accent);}
+  .column.lane-support{border-top:3px solid var(--line-strong);}
+  .column-head{padding:12px 14px; border-bottom:1px solid var(--line); display:flex; justify-content:space-between; align-items:center;}
+  .column-head .title{font-family:"Oswald",sans-serif; font-weight:600; font-size:0.76rem; text-transform:uppercase; letter-spacing:0.02em; color:var(--ink-soft);}
+  .column-head .count{font-family:"Oswald",sans-serif; font-size:0.72rem; font-weight:700; color:var(--ink-faint); background:var(--surface-2); padding:2px 8px; border-radius:8px;}
+  .column-body{padding:10px; display:flex; flex-direction:column; gap:8px; min-height:80px; flex:1;}
+  .column-body.drag-over{background:var(--accent-soft); outline:1.5px dashed var(--accent); outline-offset:-4px;}
+  .gate-marker{width:2px; background:repeating-linear-gradient(180deg, var(--accent), var(--accent) 6px, transparent 6px, transparent 12px); flex-shrink:0; align-self:stretch;}
+
+  .job-card{
+    background:var(--surface-2); border:1px solid var(--line-strong); border-radius:6px; padding:12px; cursor:grab;
+    font-size:0.82rem;
+  }
+  .job-card:active{cursor:grabbing;}
+  .job-card.dragging{opacity:0.4;}
+  .job-card .cat{font-family:"Oswald",sans-serif; font-weight:700; font-size:0.78rem; margin-bottom:4px;}
+  .job-card .client{color:var(--ink-soft); font-size:0.76rem; margin-bottom:8px;}
+  .job-card .meta-row{display:flex; align-items:center; gap:6px; flex-wrap:wrap;}
+  .pill{font-size:0.62rem; font-weight:700; text-transform:uppercase; letter-spacing:0.03em; padding:2px 7px; border-radius:8px;}
+  .pill.rush{background:var(--danger-soft); color:var(--danger);}
+  .pill.assigned{background:var(--surface-3); color:var(--ink-soft);}
+  .pill.gate-ready{background:var(--good-soft); color:var(--good);}
+  .pill.gate-blocked{background:var(--warn-soft); color:var(--warn);}
+
+  /* ---- Detail panel ---- */
+  #detailOverlay{position:fixed; inset:0; background:rgba(0,0,0,0.5); display:none; z-index:100;}
+  #detailPanel{position:fixed; top:0; right:0; bottom:0; width:420px; max-width:92vw; background:var(--surface); border-left:1px solid var(--line); z-index:101; display:none; overflow-y:auto; padding:26px;}
+  #detailPanel .close-btn{position:absolute; top:20px; right:20px; background:none; border:none; color:var(--ink-soft); font-size:1.1rem; cursor:pointer;}
+  #detailPanel h2{font-size:1.05rem; margin-bottom:4px;}
+  #detailPanel .sub{color:var(--ink-faint); font-size:0.8rem; margin-bottom:22px;}
+  .detail-section{margin-bottom:26px; padding-bottom:22px; border-bottom:1px solid var(--line);}
+  .detail-section:last-child{border-bottom:none;}
+  .detail-section h3{font-size:0.78rem; letter-spacing:0.04em; color:var(--ink-soft); margin-bottom:12px;}
+  .field-row{display:flex; justify-content:space-between; align-items:center; gap:10px; margin-bottom:10px;}
+  .field-row label{font-size:0.8rem; color:var(--ink-soft); flex-shrink:0;}
+  select, .detail-section input[type="text"], .detail-section input[type="date"]{
+    background:var(--surface-2); border:1.5px solid var(--line-strong); border-radius:5px; color:var(--ink); padding:7px 10px; font-size:0.82rem; font-family:inherit;
+  }
+  .checklist-item, .equip-req-item{display:flex; align-items:center; gap:8px; padding:7px 0; border-bottom:1px solid var(--line); font-size:0.82rem;}
+  .checklist-item .item-name, .equip-req-item .eq-name{flex:1;}
+  .checklist-item select{font-size:0.72rem; padding:4px 6px;}
+  .remove-x{color:var(--ink-faint); cursor:pointer; padding:2px 6px;}
+  .remove-x:hover{color:var(--danger);}
+  .add-row{display:flex; gap:8px; margin-top:10px;}
+  .add-row input, .add-row select{flex:1;}
+  .confirm-status{display:flex; align-items:center; gap:8px; font-size:0.82rem; padding:10px 0;}
+  .confirm-status i{width:16px;}
+  .confirm-status.ready{color:var(--good);}
+  .confirm-status.pending{color:var(--warn);}
+  .detail-msg{font-size:0.8rem; margin-top:10px;}
+  .detail-msg.error{color:var(--danger);}
+  .detail-msg.success{color:var(--good);}
+
+  /* ---- Equipment pane ---- */
+  #equipmentPane{padding:24px; display:none;}
+  .equip-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:14px;}
+  .equip-card{background:var(--surface); border:1px solid var(--line); border-radius:8px; padding:18px 20px;}
+  .equip-card .top-row{display:flex; justify-content:space-between; align-items:baseline; margin-bottom:10px;}
+  .equip-card h3{font-size:0.94rem;}
+  .status-dot{display:inline-block; width:9px; height:9px; border-radius:50%; margin-right:6px;}
+  .status-dot.operational{background:var(--good);}
+  .status-dot.scheduled_maintenance{background:var(--warn);}
+  .status-dot.down{background:var(--danger);}
+  .equip-card select{width:100%; margin-top:8px;}
+
+  .toast{position:fixed; bottom:24px; left:50%; transform:translateX(-50%); background:var(--surface-3); border:1px solid var(--line-strong); border-left:3px solid var(--danger); color:var(--ink); padding:14px 20px; border-radius:6px; font-size:0.86rem; z-index:200; max-width:440px; display:none;}
+</style>
+</head>
+<body>
+
+<div id="loadingGate"><i class="fas fa-spinner fa-spin"></i> Loading&hellip;</div>
+
+<div id="loginGate" style="display:none;">
+  <h1><i class="fas fa-lock" style="color:var(--accent); margin-right:8px;"></i>Shop Staff Login</h1>
+  <p>This board is for C. L. Rainford Welding &amp; Fabrication staff only.</p>
+  <div class="login-card">
+    <label for="staffEmail">Staff Email</label>
+    <input type="email" id="staffEmail" placeholder="you@example.com">
+    <button class="btn primary" id="staffLoginBtn">Send Login Link</button>
+    <div class="form-msg" id="staffLoginMsg"></div>
+  </div>
+</div>
+
+<div id="shopApp" style="display:none;">
+  <header class="shop-header">
+    <div class="wordmark">C.L. RAINFORD <span>SHOP</span></div>
+    <div class="shop-tabs">
+      <button class="shop-tab active" data-tab="board">Board</button>
+      <button class="shop-tab" data-tab="equipment">Equipment</button>
+    </div>
+    <div style="display:flex; align-items:center; gap:18px;">
+      <a href="/contracts.html" style="font-size:0.82rem; font-weight:600; color:var(--ink-soft); text-decoration:none;"><i class="fas fa-file-contract"></i> Contracts</a>
+      <div class="staff-badge">
+        <span class="name" id="staffName"></span>
+        <span class="role" id="staffRole"></span>
+      </div>
+      <span class="logout-link" id="shopLogoutBtn"><i class="fas fa-arrow-right-from-bracket"></i> Log Out</span>
+    </div>
+  </header>
+
+  <div id="boardPane">
+    <div class="board-scroll">
+      <div class="board" id="board"></div>
+    </div>
+  </div>
+
+  <div id="equipmentPane">
+    <div class="equip-grid" id="equipmentGrid"></div>
+  </div>
+</div>
+
+<div id="detailOverlay"></div>
+<div id="detailPanel"></div>
+<div class="toast" id="toast"></div>
+
+<script src="/assets/js/supabase-client.js"></script>
+<script>
+(function () {
+  var STAGES = [
+    { id: 'intake', label: 'Intake', lane: 'support' },
+    { id: 'quoted', label: 'Quoted / Awaiting Approval', lane: 'support' },
+    { id: 'design_signoff', label: 'Design & Spec Sign-off', lane: 'support' },
+    { id: 'materials_sourcing', label: 'Materials Sourcing', lane: 'support' },
+    { id: 'materials_staged', label: 'Materials Staged', lane: 'support' },
+    { id: 'equipment_readiness_check', label: 'Equipment Readiness Check', lane: 'support', gateAfter: true },
+    { id: 'cutting', label: 'Cutting', lane: 'skilled' },
+    { id: 'welding_assembly', label: 'Welding / Assembly', lane: 'skilled' },
+    { id: 'finishing', label: 'Finishing', lane: 'skilled' },
+    { id: 'quality_check', label: 'Quality Check', lane: 'support' },
+    { id: 'ready_for_pickup', label: 'Ready for Pickup/Delivery', lane: 'support' },
+    { id: 'delivered_invoiced', label: 'Delivered / Invoiced', lane: 'support' },
+    { id: 'archived', label: 'Archived', lane: 'support' },
+  ];
+  var CATEGORY_LABELS = { residential: 'Residential', commercial: 'Commercial', 'custom-jerk-pit': 'Custom — Jerk Pit', 'custom-other': 'Custom' };
+  var EQUIPMENT_STATUS_LABELS = { operational: 'Operational', scheduled_maintenance: 'Scheduled Maintenance', down: 'Down' };
+
+  var client = null;
+  var currentStaff = null;
+  var allStaff = [];
+  var allEquipment = [];
+  var jobsById = {};
+
+  function escapeHtml(s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+      return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c];
+    });
+  }
+
+  function showToast(msg) {
+    var t = document.getElementById('toast');
+    t.textContent = msg;
+    t.style.display = 'block';
+    clearTimeout(showToast._timer);
+    showToast._timer = setTimeout(function () { t.style.display = 'none'; }, 5000);
+  }
+
+  function showLoginGate() {
+    document.getElementById('loadingGate').style.display = 'none';
+    document.getElementById('loginGate').style.display = '';
+    document.getElementById('shopApp').style.display = 'none';
+  }
+
+  // ---------- Login ----------
+  document.getElementById('staffLoginBtn').addEventListener('click', async function () {
+    var msgEl = document.getElementById('staffLoginMsg');
+    msgEl.textContent = ''; msgEl.className = 'form-msg';
+    var email = document.getElementById('staffEmail').value.trim();
+    if (!email) { msgEl.textContent = 'Enter your staff email.'; msgEl.className = 'form-msg error'; return; }
+
+    var btn = this;
+    btn.disabled = true; btn.textContent = 'Sending...';
+    var result = await client.auth.signInWithOtp({ email: email, options: { emailRedirectTo: 'https://selassiefest.com/shop.html' } });
+    btn.disabled = false; btn.textContent = 'Send Login Link';
+
+    if (result.error) {
+      msgEl.textContent = 'Something went wrong: ' + result.error.message;
+      msgEl.className = 'form-msg error';
+    } else {
+      msgEl.textContent = 'Check your inbox for a login link.';
+      msgEl.className = 'form-msg success';
+    }
+  });
+
+  document.getElementById('shopLogoutBtn').addEventListener('click', async function () {
+    await client.auth.signOut();
+    location.reload();
+  });
+
+  document.querySelectorAll('.shop-tab').forEach(function (tab) {
+    tab.addEventListener('click', function () {
+      document.querySelectorAll('.shop-tab').forEach(function (t) { t.classList.remove('active'); });
+      tab.classList.add('active');
+      var name = tab.getAttribute('data-tab');
+      document.getElementById('boardPane').style.display = name === 'board' ? '' : 'none';
+      document.getElementById('equipmentPane').style.display = name === 'equipment' ? '' : 'none';
+    });
+  });
+
+  // ---------- Board rendering ----------
+  function renderBoard(jobs) {
+    jobsById = {};
+    jobs.forEach(function (j) { jobsById[j.id] = j; });
+
+    var html = '';
+    STAGES.forEach(function (stage, i) {
+      var stageJobs = jobs.filter(function (j) { return j.stage === stage.id; });
+      html += '<div class="column lane-' + stage.lane + '" data-stage="' + stage.id + '">' +
+        '<div class="column-head"><span class="title">' + escapeHtml(stage.label) + '</span><span class="count">' + stageJobs.length + '</span></div>' +
+        '<div class="column-body" data-stage="' + stage.id + '">' +
+          stageJobs.map(renderJobCard).join('') +
+        '</div></div>';
+      if (stage.gateAfter) html += '<div class="gate-marker" title="Ready to Fabricate gate"></div>';
+    });
+    document.getElementById('board').innerHTML = html;
+    wireDragAndDrop();
+  }
+
+  function renderJobCard(job) {
+    var assignedStaff = allStaff.find(function (s) { return s.id === job.assigned_to; });
+    var badges = '';
+    if (job.priority === 'rush') badges += '<span class="pill rush">Rush</span>';
+    if (assignedStaff) badges += '<span class="pill assigned">' + escapeHtml(assignedStaff.name) + '</span>';
+    if (job.materials_confirmed_at && job.equipment_confirmed_at) badges += '<span class="pill gate-ready"><i class="fas fa-check"></i> Ready</span>';
+    else if (['equipment_readiness_check', 'materials_sourcing', 'materials_staged'].indexOf(job.stage) !== -1) badges += '<span class="pill gate-blocked">Not confirmed</span>';
+    return (
+      '<div class="job-card" draggable="true" data-job-id="' + job.id + '">' +
+        '<div class="cat">' + escapeHtml(CATEGORY_LABELS[job.category] || job.category) + '</div>' +
+        '<div class="client">' + escapeHtml(job.client_name || '') + '</div>' +
+        '<div class="meta-row">' + badges + '</div>' +
+      '</div>'
+    );
+  }
+
+  function wireDragAndDrop() {
+    document.querySelectorAll('.job-card').forEach(function (card) {
+      card.addEventListener('dragstart', function () {
+        card.classList.add('dragging');
+      });
+      card.addEventListener('dragend', function () {
+        card.classList.remove('dragging');
+      });
+      card.addEventListener('click', function () {
+        openDetail(card.getAttribute('data-job-id'));
+      });
+    });
+    document.querySelectorAll('.column-body').forEach(function (col) {
+      col.addEventListener('dragover', function (e) {
+        e.preventDefault();
+        col.classList.add('drag-over');
+      });
+      col.addEventListener('dragleave', function () { col.classList.remove('drag-over'); });
+      col.addEventListener('drop', async function (e) {
+        e.preventDefault();
+        col.classList.remove('drag-over');
+        var dragging = document.querySelector('.job-card.dragging');
+        if (!dragging) return;
+        var jobId = dragging.getAttribute('data-job-id');
+        var newStage = col.getAttribute('data-stage');
+        var job = jobsById[jobId];
+        if (!job || job.stage === newStage) return;
+
+        var result = await client.from('clrwf_jobs').update({ stage: newStage }).eq('id', jobId);
+        if (result.error) {
+          showToast(result.error.message.replace(/^.*?: /, ''));
+          // Board re-renders from the next realtime event / manual refresh, reverting the optimistic move.
+          refreshJobs();
+        } else {
+          refreshJobs();
+        }
+      });
+    });
+  }
+
+  async function refreshJobs() {
+    var result = await client.from('clrwf_jobs').select('*, clrwf_clients(name)').order('created_at', { ascending: true });
+    if (result.error) { showToast('Could not load jobs: ' + result.error.message); return; }
+    var jobs = (result.data || []).map(function (j) {
+      j.client_name = j.clrwf_clients ? j.clrwf_clients.name : '';
+      return j;
+    });
+    renderBoard(jobs);
+  }
+
+  // ---------- Detail panel ----------
+  async function openDetail(jobId) {
+    // Fetched fresh every time rather than read from the jobsById cache --
+    // callers that mutate confirmation/checklist state immediately re-open
+    // this same panel without waiting on refreshJobs() to land, so a cache
+    // read here would show stale confirmed_at values (including right after
+    // the unconfirm triggers fire from a checklist/equipment change).
+    var jobRes = await client.from('clrwf_jobs').select('*, clrwf_clients(name)').eq('id', jobId).single();
+    if (jobRes.error || !jobRes.data) { showToast('Could not load job details.'); return; }
+    var job = jobRes.data;
+    job.client_name = job.clrwf_clients ? job.clrwf_clients.name : '';
+    jobsById[jobId] = job;
+
+    var [checklistRes, requirementsRes, equipmentRes] = await Promise.all([
+      client.from('clrwf_materials_checklist').select('*').eq('job_id', jobId).order('created_at'),
+      client.from('clrwf_job_equipment_requirements').select('equipment_id').eq('job_id', jobId),
+      Promise.resolve({ data: allEquipment }),
+    ]);
+    var checklist = checklistRes.data || [];
+    var requiredEquipIds = (requirementsRes.data || []).map(function (r) { return r.equipment_id; });
+    var requiredEquip = allEquipment.filter(function (e) { return requiredEquipIds.indexOf(e.id) !== -1; });
+
+    var staffOptions = allStaff.map(function (s) {
+      return '<option value="' + s.id + '"' + (job.assigned_to === s.id ? ' selected' : '') + '>' + escapeHtml(s.name) + ' (' + s.role + ')</option>';
+    }).join('');
+
+    var equipOptionsNotYetRequired = allEquipment.filter(function (e) { return requiredEquipIds.indexOf(e.id) === -1; });
+
+    document.getElementById('detailPanel').innerHTML =
+      '<button class="close-btn" id="closeDetailBtn"><i class="fas fa-xmark"></i></button>' +
+      '<h2>' + escapeHtml(CATEGORY_LABELS[job.category] || job.category) + '</h2>' +
+      '<div class="sub">' + escapeHtml(job.client_name || 'Unknown client') + ' &middot; ' + escapeHtml(job.stage) + '</div>' +
+
+      '<div class="detail-section">' +
+        '<h3>ASSIGNMENT &amp; PRIORITY</h3>' +
+        '<div class="field-row"><label>Assigned to</label><select id="assignSelect"><option value="">Unassigned</option>' + staffOptions + '</select></div>' +
+        '<div class="field-row"><label>Priority</label><select id="prioritySelect"><option value="standard"' + (job.priority === 'standard' ? ' selected' : '') + '>Standard</option><option value="rush"' + (job.priority === 'rush' ? ' selected' : '') + '>Rush</option></select></div>' +
+        '<div class="field-row"><label>Due date</label><input type="date" id="dueDateInput" value="' + (job.due_date || '') + '"></div>' +
+        '<div class="field-row"><label>Public gallery</label><input type="checkbox" id="publicGalleryCheck"' + (job.public_gallery ? ' checked' : '') + '></div>' +
+      '</div>' +
+
+      '<div class="detail-section">' +
+        '<h3>MATERIALS CHECKLIST</h3>' +
+        '<div id="checklistItems">' + checklist.map(renderChecklistItem).join('') + '</div>' +
+        '<div class="add-row"><input type="text" id="newChecklistItem" placeholder="Add material..."><button class="btn ghost small" id="addChecklistBtn">Add</button></div>' +
+        '<div class="confirm-status ' + (job.materials_confirmed_at ? 'ready' : 'pending') + '"><i class="fas ' + (job.materials_confirmed_at ? 'fa-circle-check' : 'fa-circle-exclamation') + '"></i>' +
+          (job.materials_confirmed_at ? 'Materials confirmed ready' : 'Materials not yet confirmed') + '</div>' +
+        '<button class="btn primary small" id="confirmMaterialsBtn">Confirm Materials Ready</button>' +
+      '</div>' +
+
+      '<div class="detail-section">' +
+        '<h3>EQUIPMENT REQUIRED</h3>' +
+        '<div id="equipReqItems">' + requiredEquip.map(renderEquipReqItem).join('') + '</div>' +
+        '<div class="add-row"><select id="newEquipReq"><option value="">Add equipment...</option>' +
+          equipOptionsNotYetRequired.map(function (e) { return '<option value="' + e.id + '">' + escapeHtml(e.name) + '</option>'; }).join('') +
+        '</select><button class="btn ghost small" id="addEquipReqBtn">Add</button></div>' +
+        '<div class="confirm-status ' + (job.equipment_confirmed_at ? 'ready' : 'pending') + '"><i class="fas ' + (job.equipment_confirmed_at ? 'fa-circle-check' : 'fa-circle-exclamation') + '"></i>' +
+          (job.equipment_confirmed_at ? 'Equipment confirmed ready' : 'Equipment not yet confirmed') + '</div>' +
+        '<button class="btn primary small" id="confirmEquipmentBtn">Confirm Equipment Ready</button>' +
+      '</div>' +
+
+      '<div class="detail-msg" id="detailMsg"></div>';
+
+    document.getElementById('detailOverlay').style.display = 'block';
+    document.getElementById('detailPanel').style.display = 'block';
+    document.getElementById('closeDetailBtn').addEventListener('click', closeDetail);
+    document.getElementById('detailOverlay').addEventListener('click', closeDetail);
+
+    function detailMsg(text, cls) {
+      var el = document.getElementById('detailMsg');
+      el.textContent = text; el.className = 'detail-msg ' + (cls || '');
+    }
+
+    document.getElementById('assignSelect').addEventListener('change', async function () {
+      var r = await client.from('clrwf_jobs').update({ assigned_to: this.value || null }).eq('id', jobId);
+      if (r.error) { detailMsg(r.error.message.replace(/^.*?: /, ''), 'error'); this.value = job.assigned_to || ''; }
+      else { refreshJobs(); }
+    });
+    document.getElementById('prioritySelect').addEventListener('change', async function () {
+      var r = await client.from('clrwf_jobs').update({ priority: this.value }).eq('id', jobId);
+      if (r.error) detailMsg(r.error.message, 'error'); else refreshJobs();
+    });
+    document.getElementById('dueDateInput').addEventListener('change', async function () {
+      var r = await client.from('clrwf_jobs').update({ due_date: this.value || null }).eq('id', jobId);
+      if (r.error) detailMsg(r.error.message, 'error'); else refreshJobs();
+    });
+    document.getElementById('publicGalleryCheck').addEventListener('change', async function () {
+      var r = await client.from('clrwf_jobs').update({ public_gallery: this.checked }).eq('id', jobId);
+      if (r.error) detailMsg(r.error.message, 'error'); else refreshJobs();
+    });
+
+    document.getElementById('addChecklistBtn').addEventListener('click', async function () {
+      var input = document.getElementById('newChecklistItem');
+      if (!input.value.trim()) return;
+      var r = await client.from('clrwf_materials_checklist').insert({ job_id: jobId, item: input.value.trim(), status: 'needed' });
+      if (r.error) detailMsg(r.error.message, 'error'); else openDetail(jobId);
+    });
+    document.getElementById('checklistItems').addEventListener('change', async function (e) {
+      if (e.target.tagName !== 'SELECT') return;
+      var id = e.target.getAttribute('data-id');
+      var r = await client.from('clrwf_materials_checklist').update({ status: e.target.value }).eq('id', id);
+      if (r.error) detailMsg(r.error.message, 'error'); else refreshJobs();
+    });
+    document.getElementById('checklistItems').addEventListener('click', async function (e) {
+      var x = e.target.closest('.remove-x');
+      if (!x) return;
+      var r = await client.from('clrwf_materials_checklist').delete().eq('id', x.getAttribute('data-id'));
+      if (r.error) detailMsg(r.error.message, 'error'); else openDetail(jobId);
+    });
+
+    document.getElementById('addEquipReqBtn').addEventListener('click', async function () {
+      var sel = document.getElementById('newEquipReq');
+      if (!sel.value) return;
+      var r = await client.from('clrwf_job_equipment_requirements').insert({ job_id: jobId, equipment_id: sel.value });
+      if (r.error) detailMsg(r.error.message, 'error'); else openDetail(jobId);
+    });
+    document.getElementById('equipReqItems').addEventListener('click', async function (e) {
+      var x = e.target.closest('.remove-x');
+      if (!x) return;
+      var r = await client.from('clrwf_job_equipment_requirements').delete().eq('job_id', jobId).eq('equipment_id', x.getAttribute('data-id'));
+      if (r.error) detailMsg(r.error.message, 'error'); else openDetail(jobId);
+    });
+
+    document.getElementById('confirmMaterialsBtn').addEventListener('click', async function () {
+      var r = await client.rpc('clrwf_confirm_materials_ready', { p_job_id: jobId });
+      if (r.error) { detailMsg(r.error.message.replace(/^.*?: /, ''), 'error'); return; }
+      showToast('Materials confirmed ready.');
+      await refreshJobs();
+      openDetail(jobId);
+    });
+    document.getElementById('confirmEquipmentBtn').addEventListener('click', async function () {
+      var r = await client.rpc('clrwf_confirm_equipment_ready', { p_job_id: jobId });
+      if (r.error) { detailMsg(r.error.message.replace(/^.*?: /, ''), 'error'); return; }
+      showToast('Equipment confirmed ready.');
+      await refreshJobs();
+      openDetail(jobId);
+    });
+  }
+
+  function renderChecklistItem(item) {
+    return (
+      '<div class="checklist-item"><span class="item-name">' + escapeHtml(item.item) + '</span>' +
+      '<select data-id="' + item.id + '">' +
+        ['needed', 'ordered', 'in_stock', 'staged'].map(function (s) {
+          return '<option value="' + s + '"' + (item.status === s ? ' selected' : '') + '>' + s.replace('_', ' ') + '</option>';
+        }).join('') +
+      '</select><span class="remove-x" data-id="' + item.id + '"><i class="fas fa-xmark"></i></span></div>'
+    );
+  }
+
+  function renderEquipReqItem(equip) {
+    return '<div class="equip-req-item"><span class="eq-name">' + escapeHtml(equip.name) + '</span>' +
+      '<span class="pill ' + (equip.status === 'operational' ? 'gate-ready' : 'gate-blocked') + '">' + escapeHtml(EQUIPMENT_STATUS_LABELS[equip.status]) + '</span>' +
+      '<span class="remove-x" data-id="' + equip.id + '"><i class="fas fa-xmark"></i></span></div>';
+  }
+
+  function closeDetail() {
+    document.getElementById('detailOverlay').style.display = 'none';
+    document.getElementById('detailPanel').style.display = 'none';
+  }
+
+  // ---------- Equipment pane ----------
+  function renderEquipmentPane() {
+    document.getElementById('equipmentGrid').innerHTML = allEquipment.map(function (e) {
+      return (
+        '<div class="equip-card">' +
+          '<div class="top-row"><h3>' + escapeHtml(e.name) + '</h3></div>' +
+          '<div><span class="status-dot ' + e.status + '"></span>' + escapeHtml(EQUIPMENT_STATUS_LABELS[e.status]) + '</div>' +
+          '<select data-equip-id="' + e.id + '">' +
+            Object.keys(EQUIPMENT_STATUS_LABELS).map(function (s) {
+              return '<option value="' + s + '"' + (e.status === s ? ' selected' : '') + '>' + EQUIPMENT_STATUS_LABELS[s] + '</option>';
+            }).join('') +
+          '</select>' +
+        '</div>'
+      );
+    }).join('') || '<p style="color:var(--ink-soft);">No equipment on file yet.</p>';
+
+    document.getElementById('equipmentGrid').addEventListener('change', async function (e) {
+      if (!e.target.matches('select[data-equip-id]')) return;
+      var equipId = e.target.getAttribute('data-equip-id');
+      var newStatus = e.target.value;
+      var updates = { status: newStatus };
+      if (newStatus === 'operational') updates.last_maintenance = new Date().toISOString().slice(0, 10);
+      var r = await client.from('clrwf_equipment').update(updates).eq('id', equipId);
+      if (r.error) { showToast(r.error.message); return; }
+      if (newStatus === 'operational') {
+        await client.from('clrwf_equipment_maintenance_log').insert({ equipment_id: equipId, performed_by: currentStaff.id, notes: 'Marked operational via Shop board' });
+      }
+      await loadEquipment();
+      refreshJobs();
+    });
+  }
+
+  async function loadEquipment() {
+    var r = await client.from('clrwf_equipment').select('*').order('name');
+    allEquipment = r.data || [];
+    renderEquipmentPane();
+  }
+
+  // ---------- Init ----------
+  async function loadShop() {
+    document.getElementById('loadingGate').style.display = 'none';
+    document.getElementById('loginGate').style.display = 'none';
+    document.getElementById('shopApp').style.display = '';
+
+    await client.rpc('clrwf_link_my_auth_user');
+
+    var staffRes = await client.from('clrwf_staff').select('*').eq('auth_user_id', (await client.auth.getUser()).data.user.id).maybeSingle();
+    if (staffRes.error || !staffRes.data) {
+      document.getElementById('shopApp').style.display = 'none';
+      showLoginGate();
+      document.getElementById('staffLoginMsg').textContent = 'This account is not set up as shop staff.';
+      document.getElementById('staffLoginMsg').className = 'form-msg error';
+      return;
+    }
+    currentStaff = staffRes.data;
+    document.getElementById('staffName').textContent = currentStaff.name;
+    document.getElementById('staffRole').textContent = currentStaff.role;
+
+    var allStaffRes = await client.from('clrwf_staff').select('*').eq('active', true).order('name');
+    allStaff = allStaffRes.data || [];
+
+    await loadEquipment();
+    await refreshJobs();
+
+    client.channel('clrwf-shop-jobs')
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'clrwf_jobs' }, function () { refreshJobs(); })
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'clrwf_equipment' }, function () { loadEquipment(); })
+      .subscribe();
+  }
+
+  (async function init() {
+    client = await window.sfSupabaseReady;
+    var session = await client.auth.getSession();
+    if (session.data.session) {
+      loadShop();
+    } else {
+      showLoginGate();
+    }
+  })();
+})();
+</script>
+</body>
+</html>
