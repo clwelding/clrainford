@@ -2,3 +2,6 @@
 *.env*
 
 supabase/.temp/
+
+# Internal planning documents (never publish)
+CL_Rainford_Chicago_Welding_Program.docx

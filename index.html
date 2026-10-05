@@ -139,6 +139,13 @@
   .footer-legal{font-size:0.8rem; color:var(--ink-faint); margin-top:10px;}
   .footer-bottom{max-width:1180px; margin:36px auto 0; border-top:1px solid var(--line); padding-top:18px; color:var(--ink-faint); font-size:0.78rem; display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px;}
   @media (max-width:760px){ .footer-grid{grid-template-columns:1fr;} }
+  .training-band{display:grid; grid-template-columns:1.6fr 1fr; gap:34px; align-items:center; padding:40px 38px; border:1px solid var(--line); border-radius:14px; background:radial-gradient(90% 140% at 100% 0%, rgba(232,87,31,0.22), transparent 60%), var(--surface);}
+  .training-band h2{font-size:clamp(1.6rem,3.4vw,2.3rem); margin:10px 0 12px;}
+  .training-band p{color:var(--ink-soft); margin:0; max-width:60ch;}
+  .training-facts{list-style:none; margin:0; padding:0; display:grid; grid-template-columns:1fr 1fr; gap:12px;}
+  .training-facts li{background:rgba(23,25,28,0.7); border:1px solid var(--line-strong); border-radius:10px; padding:16px; font-size:0.78rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--ink-soft);}
+  .training-facts b{display:block; font-family:"Oswald",sans-serif; font-size:1.5rem; letter-spacing:0; color:var(--ink); text-transform:none;}
+  @media (max-width:860px){ .training-band{grid-template-columns:1fr; padding:28px 22px;} }
 </style>
 </head>
 <body>
@@ -162,6 +169,7 @@
       <li><a href="/credentials.html">Credentials</a></li>
       <li><a href="/contact.html">Contact</a></li>
       <li><a href="/careers.html">Careers</a></li>
+      <li><a href="/welding-training.html">Welding Training</a></li>
     </ul>
   </nav>
   <div class="header-cta">
@@ -230,6 +238,26 @@
     </div>
   </section>
 
+  <section id="training" style="padding-top:0;">
+    <div class="training-band">
+      <div>
+        <span class="eyebrow" style="color:var(--spark);"><i class="fas fa-graduation-cap" style="margin-right:6px;"></i>New &middot; Proposed Program</span>
+        <h2>Evening welding training in Chicago</h2>
+        <p>C. L. Rainford is developing a 12-week evening welding program for Chicago adults ready to build practical skills, including people returning from incarceration. Hands-on MIG welding, fabrication fundamentals, safety training and employment preparation, with outside AWS welding qualification testing for those who are ready. Planned for Monday&ndash;Friday, 4:00&ndash;7:00 PM.</p>
+        <div style="display:flex; gap:12px; flex-wrap:wrap; margin-top:22px;">
+          <a class="btn primary" href="/welding-training.html#interest"><i class="fas fa-hand-point-right"></i> Join the Interest List</a>
+          <a class="btn ghost" href="/welding-training.html"><i class="fas fa-book-open"></i> See the Program</a>
+        </div>
+      </div>
+      <ul class="training-facts">
+        <li><b>12</b> weeks</li>
+        <li><b>180</b> scheduled hours</li>
+        <li><b>No</b> experience needed</li>
+        <li><b>OSHA 10</b> &amp; First Aid planned</li>
+      </ul>
+    </div>
+  </section>
+
   <section style="padding-top:0;">
     <div class="cta-band">
       <h2>Have a Job That Needs Doing Right?</h2>
@@ -254,6 +282,7 @@
       <a href="/custom/">Custom Fabrication</a>
       <a href="/gallery.html">Gallery</a>
       <a href="/about.html">About</a>
+      <a href="/welding-training.html">Welding Training</a>
     </div>
     <div>
       <h4>Get In Touch</h4>
