@@ -129,6 +129,13 @@
   .part.got{border-color:var(--good);}
   .part.got .pimg{opacity:0.55;}
 
+  .hero img, .card .thumb img, .part .pimg img{cursor:zoom-in;}
+  .lightbox{position:fixed; inset:0; background:rgba(10,11,13,0.92); z-index:100; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:24px; gap:12px; cursor:zoom-out;}
+  .lightbox[hidden]{display:none;}
+  .lightbox img{max-width:96vw; max-height:84vh; background:#fff; border-radius:6px; object-fit:contain;}
+  .lightbox .cap{color:var(--ink-soft); font-size:0.85rem; text-align:center;}
+  .lightbox .x{position:absolute; top:16px; right:20px; background:none; border:0; color:var(--ink); font-size:2rem; cursor:pointer; line-height:1;}
+
   footer{border-top:1px solid var(--line); padding:30px 32px 26px;}
   .footer-bottom{max-width:1500px; margin:0 auto; color:var(--ink-faint); font-size:0.78rem; display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px;}
   @media (max-width:700px){ main{padding:0 16px 40px;} header.site-header{padding:16px;} .toolbar{position:static;} }
@@ -204,6 +211,8 @@
     <span>Source: Mobile Stage Design Specification 02, Oct 4 2026</span>
   </div>
 </footer>
+
+<div class="lightbox" id="lightbox" hidden role="dialog" aria-label="Enlarged image"><button class="x" aria-label="Close">&times;</button><img id="lbImg" alt=""><div class="cap" id="lbCap"></div></div>
 
 <script>
 /* ===== Content =====
@@ -637,6 +646,21 @@ document.getElementById('fileIn').onchange = function(e){
 document.getElementById('btnReset').onclick = function(){
   if(confirm('Reset the whole board and clear all gathered checkmarks?')){ state = fresh(); save(); render(); }
 };
+
+/* image lightbox */
+var lb = document.getElementById('lightbox');
+function closeLb(){ lb.hidden = true; document.getElementById('lbImg').src = ''; }
+document.addEventListener('click', function(e){
+  var im = e.target.closest && e.target.closest('.hero img, .card .thumb img, .part .pimg img');
+  if(im){
+    e.preventDefault();
+    document.getElementById('lbImg').src = im.currentSrc || im.src;
+    document.getElementById('lbCap').textContent = im.alt;
+    lb.hidden = false; return;
+  }
+  if(e.target.closest && e.target.closest('#lightbox')) closeLb();
+});
+document.addEventListener('keydown', function(e){ if(e.key === 'Escape' && !lb.hidden) closeLb(); });
 
 document.getElementById('clrwf-year').textContent = new Date().getFullYear();
 render();
