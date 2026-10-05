@@ -1,0 +1,20 @@
+name: Keep Supabase awake
+
+# The free Supabase tier pauses a project after about a week with no activity,
+# which would take the forms and logins offline. A small read twice a week
+# counts as activity. The publishable key below is the same public key the
+# website ships to every browser.
+on:
+  schedule:
+    - cron: '17 9 * * 1,4'
+  workflow_dispatch:
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Read one row through the public API
+        run: |
+          curl --fail --silent --show-error \
+            "https://jljthqzsbooozaynhrkl.supabase.co/rest/v1/clrwf_capabilities?select=id&limit=1" \
+            -H "apikey: sb_publishable_xdmKWlheAdwupha0gRyYTg_yvOoSO8b"
