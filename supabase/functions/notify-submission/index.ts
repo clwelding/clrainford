@@ -12,8 +12,8 @@ const WEBHOOK_SECRET = Deno.env.get('WEBHOOK_SECRET')!;
 const SUPABASE_URL = Deno.env.get('SUPABASE_URL')!;
 const SUPABASE_SERVICE_ROLE_KEY = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
 const NOTIFY_TO = 'info@clrainford.com';
-// clrainford.com must be verified in Resend for this sender to work.
-const FROM = 'C. L. Rainford Welding & Fabrication <hello@clrainford.com>';
+// send.clrainford.com must be verified in Resend for this sender to work.
+const FROM = 'C. L. Rainford Welding & Fabrication <hello@send.clrainford.com>';
 const REPLY_TO = 'info@clrainford.com';
 
 // Downloads a private Storage object (service-role, bypasses RLS) and

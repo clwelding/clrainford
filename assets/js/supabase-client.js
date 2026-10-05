@@ -4,8 +4,8 @@
 //
 // The anon key is meant to be public: it only grants what the database's
 // Row Level Security policies allow (insert-only for the public forms).
-const SUPABASE_URL = 'https://xdjbgcqaynnzykrglgnf.supabase.co';
-const SUPABASE_ANON_KEY = 'sb_publishable_1B4Musk5YF23XHb_BEOiTA_w1DGM5P4';
+const SUPABASE_URL = 'https://jljthqzsbooozaynhrkl.supabase.co';
+const SUPABASE_ANON_KEY = 'sb_publishable_xdmKWlheAdwupha0gRyYTg_yvOoSO8b';
 
 window.clrwfSupabaseReady = (async () => {
   const { createClient } = await import('https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm');

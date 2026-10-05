@@ -9,8 +9,8 @@ import { Webhook } from "https://esm.sh/standardwebhooks@1.0.0";
 
 const RESEND_API_KEY = Deno.env.get("RESEND_API_KEY");
 const HOOK_SECRET = (Deno.env.get("SEND_EMAIL_HOOK_SECRET") || "").replace("v1,whsec_", "");
-// clrainford.com must be verified in Resend for this sender to work.
-const FROM = "C. L. Rainford Welding & Fabrication <hello@clrainford.com>";
+// send.clrainford.com must be verified in Resend for this sender to work.
+const FROM = "C. L. Rainford Welding & Fabrication <hello@send.clrainford.com>";
 const SITE = "https://clrainford.com";
 
 function escapeHtml(s: unknown) {

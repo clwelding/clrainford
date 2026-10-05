@@ -21,7 +21,7 @@ insert into clrwf_staff (name, email, role) values ('C. L. Rainford', 'info@clra
 
 ## 3. Email (Resend)
 
-1. In Resend, verify the domain `clrainford.com`. The emails send from `hello@clrainford.com`.
+1. In Resend, verify the domain `send.clrainford.com`. The emails send from `hello@send.clrainford.com`.
 2. Deploy both functions. JWT verification must be off, because the database and Supabase Auth call them, not a signed-in user:
    ```
    npx supabase functions deploy notify-submission --no-verify-jwt --project-ref <ref>
