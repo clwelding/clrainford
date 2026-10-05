@@ -1531,7 +1531,7 @@
   }
 
   (async function init() {
-    client = await window.sfSupabaseReady;
+    client = await window.clrwfSupabaseReady;
     var session = await client.auth.getSession();
     if (session.data.session) {
       loadPlaybook();

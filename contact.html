@@ -173,14 +173,6 @@
 <footer>
   <div class="footer-bottom">
     <span>&copy; <span id="clrwf-year"></span> C. L. Rainford Welding &amp; Fabrication, Inc. &middot; Chicago, IL</span>
-    <div class="footer-social">
-      <a href="https://www.instagram.com/selassiefest" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-      <a href="https://www.tiktok.com/@selassiefest" target="_blank" rel="noopener noreferrer" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
-      <a href="https://www.youtube.com/@selassie7291" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
-      <a href="https://www.facebook.com/profile.php?id=100084954017587" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-      <a href="https://x.com/selassiefest/" target="_blank" rel="noopener noreferrer" aria-label="X"><i class="fab fa-x-twitter"></i></a>
-      <a href="https://www.linkedin.com/in/selassiefest/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-    </div>
     <span><a href="/" style="color:var(--ink-soft);">&larr; Back to Home</a></span>
   </div>
 </footer>
@@ -213,7 +205,7 @@
 
     try {
       var messageBlob = messageVoice ? messageVoice.getBlob() : null;
-      await window.sfSupabase.submitClrwfContactMessage({
+      await window.clrwfSupabase.submitClrwfContactMessage({
         name: name, email: email, message: message,
         voiceNotes: messageBlob ? [{ blob: messageBlob, mimeType: messageVoice.getMimeType() }] : [],
       });

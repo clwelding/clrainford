@@ -282,7 +282,7 @@
   (async function loadGallery() {
     var el = document.getElementById('galleryContent');
     try {
-      var client = await window.sfSupabaseReady;
+      var client = await window.clrwfSupabaseReady;
       var result = await client
         .from('clrwf_gallery_public')
         .select('id, category, photo_paths, created_at')

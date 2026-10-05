@@ -199,7 +199,7 @@
     document.getElementById('loginArea').style.display = 'none';
     document.getElementById('jobsArea').style.display = '';
 
-    var client = await window.sfSupabaseReady;
+    var client = await window.clrwfSupabaseReady;
     // Self-heal, same reasoning as clrwf_link_my_auth_user's comment: this
     // shared Supabase project has other independent auth flows, so a
     // client's auth.users row may already exist from an unrelated form
@@ -230,7 +230,7 @@
     btn.disabled = true;
     btn.textContent = 'Checking...';
 
-    var client = await window.sfSupabaseReady;
+    var client = await window.clrwfSupabaseReady;
     var hasClient = await client.rpc('clrwf_email_has_client', { p_email: email });
     if (hasClient.error || !hasClient.data) {
       btn.disabled = false;
@@ -255,13 +255,13 @@
   });
 
   document.getElementById('logoutBtn').addEventListener('click', async function () {
-    var client = await window.sfSupabaseReady;
+    var client = await window.clrwfSupabaseReady;
     await client.auth.signOut();
     showLogin();
   });
 
   (async function init() {
-    var client = await window.sfSupabaseReady;
+    var client = await window.clrwfSupabaseReady;
     var session = await client.auth.getSession();
     if (session.data.session) {
       loadJobs();

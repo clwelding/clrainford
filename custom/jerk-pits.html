@@ -338,7 +338,7 @@
   (async function loadGallery() {
     var el = document.getElementById('galleryContent');
     try {
-      var client = await window.sfSupabaseReady;
+      var client = await window.clrwfSupabaseReady;
       var result = await client.from('clrwf_gallery_public').select('id, category, photo_paths, created_at')
         .eq('category', 'custom-jerk-pit').order('created_at', { ascending: false }).limit(9);
       if (result.error) throw result.error;
@@ -363,7 +363,7 @@
   (async function loadShopLoad() {
     var textEl = document.getElementById('loadBannerText');
     try {
-      var client = await window.sfSupabaseReady;
+      var client = await window.clrwfSupabaseReady;
       var result = await client.from('clrwf_jobs').select('id', { count: 'exact', head: true })
         .eq('category', 'custom-jerk-pit')
         .not('stage', 'in', '(delivered_invoiced,archived)');

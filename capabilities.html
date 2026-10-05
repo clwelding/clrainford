@@ -297,7 +297,7 @@
   });
 
   (async function init() {
-    client = await window.sfSupabaseReady;
+    client = await window.clrwfSupabaseReady;
     var result = await client.from('clrwf_capabilities').select('*').order('category_order').order('item_order');
     if (result.error) {
       document.getElementById('resultsArea').innerHTML = '<div class="no-results"><i class="fas fa-triangle-exclamation"></i>Could not load capabilities right now.</div>';

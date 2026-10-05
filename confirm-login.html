@@ -40,7 +40,7 @@
 <script src="/assets/js/supabase-client.js"></script>
 <script>
 (function () {
-  // Same security-critical allowlist as bbpac/organization/confirm-login.html
+  // Security-critical allowlist
   // -- verifyOtp() bypasses GoTrue's native GET /verify redirect step, which
   // is what normally enforces the Redirect URLs allowlist, so this page has
   // to enforce it itself or redirect_to becomes an open redirect.
@@ -84,7 +84,7 @@
     msgEl.textContent = '';
     msgEl.className = '';
 
-    var client = await window.sfSupabaseReady;
+    var client = await window.clrwfSupabaseReady;
 
     var result = await client.auth.verifyOtp({ token_hash: tokenHash, type: 'email' });
     if (result.error) {

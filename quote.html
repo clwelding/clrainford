@@ -356,7 +356,7 @@
 
     try {
       var descBlob = descriptionVoice ? descriptionVoice.getBlob() : null;
-      await window.sfSupabase.submitClrwfQuoteRequest({
+      await window.clrwfSupabase.submitClrwfQuoteRequest({
         fullName: fullName, email: email, phone: phone, category: category,
         description: description, budgetRange: budgetRange, timeline: timeline,
         photoFiles: selectedFiles, pitConfiguration: pitConfiguration,

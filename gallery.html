@@ -193,7 +193,7 @@
 
   (async function load() {
     try {
-      var client = await window.sfSupabaseReady;
+      var client = await window.clrwfSupabaseReady;
       var result = await client.from('clrwf_gallery_public').select('id, category, photo_paths, created_at').order('created_at', { ascending: false });
       if (result.error) throw result.error;
       (result.data || []).forEach(function (job) {

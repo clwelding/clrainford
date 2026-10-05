@@ -281,7 +281,7 @@
 
     try {
       var coverBlob = coverLetterVoice ? coverLetterVoice.getBlob() : null;
-      await window.sfSupabase.submitClrwfJobApplication({
+      await window.clrwfSupabase.submitClrwfJobApplication({
         position: 'Government & Corporate Contracts Specialist',
         fullName: fullName, email: email, phone: phone, coverLetter: coverLetter,
         resumeFile: resumeFile,

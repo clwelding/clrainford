@@ -4,7 +4,6 @@ Disallow: /portal.html
 Disallow: /shop.html
 Disallow: /contracts.html
 Disallow: /confirm-login.html
-Disallow: /startup-costs.html
 Disallow: /references-template.html
 
 Sitemap: https://clrainford.com/sitemap.xml
