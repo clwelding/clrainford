@@ -124,6 +124,7 @@
   .part .pimg img{width:100%; height:100%; object-fit:contain; padding:6px;}
   .part .ptxt{padding:8px 10px 10px; font-size:0.76rem; line-height:1.3;}
   .part .ptxt b{display:block; color:var(--ink); font-weight:600;}
+  .part .ptxt em.grade{display:block; font-style:normal; color:var(--accent); font-size:0.7rem; font-weight:600; margin:2px 0;}
   .part .ptxt span{color:var(--ink-faint); font-size:0.7rem;}
   .part input{position:absolute; top:8px; left:8px; width:20px; height:20px; accent-color:var(--good); cursor:pointer;}
   .part.got{border-color:var(--good);}
@@ -219,7 +220,7 @@
    Images: step image  -> /custom/img/stage/steps/<step id>.(webp|jpg|png)
            part image  -> /custom/img/stage/parts/<part id>.(webp|jpg|png)
    Drop files with those names in and they appear; until then a placeholder shows. */
-var P = function(id, name, note){ return {id:id, name:name, note:note||''}; };
+var P = function(id, name, note, grade){ return {id:id, name:name, note:note||'', grade:grade||''}; };
 
 var PHASES = [
  {id:'ph0', code:'PRE', title:'Phase 0 — Engineering, Packaging & Sourcing', note:'Authorized now by the spec: packaging drawings, equipment weights, vendor documents, proposals and the mass budget. No structural cutting or final orders.'},
@@ -281,7 +282,7 @@ var STEPS = [
  /* ---------- Phase 1 ---------- */
  {id:'s08', ph:'ph1', code:'SHOP', hold:true, title:'Receive, trace & mark stock',
   sum:'Every piece of structural stock must trace to a mill certificate and carry a unique part mark.',
-  parts:[P('hss-a500','ASTM A500 Gr C HSS','or A1085 only if specified'), P('plate-a572','ASTM A572 Gr 50 plate','A36 only if engineer approves'), P('mill-certs','Mill certificates'), P('paint-marker','Marking paint / stamps')],
+  parts:[P('hss-a500','ASTM A500 Gr C HSS','or A1085 only if specified','ASTM A500 Gr C HSS'), P('plate-a572','ASTM A572 Gr 50 plate','A36 only if engineer approves','ASTM A572 Gr 50'), P('mill-certs','Mill certificates'), P('paint-marker','Marking paint / stamps')],
   equip:[P('tape','Calibrated tape measures'), P('scale','Shop scale / weigh gear'), P('stock-rack','Stock racks')],
   how:['Check each delivery against the purchase order: grade, size, wall thickness, heat number.','Match heat numbers to mill certs and file them. Reject untraceable stock.','Mark each piece with its part mark from the register and keep marks when cutting.','Store stock dry and off the floor. Note galvanizing/coating plan and hollow-section venting needs.'],
   gate:'Do not cut until the cut list is released.'},
@@ -301,7 +302,7 @@ var STEPS = [
  /* ---------- Phase 2 ---------- */
  {id:'s11', ph:'ph2', code:'CH', hold:true, title:'Chassis: main rails, crossmembers & bracing',
   sum:'Build or receive the purpose-designed chassis per the trailer manufacturer\'s released drawings.',
-  parts:[P('ch-rails','Main rails'), P('ch-cross','Crossmembers'), P('ch-torsion','Torsional bracing'), P('ch-gusset','Gusset / node plates')],
+  parts:[P('ch-rails','Main rails','Subject to trailer design & fatigue','ASTM A500 Gr C HSS'), P('ch-cross','Crossmembers','','ASTM A500 Gr C HSS'), P('ch-torsion','Torsional bracing','','ASTM A500 Gr C HSS'), P('ch-gusset','Gusset / node plates','Thickness & connection details pending','ASTM A572 Gr 50')],
   equip:[P('layout-table','Flat layout table / strongback'), P('mig-welder','Welding machines'), P('squares','Squares, levels, laser level'), P('crane','Overhead crane / lifting gear')],
   how:['Cut and prepare members per released drawings and weld preparation.','Fit up on a flat, level jig; hold a dimensional inspection before final welds.','Weld in the specified sequence to control distortion; record each joint in the weld register.','Inspect critical connections with the engineer\'s specified methods.','Do not alter an existing trailer without a documented capacity and certification review.'],
   gate:'Fit-up dimensional check passed before final welds.'},
@@ -315,25 +316,25 @@ var STEPS = [
  /* ---------- Phase 3 ---------- */
  {id:'s13', ph:'ph3', code:'DK', hold:true, title:'Cut & prepare deck frame members (D1–D7)',
   sum:'Cut the HSS frame members and plates for seven panel assemblies from the released cut list.',
-  parts:[P('dk-hss','HSS frame members'), P('dk-plate','Connection plates (A572 Gr 50)'), P('dk-joist','Intermediate joists / framing')],
+  parts:[P('dk-hss','HSS frame members','Engineer sets section & wall','ASTM A500 Gr C HSS'), P('dk-plate','Connection plates (A572 Gr 50)','','ASTM A572 Gr 50'), P('dk-joist','Intermediate joists / framing','','ASTM A500 Gr C HSS')],
   equip:[P('cold-saw','Cold saw / band saw'), P('drill-press','Mag drill / drill press'), P('tape','Calibrated tape measures'), P('squares','Squares, levels, laser level')],
   how:['Cut each member to the length on its drawing — lengths come from joint details, not 5 ft 8.571 in.','Cut end angles, holes and slots; deburr and mark with the part mark.','Check against the cut list and update procurement status in the register.','Plan hollow-section venting and coating compatibility before welding.'],
   gate:'First article inspected before cutting the rest.'},
  {id:'s14', ph:'ph3', code:'DK', hold:true, title:'Weld & square deck frames',
   sum:'Assemble each panel to approved dimensions with the specified weld sequence.',
-  parts:[P('dk-frame','Deck frame sub-assemblies')],
+  parts:[P('dk-frame','Deck frame sub-assemblies','','ASTM A500 Gr C HSS')],
   equip:[P('layout-table','Flat layout table / strongback'), P('jig-stops','Fixture stops & clamps'), P('mig-welder','Welding machines'), P('crane','Overhead crane / lifting gear'), P('ppe','PPE')],
   how:['Fit up on the strongback; check diagonals, flatness and the hinge-node positions.','Hold a dimensional inspection before final welds.','Weld per the schedule; control distortion; do not grind critical welds for appearance without approval.','Inspect welds and dimensions before coating.','Keep the 24 ft panels torsionally stiff as the engineer specifies — they can rack during deployment.'],
   gate:'Weld and dimensional inspection recorded for each panel before coating.'},
  {id:'s15', ph:'ph3', code:'HG', hold:true, title:'Fabricate hinge nodes, bushings & pins',
   sum:'Segmented structural hinges at reinforced nodes with replaceable bushings and retained removable pins.',
-  parts:[P('hg-knuckles','Hinge knuckle plates'), P('hg-bushings','Replaceable bushings'), P('hg-pins','Retained removable pins'), P('hg-grease','Grease fittings')],
+  parts:[P('hg-knuckles','Hinge knuckle plates','No hardened steel without approved WPS','Engineer-selected weldable steel'), P('hg-bushings','Replaceable bushings','Depends on pressure, movement, lubrication','Selected bearing material (bronze / polymer)'), P('hg-pins','Retained removable pins','Specify strength, toughness, wear, retention','Engineer-selected alloy steel, heat treated'), P('hg-grease','Grease fittings','','Selected product specification'), P('hw-bolt','Hex-head bolts','Grade and size per released drawings','ASTM F3125 A325 / A490 where designed'), P('hw-nut','Hex nuts','Match bolt system, coating, installation','Compatible specified ASTM grade'), P('hw-washer','Flat washers','Match bolt system, coating, installation','Compatible specified ASTM grade'), P('hw-cotter','Cotter pins','','Selected product specification')],
   equip:[P('drill-press','Mag drill / drill press'), P('line-bore','Line-boring / reaming setup'), P('mig-welder','Welding machines'), P('torque-wrench','Calibrated torque wrench')],
   how:['Machine pin bores and bushing fits to the drawing clearances.','Weld knuckle plates into reinforced nodes using the specified procedure.','Never weld hardened pins of unknown alloy or generic purchased hinges into critical structure.','Record pin diameter, bearing length, bushing fit, lubrication and wear/rejection limits in the build file.'],
   gate:'Hinge release package (material, shear planes, fatigue basis, retention) signed off.'},
  {id:'s16', ph:'ph3', code:'LK', hold:true, title:'Locks, bearing seats & alignment devices',
   sum:'The deployed load path must not depend on the hinge — fit separate bearing seats and positive structural locks.',
-  parts:[P('lk-seats','Deployed bearing seats'), P('lk-align','Alignment devices'), P('lk-struct','Positive structural locks'), P('lk-transport','Transport locks')],
+  parts:[P('lk-seats','Deployed bearing seats'), P('lk-align','Alignment devices'), P('lk-struct','Positive structural locks','','Engineer-selected alloy steel, heat treated'), P('lk-transport','Transport locks','','Engineer-selected alloy steel, heat treated'), P('hw-rclip','R-clip retainers','','Selected product specification'), P('hw-cotter','Cotter pins','','Selected product specification')],
   equip:[P('mig-welder','Welding machines'), P('squares','Squares, levels, laser level')],
   how:['Fabricate and fit bearing seats at each fold joint per the drawings.','Install alignment devices and structural locks; confirm engagement is visible/verifiable.','Install dedicated transport locks.','Document final pivot-axis coordinates and the full fold sequence.'],
   gate:'Lock engagement can be verified before any operation is permitted.'},
@@ -347,13 +348,13 @@ var STEPS = [
  /* ---------- Phase 4 ---------- */
  {id:'s18', ph:'ph4', code:'LG', hold:true, title:'Fabricate adjustable deck legs & ground pads',
   sum:'Each leg needs verified 2–4 ft adjustment, a positive lock, lateral restraint, retained pins and a ground-spreading foot.',
-  parts:[P('lg-tube','Telescoping leg members'), P('lg-pin','Retained pins'), P('lg-foot','Designed foot'), P('lg-pad','Ground-spreading pads'), P('lg-brace','Lateral restraint / bracing')],
+  parts:[P('lg-tube','Telescoping leg members','Verify telescoping clearances','ASTM A500 Gr C HSS'), P('lg-pin','Retained pins','','Engineer-selected alloy steel, heat treated'), P('lg-foot','Designed foot','Ground reactions set thickness & area','ASTM A572 Gr 50 (proposed)'), P('lg-pad','Ground-spreading pads','','Rated manufacturer product'), P('lg-brace','Lateral restraint / bracing','','ASTM A500 Gr C HSS'), P('hw-bolt','Hex-head bolts','Grade and size per released drawings','ASTM F3125 A325 / A490 where designed'), P('hw-nut','Hex nuts','Match bolt system, coating, installation','Compatible specified ASTM grade'), P('hw-washer','Flat washers','Match bolt system, coating, installation','Compatible specified ASTM grade')],
   equip:[P('cold-saw','Cold saw / band saw'), P('mig-welder','Welding machines'), P('tape','Calibrated tape measures')],
   how:['Fabricate legs at the engineer-selected locations — not a leg at every joint by default.','Verify the adjustment range and locks, in both compression and uplift where applicable.','Fit retained pins and lateral restraint.','Establish allowable slope/settlement and the survey method.'],
   gate:'Leg capacity and adjustment range verified before installation.'},
  {id:'s19', ph:'ph4', code:'OU', hold:true, title:'Roof outriggers & ballast attachments',
   sum:'Roof outriggers are distinct from deck legs. Ballast must have engineered attachment and weight verification.',
-  parts:[P('ou-arms','Outrigger arms'), P('ou-feet','Outrigger feet / pads'), P('ou-ballast','Engineered ballast attachment points')],
+  parts:[P('ou-arms','Outrigger arms','Verify telescoping clearances','ASTM A500 Gr C HSS'), P('ou-feet','Outrigger feet / pads','Ground reactions set thickness & area','ASTM A572 Gr 50 (proposed)'), P('ou-ballast','Engineered ballast attachment points')],
   equip:[P('mig-welder','Welding machines'), P('scale','Shop scale / weigh gear'), P('crane','Overhead crane / lifting gear')],
   how:['Fabricate to the ground-reaction plan: stability, uplift, sliding and outrigger bending.','Install connection points for ballast or anchors as engineered.','Loose, unconnected weight is not an assumed solution.'],
   gate:'Ground reactions and support layout released.'},
@@ -361,19 +362,19 @@ var STEPS = [
  /* ---------- Phase 5 ---------- */
  {id:'s20', ph:'ph5', code:'TW', hold:true, title:'Install lifting towers & base nodes',
   sum:'Towers transfer roof forces into designated chassis/base nodes — deck wings are not automatically foundations.',
-  parts:[P('tw-tower','Lifting tower assemblies'), P('tw-base','Base nodes / plates'), P('tw-guide','Guides & telescoping hardware'), P('tw-lock','Tower locks')],
+  parts:[P('tw-tower','Lifting tower assemblies','Match lifting & truss system','Manufacturer / engineer specified'), P('tw-base','Base nodes / plates','','Manufacturer / engineer specified'), P('tw-guide','Guides & telescoping hardware','','Manufacturer / engineer specified'), P('tw-lock','Tower locks','','Manufacturer / engineer specified')],
   equip:[P('crane','Overhead crane / lifting gear'), P('torque-wrench','Calibrated torque wrench'), P('squares','Squares, levels, laser level')],
   how:['Install towers at the released positions on the base nodes.','Check plumb, guides and overlap; do not drill or weld proprietary trusses without written approval.','Isolate steel-to-aluminum interfaces against galvanic corrosion and use compatible fasteners.'],
   gate:'Tower reactions, geometry and manufacturer compatibility confirmed.'},
  {id:'s21', ph:'ph5', code:'RF', hold:true, title:'Assemble roof frame & bracing',
   sum:'Manufacturer-engineered aluminum entertainment trusses with approved bracing. Roof layout is still open.',
-  parts:[P('rf-truss','Entertainment trusses'), P('rf-brace','Approved bracing'), P('rf-conn','Truss connection hardware'), P('rf-mount','Canopy attachment hardware')],
+  parts:[P('rf-truss','Entertainment trusses','Buy an engineered system; account for welded strength','Mfr alloy & temper, commonly 6061-T6'), P('rf-brace','Approved bracing','','Manufacturer / engineer specified'), P('rf-conn','Truss connection hardware','','Manufacturer / engineer specified'), P('rf-mount','Canopy attachment hardware')],
   equip:[P('crane','Overhead crane / lifting gear'), P('torque-wrench','Calibrated torque wrench'), P('squares','Squares, levels, laser level')],
   how:['Assemble the roof per the manufacturer and engineer drawings; confirm at least 15 ft from finished deck to the lowest structural roof member.','Check cantilevers where towers sit near the narrow center chassis.','Add slope and drainage features specified for the canopy.'],
   gate:'Roof layout, rigging schedule and transport packaging released.'},
  {id:'s22', ph:'ph5', code:'CN', hold:true, title:'Fabricate & fit the fabric canopy',
   sum:'Order fabric after roof geometry and tensioning are fixed. 960 sq ft is deck area, not the fabric order area.',
-  parts:[P('cn-fabric','Coated canopy fabric'), P('cn-attach','Engineered distributed attachments'), P('cn-perimeter','Perimeter reinforcement'), P('cn-flame','Flame-propagation test documents')],
+  parts:[P('cn-fabric','Coated canopy fabric','Strength, seam, weathering, flame-test documents','Specified coated architectural / event fabric'), P('cn-attach','Engineered distributed attachments'), P('cn-perimeter','Perimeter reinforcement'), P('cn-flame','Flame-propagation test documents')],
   equip:[P('sewing-weld','Seam welding / sewing equipment'), P('tape','Calibrated tape measures'), P('tension-gauge','Tension gauge')],
   how:['Size fabric from the finished roof geometry and attachment design.','Fit slope, edge drainage, drip control and anti-ponding details.','Set the specified pretension. Do not use a flat taut tarp or ordinary grommets as structural attachment.','Keep sidewalls, scrims, banners and screens out of scope until analyzed.','Store clean and dry; set a fabric inspection schedule.'],
   gate:'Membrane and attachment design released; fire-authority documents on file.'},
@@ -381,7 +382,7 @@ var STEPS = [
  /* ---------- Phase 6 ---------- */
  {id:'s23', ph:'ph6', code:'HY', hold:true, title:'Install hydraulics: cylinders, pump & hoses',
   sum:'Rated cylinders, brackets, pump, manifold and protected hose paths through every fold.',
-  parts:[P('hy-cyl','Rated cylinders'), P('hy-brackets','Engineered brackets & pivots'), P('hy-pump','Pump / motor / reservoir / filtration'), P('hy-manifold','Control manifold, relief & counterbalance'), P('hy-hoses','Protected hoses & fittings')],
+  parts:[P('hy-cyl','Rated cylinders','Specify model, pressure, force, stroke','Rated manufacturer product'), P('hy-brackets','Engineered brackets & pivots'), P('hy-pump','Pump / motor / reservoir / filtration'), P('hy-manifold','Control manifold, relief & counterbalance'), P('hy-hoses','Protected hoses & fittings','','Rated manufacturer product')],
   equip:[P('torque-wrench','Calibrated torque wrench'), P('pressure-gauge','Pressure gauges'), P('flush-rig','Fluid flush / filtration cart')],
   how:['Install per the approved hydraulic schematic; cylinder count, bore, stroke and pressure come from the release.','Route hoses with controlled bend radii and abrasion protection through every fold; leave service access.','Provide load-holding on each axis and a documented recovery method.','Do not rely on flow division alone to keep four towers aligned: fit position sensing with maximum mismatch and fault stop.'],
   gate:'Kinematics, force/stroke calcs and controls design released.'},
@@ -401,19 +402,19 @@ var STEPS = [
  /* ---------- Phase 7 ---------- */
  {id:'s26', ph:'ph7', code:'RG', hold:true, title:'Audio rigging interfaces',
   sum:'Manufacturer-approved flying frames, rated hardware and designed suspension points only.',
-  parts:[P('rg-frames','Approved flying frames'), P('rg-hoist','Rated hoists'), P('rg-shackles','Rated shackles & slings'), P('rg-points','Designed pick points'), P('rg-chart','Point-load & combined-load chart')],
+  parts:[P('rg-frames','Approved flying frames','Working-load limits & traceability','Rated manufacturer product'), P('rg-hoist','Rated hoists','Working-load limits & traceability','Rated manufacturer product'), P('rg-shackles','Rated shackles & slings','Working-load limits & traceability','Rated manufacturer product'), P('rg-points','Designed pick points'), P('rg-chart','Point-load & combined-load chart')],
   equip:[P('crane','Overhead crane / lifting gear'), P('torque-wrench','Calibrated torque wrench')],
   how:['Fit designed suspension interfaces at the released coordinates.','Do not substitute a generic eye bolt or welded tab without design.','Define whether arrays are raised with the roof or installed afterward; each mode needs its own lifting/operating check.','Establish travel securement for speakers and a qualified rigging inspection procedure.'],
   gate:'Complete rigging load path approved; load chart issued.'},
  {id:'s27', ph:'ph7', code:'AC', hold:true, title:'Deck surfacing, stairs, rails & edge protection',
   sum:'Replaceable surface panels, stairs for each approved height, handrails and guards.',
-  parts:[P('ac-deck','Rated deck panels / structural plywood'), P('ac-stairs','Stairs for each deck height'), P('ac-rails','Handrails & guards'), P('ac-cable','Cable passages'), P('ac-antislip','Anti-slip surface')],
+  parts:[P('ac-deck','Rated deck panels / structural plywood','Rating, thickness, fastening pattern pending','Rated stage panels or specified exterior structural plywood'), P('ac-stairs','Stairs for each deck height'), P('ac-rails','Handrails & guards'), P('ac-cable','Cable passages'), P('ac-antislip','Anti-slip surface'), P('hw-csk-screw','Countersunk deck screws','Grade, corrosion resistance, length pending','Selected product specification')],
   equip:[P('drill-press','Mag drill / drill press'), P('tape','Calibrated tape measures')],
   how:['Cut and fasten the surface per the panel/joist design; keep joints flush, with drainage.','Fit stairs, handrails and edge protection; protect pinch points.','Keep exit routes clear — no audio, supports or controls in them.','Add perimeter visibility and cable management.'],
   gate:'Surface rating and access counts confirmed for the jurisdiction.'},
  {id:'s28', ph:'ph7', code:'AC', hold:false, title:'Assemble accessories & first-use kit',
   sum:'Gather everything that travels with the stage.',
-  parts:[P('acc-mats','Support mats'), P('acc-chocks','Wheel chocks'), P('acc-level','Level / survey tools'), P('acc-weather','Weather monitoring equipment'), P('acc-pins','Lock / pin inventory'), P('acc-barriers','Deployment barriers'), P('acc-toolbox','Tool storage'), P('acc-kit','First-use inspection kit'), P('acc-wear','Replacement wear parts')],
+  parts:[P('acc-mats','Support mats','Select from calculated ground reactions','Rated manufacturer product'), P('acc-chocks','Wheel chocks'), P('acc-level','Level / survey tools'), P('acc-weather','Weather monitoring equipment'), P('acc-pins','Lock / pin inventory'), P('acc-barriers','Deployment barriers'), P('acc-toolbox','Tool storage'), P('acc-kit','First-use inspection kit'), P('acc-wear','Replacement wear parts')],
   equip:[],
   how:['Collect each item and check it against the inventory.','Mount storage so each item travels secured.','Label every pin and lock with its location.'],
   gate:'Inventory complete.'},
@@ -534,7 +535,7 @@ function partsHtml(st, list){
     var k = gotKey(st.id, p.id), on = !!state.got[k];
     return '<label class="part' + (on ? ' got' : '') + '"><input type="checkbox" data-got="' + k + '"' + (on ? ' checked' : '') + '>' +
       '<div class="pimg">' + img('parts', p.id, p.name) + '</div>' +
-      '<div class="ptxt"><b>' + esc(p.name) + '</b>' + (p.note ? '<span>' + esc(p.note) + '</span>' : '') + '</div></label>';
+      '<div class="ptxt"><b>' + esc(p.name) + '</b>' + (p.grade ? '<em class="grade">' + esc(p.grade) + '</em>' : '') + (p.note ? '<span>' + esc(p.note) + '</span>' : '') + '</div></label>';
   }).join('');
 }
 
