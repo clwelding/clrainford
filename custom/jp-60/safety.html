@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<meta name="description" content="Build-specific safety and OSHA program for the JP-60 jerk pit: standards matrix, job hazard analysis, hot-work permit, pre-shift checklist and training matrix.">
+<title>JP-60 Safety &amp; OSHA Program | C. L. Rainford Welding &amp; Fabrication</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Public+Sans:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="/custom/jp-60/style.css">
+<style>
+  body.only-permit main > *:not(#permit), body.only-preshift main > *:not(#preshift), body.only-ppe main > *:not(#ppe){display:none !important;}
+  .section-bar{display:flex; justify-content:space-between; align-items:flex-end; gap:12px; flex-wrap:wrap;}
+  .permit-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:12px; margin-bottom:16px;}
+  .permit-grid label{display:flex; flex-direction:column; gap:4px; font-size:.74rem; color:var(--ink-soft);}
+  .permit-grid input,.permit-grid textarea{width:100%;}
+  .sigrow{display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:20px; margin-top:20px;}
+  .sigrow div{font-size:.74rem; color:var(--ink-soft);}
+  .roster td input[type=text]{width:100%; min-width:130px;}
+  .roster td.c{text-align:center;} .roster input[type=checkbox]{width:18px; height:18px; accent-color:var(--good);}
+  .roster th.v{writing-mode:vertical-rl; transform:rotate(180deg); white-space:nowrap; height:170px; padding:8px 6px; vertical-align:bottom;}
+  .small{font-size:.8rem; color:var(--ink-soft);}
+  .linkrow a{color:var(--accent); font-weight:600;} .linkrow a:hover{text-decoration:underline;}
+</style>
+</head>
+<body>
+<div class="hazard-strip"></div>
+
+<header class="site-header" role="banner">
+  <div class="wordmark">
+    <a href="/"><span class="mark">C.L. RAINFORD <span>WELDING &amp; FABRICATION</span></span></a>
+    <span class="sub">Chicago, IL &middot; Since 2015</span>
+  </div>
+  <nav class="main-nav" aria-label="Main navigation">
+    <ul>
+      <li><a href="/">Home</a></li>
+      <li><a href="/capabilities.html">What We Do</a></li>
+      <li><a href="/residential.html">Residential</a></li>
+      <li><a href="/commercial.html">Commercial</a></li>
+      <li><a href="/custom/" class="active">Custom</a></li>
+      <li><a href="/gallery.html">Gallery</a></li>
+      <li><a href="/about.html">About</a></li>
+      <li><a href="/contact.html">Contact</a></li>
+      <li><a href="/careers.html">Careers</a></li>
+    </ul>
+  </nav>
+  <div class="header-cta">
+    <a class="btn ghost small" href="/portal.html"><i class="fas fa-user"></i> Client Login</a>
+    <a class="btn primary small" href="/quote.html?type=custom-other">Request a Quote</a>
+  </div>
+</header>
+
+<main>
+  <div class="back-bar"><a href="/custom/jp-60/"><i class="fas fa-arrow-left"></i> Back to the JP-60 build traveler</a></div>
+
+  <div class="page-hero">
+    <span class="eyebrow"><i class="fas fa-shield-halved" style="margin-right:6px;"></i>JP-60 &middot; Safety &amp; OSHA Program</span>
+    <h1 style="font-size:clamp(1.9rem,4vw,2.6rem); margin-top:10px;">Build Safety Plan for the JP-60 Jerk Pit</h1>
+    <p class="lede">The hazards of this specific build, the OSHA general-industry standards that apply, and the working tools to run it: a job hazard analysis for all 33 steps, a hot-work permit, a pre-shift checklist, a PPE hazard assessment and a crew training matrix.</p>
+  </div>
+
+  <div class="banner info screen">
+    <i class="fas fa-circle-info"></i>
+    <div><strong>How to use this page.</strong> It supports your written safety programs; it does not replace them or professional advice. Citations are to 29 CFR Part 1910 (general industry), which covers private-sector shops in Illinois through federal OSHA. Standards change, so check the current text at <a href="https://www.osha.gov/laws-regs" target="_blank" rel="noopener" style="color:var(--spark);text-decoration:underline;">osha.gov</a> and your customer&rsquo;s site requirements. Several standards (respiratory protection, HazCom, hearing conservation, hexavalent chromium) require written programs, training and records that must exist in the shop itself.</div>
+  </div>
+
+  <div class="toolbar" style="top:84px;">
+    <nav class="anchor-nav" aria-label="Sections">
+      <a href="#rules">Rules</a><a href="#matrix">Standards</a><a href="#jha">Hazard analysis</a><a href="#ppe">PPE</a><a href="#permit">Hot-work permit</a><a href="#preshift">Pre-shift</a><a href="#training">Training</a><a href="#records">Records</a><a href="#emergency">Emergency</a><a href="#product">Product safety</a>
+    </nav>
+  </div>
+
+  <!-- RULES -->
+  <section class="sec" id="rules">
+    <h2>Shop rules for this build</h2>
+    <p class="lead">Non-negotiable. Anyone can stop the job for a safety concern, and nobody is blamed for stopping it.</p>
+    <div class="panel"><ol class="rules">
+      <li>No galvanized, zinc-plated or cadmium-plated parts anywhere on the pit. Heated zinc causes metal fume fever and contaminates food. <span class="small">(1910.252(c))</span></li>
+      <li>No hot work without a posted permit, combustibles cleared 35 ft or shielded, an extinguisher in reach and a named fire watch who stays 30 minutes after the last weld. <span class="small">(1910.252(a))</span></li>
+      <li>Grinder guards stay on. Wheels are rated at or above the tool&rsquo;s RPM and are inspected and ring-tested before mounting. <span class="small">(1910.215, 1910.243)</span></li>
+      <li>Plate and finished assemblies move by hoist or forklift on rated rigging. Nobody stands under a suspended load. <span class="small">(1910.184, 1910.179, 1910.178)</span></li>
+      <li>Fume extraction runs whenever anyone welds. Stainless gets local exhaust and a fit-tested respirator under a written program. <span class="small">(1910.134, 1910.1026)</span></li>
+      <li>Charcoal fires happen outdoors only, at least 10 ft from structures. Carbon monoxide kills without warning. <span class="small">(1910.1000)</span></li>
+      <li>Treat all fresh-cut and fresh-welded steel as hot. Mark it HOT and set it on steel, not wood. <span class="small">(1910.132, 1910.138)</span></li>
+      <li>Nobody does hot work alone. Nobody operates a machine they have not been trained on. <span class="small">(1910.212, 1910.217)</span></li>
+      <li>Lock out the machine before clearing a jam or servicing it. <span class="small">(1910.147)</span></li>
+      <li>Keep aisles, exits and extinguisher access clear every shift. <span class="small">(1910.37, 1910.176)</span></li>
+    </ol></div>
+  </section>
+
+  <!-- MATRIX -->
+  <section class="sec" id="matrix">
+    <h2>OSHA standards matrix</h2>
+    <p class="lead">Every standard referenced in this build, what it means for JP-60 work, and the steps where it applies. Tap a step number to jump to it in the traveler.</p>
+    <div class="panel"><div class="tblwrap"><table><thead><tr><th>Standard</th><th>Topic</th><th>What it means on this build</th><th>Steps</th></tr></thead><tbody id="matrixBody"></tbody></table></div></div>
+  </section>
+
+  <!-- JHA -->
+  <section class="sec" id="jha">
+    <h2>Job hazard analysis by step</h2>
+    <p class="lead">Each row breaks the step into its hazards and controls, ordered by the hierarchy of controls: eliminate, engineer, administer, then PPE. Filter by hazard to see every step that carries it.</p>
+    <div class="jha-filter" id="jhaFilter"></div>
+    <div class="panel"><div class="tblwrap"><table><thead><tr><th>Step</th><th>Hazards</th><th>Controls for this step</th><th>PPE</th><th>Standards</th></tr></thead><tbody id="jhaBody"></tbody></table></div></div>
+  </section>
+
+  <!-- PPE -->
+  <section class="sec" id="ppe">
+    <div class="section-bar"><div><h2>PPE hazard assessment</h2><p class="lead" style="margin-bottom:0;">29 CFR 1910.132(d) requires the employer to assess the workplace for hazards that need PPE and to certify the assessment in writing, with the workplace evaluated, the person certifying and the date. Fill in and print this to file it. PPE is provided at no cost to employees (1910.132(h)).</p></div>
+    <button class="btn ghost small noprint" data-print="ppe"><i class="fas fa-print"></i> Print</button></div>
+    <div class="panel" style="margin-top:14px;"><div class="tblwrap"><table><thead><tr><th>Task</th><th>Hazards</th><th>Required PPE</th></tr></thead><tbody>
+      <tr><td>Plate handling and layout</td><td>Cuts, crush, dropped plate</td><td>Safety glasses (Z87+), cut-resistant gloves, steel-toe boots</td></tr>
+      <tr><td>Plasma cutting</td><td>Arc UV, fume, noise, sparks, hot dross</td><td>Shade 5&ndash;8 lenses, leather gloves, FR clothing, hearing protection, boots</td></tr>
+      <tr><td>Grinding and wheel work</td><td>Flying particles, wheel failure, noise, dust</td><td>Face shield over safety glasses, leather gloves, hearing protection, respirator for heavy dust</td></tr>
+      <tr><td>MIG welding carbon steel</td><td>Arc UV, fume, spatter, burns</td><td>Auto-dark helmet shade 10&ndash;13 with safety glasses underneath, leather gloves, FR jacket, boots, fume extraction</td></tr>
+      <tr><td>TIG welding stainless</td><td>Arc UV, hexavalent chromium fume, burns</td><td>Helmet, TIG gloves, FR sleeves, P100 respirator (program) plus local exhaust</td></tr>
+      <tr><td>Cold saw and drilling</td><td>Rotating parts, chips, noise</td><td>Safety glasses and face shield, hearing protection, no loose gloves near rotating tools, boots</td></tr>
+      <tr><td>Press brake</td><td>Crush at the point of operation</td><td>Safety glasses, gloves per the guard, boots</td></tr>
+      <tr><td>Rigging and lifting</td><td>Crush, dropped load</td><td>Gloves, steel-toe boots, hard hat where there is an overhead hazard</td></tr>
+      <tr><td>Pickling and weld cleaning</td><td>Strong acid, splash</td><td>Chemical gloves, face shield over goggles, apron, eyewash within reach</td></tr>
+      <tr><td>Painting</td><td>Flammable and toxic vapor</td><td>Organic-vapor respirator (program), nitrile gloves, glasses, spray booth ventilation</td></tr>
+      <tr><td>Burn-in and temperature testing</td><td>Burns, CO, fire</td><td>High-heat gloves, glasses, boots; outdoors only</td></tr>
+    </tbody></table></div></div>
+    <div class="panel" style="margin-top:14px;"><h3>Certification of hazard assessment</h3>
+      <div class="permit-grid">
+        <label>Workplace evaluated<input class="field" id="ppeWhere" value="Fabrication shop &ndash; JP-60 build bays"></label>
+        <label>Date of assessment<input class="field" type="date" id="ppeDate"></label>
+        <label>Person certifying<input class="field" id="ppeWho"></label>
+      </div>
+      <div class="sigrow"><div><div class="sigline"></div>Signature of certifying person</div><div><div class="sigline"></div>Date</div></div>
+      <p class="small" style="margin-top:14px;">Reassess when the task, equipment or hazards change. Train each worker to know when PPE is needed, what to wear, how to put it on and care for it, and its limits (1910.132(f)). Retrain after changes.</p>
+    </div>
+  </section>
+
+  <!-- PERMIT -->
+  <section class="sec" id="permit">
+    <div class="section-bar"><div><h2>Hot-work permit</h2><p class="lead" style="margin-bottom:0;">One permit per bay per shift. The authorizing person inspects the area before work starts (1910.252(a)(2); NFPA 51B). The fire watch stays for at least 30 minutes after the last hot work.</p></div>
+    <div class="tools noprint"><button class="btn ghost small" data-print="permit"><i class="fas fa-print"></i> Print permit</button><button class="btn ghost small" id="permitClear"><i class="fas fa-eraser"></i> Clear form</button></div></div>
+    <div class="panel" style="margin-top:14px;">
+      <div class="permit-grid">
+        <label>Date<input class="field" type="date" data-permit="date"></label>
+        <label>Location / bay<input class="field" data-permit="bay"></label>
+        <label>Job / serial no.<input class="field" data-permit="job"></label>
+        <label>Work to be done (steps)<input class="field" data-permit="work" placeholder="e.g. Steps 10&ndash;12, MIG tack and weld-out"></label>
+        <label>Performed by<input class="field" data-permit="who"></label>
+        <label>Authorizing person<input class="field" data-permit="auth"></label>
+        <label>Fire watch<input class="field" data-permit="watch"></label>
+        <label>Permit valid from<input class="field" type="time" data-permit="from"></label>
+        <label>Last hot work at<input class="field" type="time" data-permit="last"></label>
+        <label>Fire watch ends (last work + 30 min)<input class="field" type="time" data-permit="end"></label>
+      </div>
+      <h3 style="font-size:.95rem;margin-bottom:6px;">Before work starts</h3>
+      <ul class="checks" id="permitBefore"></ul>
+      <h3 style="font-size:.95rem;margin:16px 0 6px;">After work</h3>
+      <ul class="checks" id="permitAfter"></ul>
+      <div class="sigrow"><div><div class="sigline"></div>Authorizing person</div><div><div class="sigline"></div>Fire watch</div><div><div class="sigline"></div>Welder / cutter</div></div>
+    </div>
+  </section>
+
+  <!-- PRESHIFT -->
+  <section class="sec" id="preshift">
+    <div class="section-bar"><div><h2>Pre-shift safety checklist</h2><p class="lead" style="margin-bottom:0;">Run before any JP-60 work each day. Checks are saved in this browser by date.</p></div>
+    <div class="tools noprint"><label class="small" style="display:flex;align-items:center;gap:8px;">Date <input class="field" type="date" id="psDate"></label><button class="btn ghost small" data-print="preshift"><i class="fas fa-print"></i> Print</button></div></div>
+    <div class="two" id="psBody" style="margin-top:14px;"></div>
+    <div class="panel" style="margin-top:14px;"><div class="permit-grid" style="margin-bottom:0;"><label>Completed by<input class="field" id="psBy"></label><label>Issues found / tagged out<textarea class="field" id="psIssues" rows="2"></textarea></label></div></div>
+  </section>
+
+  <!-- TRAINING -->
+  <section class="sec" id="training">
+    <h2>Training and qualification matrix</h2>
+    <p class="lead">Who has been trained for what. Required training comes from the standards below; tick a box when the training is complete and documented. The roster is saved in this browser. Export it from the build traveler or print for the file.</p>
+    <div class="panel"><div class="tblwrap"><table><thead><tr><th>Training</th><th>Standard</th><th>Who and when</th></tr></thead><tbody id="trainBody"></tbody></table></div></div>
+    <div class="panel roster" style="margin-top:14px;"><div class="section-bar"><h3>Crew roster</h3><div class="tools noprint"><button class="btn ghost small" id="addCrew"><i class="fas fa-plus"></i> Add person</button><button class="btn ghost small" data-print="">Print page</button></div></div>
+      <div class="tblwrap"><table><thead id="rosterHead"></thead><tbody id="rosterBody"></tbody></table></div></div>
+  </section>
+
+  <!-- RECORDS -->
+  <section class="sec" id="records">
+    <h2>Records to keep</h2>
+    <div class="panel"><div class="tblwrap"><table><thead><tr><th>Record</th><th>Standard</th><th>Keep</th></tr></thead><tbody>
+      <tr><td>Injury and illness log (OSHA 300), annual summary (300A), incident reports (301)</td><td class="num">29 CFR 1904</td><td>5 years after the year they cover</td></tr>
+      <tr><td>Severe injury reports: fatality within 8 hours; inpatient hospitalization, amputation or eye loss within 24 hours</td><td class="num">1904.39</td><td>Report to OSHA; keep the report</td></tr>
+      <tr><td>Employee exposure records (air sampling, Cr(VI) assessments, noise surveys, SDS)</td><td class="num">1910.1020</td><td>30 years</td></tr>
+      <tr><td>Employee medical records (respirator clearance, audiometry)</td><td class="num">1910.1020</td><td>Employment plus 30 years</td></tr>
+      <tr><td>Respirator fit tests and written program</td><td class="num">1910.134</td><td>Until the next fit test; program current</td></tr>
+      <tr><td>PPE hazard assessment certification</td><td class="num">1910.132(d)</td><td>Current, available on request</td></tr>
+      <tr><td>Hot-work permits</td><td class="num">1910.252(a); NFPA 51B</td><td>Per policy; this plan keeps them with the job file</td></tr>
+      <tr><td>Fire extinguisher monthly checks and annual service tags</td><td class="num">1910.157(e)</td><td>Tag on unit; annual record 1 year after the last entry</td></tr>
+      <tr><td>Sling, hoist and crane inspections</td><td class="num">1910.184, 1910.179</td><td>Per policy; periodic inspection records kept</td></tr>
+      <tr><td>Training records for each topic in the matrix above</td><td class="num">various</td><td>Per policy, at least while employed</td></tr>
+      <tr><td>Build traveler: material certs, weld settings, test results, serial number, sign-offs</td><td class="num">Customer / quality</td><td>Job file, closed at handoff</td></tr>
+    </tbody></table></div></div>
+  </section>
+
+  <!-- EMERGENCY -->
+  <section class="sec" id="emergency">
+    <h2>If something goes wrong</h2>
+    <div class="two">
+      <div class="panel"><h3>First response</h3><dl class="dl">
+        <dt>Serious injury or fire you can&rsquo;t control</dt><dd>Call 911. Evacuate and meet at the assembly point. Shut off power and gas only if it is safe.</dd>
+        <dt>Small fire</dt><dd>Use the extinguisher only if you have a clear exit behind you. Pull, aim at the base, squeeze, sweep.</dd>
+        <dt>Burn</dt><dd>Cool under cool running water for 20 minutes. No ice. Get medical care for anything larger than a coin or that blisters.</dd>
+        <dt>Something in the eye</dt><dd>Flush at the eyewash for 15 minutes. Don&rsquo;t rub. Get medical care.</dd>
+        <dt>Arc flash (gritty, painful eyes hours later)</dt><dd>See a medical provider.</dd>
+        <dt>Chemical on skin or eyes (pickling paste, solvents)</dt><dd>Flush 15 minutes, bring the SDS to the clinic.</dd>
+        <dt>Crush or cut</dt><dd>Stop bleeding with direct pressure, call 911 for severe injury, lock out the machine.</dd>
+        <dt>Feeling sick after welding</dt><dd>Fever, chills or a metallic taste can be metal fume fever. Stop work, get fresh air, report it, get checked.</dd>
+        <dt>CO symptoms during burn-in (headache, dizziness, nausea)</dt><dd>Move everyone to fresh air and call 911.</dd></dl></div>
+      <div class="panel"><h3>Emergency action plan checklist (1910.38)</h3><ul class="plist" style="line-height:1.8;">
+        <li>How to report a fire or emergency, and the shop address for 911: 70 E 63rd Street, Chicago, IL 60637</li>
+        <li>Evacuation routes and an assembly point, posted and walked</li>
+        <li>Headcount procedure and who accounts for visitors</li>
+        <li>Who shuts down critical equipment and gas before leaving</li>
+        <li>Rescue and medical duties, and who is first-aid trained</li>
+        <li>Contacts for questions about the plan</li>
+        <li>Eyewash tested weekly; first-aid kit stocked; extinguishers inspected monthly</li>
+        <li>After any incident: record it, investigate causes, fix the cause, record on the OSHA log if it is recordable</li></ul></div>
+    </div>
+  </section>
+
+  <!-- PRODUCT -->
+  <section class="sec" id="product">
+    <h2>Safety built into the pit for the customer</h2>
+    <p class="lead">What leaves the shop must be safe to use. The owner&rsquo;s guide and labels carry these controls to the customer. Labels should follow ANSI Z535.4 signal-word and format conventions.</p>
+    <div class="two">
+      <div class="panel"><h3>Built-in controls</h3><ul class="plist" style="line-height:1.8;">
+        <li>Counterbalanced lids with stops, so they don&rsquo;t slam or flip over</li>
+        <li>Handles on standoffs, at least 3&Prime; off hot steel</li>
+        <li>Locking casters and a push-tested, stable footprint</li>
+        <li>Stainless food-contact grates; high-heat paint on the exterior only</li>
+        <li>Rounded edges and corners, no snag points</li>
+        <li>Ash cleanout and drain that work with a gloved hand</li></ul></div>
+      <div class="panel"><h3>Labels and owner&rsquo;s guide</h3><ul class="plist" style="line-height:1.8;">
+        <li>HOT SURFACE and OUTDOOR USE ONLY with a carbon monoxide warning</li>
+        <li>Keep clear of combustibles; minimum clearances stated</li>
+        <li>Serial plate with model, date and weight</li>
+        <li>Lighting, damper control, tray heights, ash removal, cleaning, re-seasoning</li>
+        <li>Recommend an ABC extinguisher kept at the pit</li>
+        <li>Remind the customer to confirm health department and fire marshal requirements before vending</li>
+        <li>Load-out: strap through the stand frame, never the lids or shelves; casters locked; wheels chocked</li></ul></div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="footer-bottom">
+    <span>&copy; <span id="yr"></span> C. L. Rainford Welding &amp; Fabrication, Inc. &middot; 70 E 63rd Street, Chicago, IL 60637</span>
+    <span>OSHA references: 29 CFR 1910 (general industry). Verify current text at osha.gov.</span>
+  </div>
+</footer>
+
+<script src="/custom/jp-60/data.js"></script>
+<script src="/custom/jp-60/osha.js"></script>
+<script>
+function esc(s){ return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;"); }
+function stdUrl(s){ var m = /^1910\.(\d+)/.exec(s.n); return m ? OSHA_URL(m[1]) : "https://www.osha.gov/laws-regs/regulations/standardnumber/1904"; }
+function tagsOf(c){ return STEP_TAGS[c.id] || []; }
+function stdKeysOf(c){
+  var seen = {}, out = [];
+  tagsOf(c).forEach(function(t){ TAGS[t].std.forEach(function(k){ if(!seen[k]){ seen[k] = 1; out.push(k); } }); });
+  (STEP_STD[c.id] || []).forEach(function(k){ if(!seen[k]){ seen[k] = 1; out.push(k); } });
+  return out;
+}
+function stepLink(c){ return '<a href="/custom/jp-60/#step-' + c.id + '" title="' + esc(c.title) + '">' + c.id + "</a>"; }
+function cite(k){ var s = STANDARDS[k]; return '<a class="cite" href="' + stdUrl(s) + '" target="_blank" rel="noopener">' + esc(s.n) + "</a>"; }
+
+/* ---- store ---- */
+var KEY = "clr-jp60-safety-v1";
+function defaults(){ return {permit:{}, pchecks:{}, ps:{}, ppe:{}, roster:[{name:"", c:{}}, {name:"", c:{}}, {name:"", c:{}}, {name:"", c:{}}]}; }
+function load(){ try{ var r = localStorage.getItem(KEY); if(r) return Object.assign(defaults(), JSON.parse(r)); }catch(e){} return defaults(); }
+var S = load();
+function save(){ try{ localStorage.setItem(KEY, JSON.stringify(S)); }catch(e){} }
+function today(){ var d = new Date(); return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0"); }
+
+/* ---- standards matrix ---- */
+(function(){
+  var used = {};
+  CARDS.forEach(function(c){ stdKeysOf(c).forEach(function(k){ (used[k] = used[k] || []).push(c); }); });
+  var order = Object.keys(STANDARDS).filter(function(k){ return used[k]; });
+  document.getElementById("matrixBody").innerHTML = order.map(function(k){
+    var s = STANDARDS[k];
+    return "<tr><td class=\"num\">" + cite(k) + "</td><td><b>" + esc(s.t) + "</b></td><td>" + esc(s.w) + '</td><td class="steplinks">' + used[k].map(stepLink).join("") + "</td></tr>";
+  }).join("");
+})();
+
+/* ---- JHA ---- */
+var jhaTag = "all";
+function renderJha(){
+  var f = document.getElementById("jhaFilter");
+  f.innerHTML = '<button data-tag="all" class="' + (jhaTag === "all" ? "on" : "") + '">All steps</button>' + Object.keys(TAGS).map(function(t){
+    return '<button data-tag="' + t + '" class="' + (jhaTag === t ? "on" : "") + '"><i class="fas ' + TAGS[t].icon + '"></i> ' + esc(TAGS[t].label) + "</button>";
+  }).join("");
+  var rows = CARDS.filter(function(c){ return jhaTag === "all" || tagsOf(c).indexOf(jhaTag) > -1; });
+  document.getElementById("jhaBody").innerHTML = rows.map(function(c){
+    var tags = tagsOf(c);
+    var seen = {}, ctl = [];
+    tags.forEach(function(t){ CONTROLS[t].forEach(function(x){ if(!seen[x]){ seen[x] = 1; ctl.push(x); } }); });
+    return "<tr id=\"jha-" + c.id + "\"><td><b>" + stepLink(c) + "</b><br><span class=\"small\">" + c.title + "</span></td>" +
+      "<td>" + (tags.length ? '<div class="tagrow" style="margin-top:0">' + tags.map(function(t){ return '<span class="tag ' + t + '"><i class="fas ' + TAGS[t].icon + '"></i>' + esc(TAGS[t].label) + "</span>"; }).join("") + "</div>" : '<span class="small">Low hazard: office and handling work</span>') +
+        (c.haz.length ? '<ul class="plist" style="margin-top:8px;">' + c.haz.map(function(h){ return "<li>" + h + "</li>"; }).join("") + "</ul>" : "") + "</td>" +
+      "<td>" + (ctl.length ? '<ul class="plist">' + ctl.map(function(x){ return "<li>" + esc(x) + "</li>"; }).join("") + "</ul>" : '<span class="small">Standard shop housekeeping</span>') + "</td>" +
+      "<td>" + c.ppe.map(function(p){ return esc(PPE[p]); }).join("; ") + "</td>" +
+      "<td>" + (stdKeysOf(c).length ? stdKeysOf(c).map(cite).join(" &middot; ") : '<span class="small">General duty clause, OSH Act 5(a)(1)</span>') + "</td></tr>";
+  }).join("");
+}
+document.getElementById("jhaFilter").addEventListener("click", function(e){ var b = e.target.closest("button[data-tag]"); if(!b) return; jhaTag = b.getAttribute("data-tag"); renderJha(); });
+renderJha();
+
+/* ---- permit ---- */
+var PERMIT_BEFORE = [
+  "Combustibles within 35 ft are removed, or shielded with fire-retardant covers or screens",
+  "Floor swept clean; cracks and openings within 35 ft that could pass sparks are covered",
+  "Combustible walls, ceilings or floors near the work are protected or wetted",
+  "No flammable liquids or vapors (acetone, paint, thinners) open or in use nearby; rags in a closed metal can",
+  "Gas cylinders upright and secured; leads, hoses and connectors inspected",
+  "No galvanized, zinc-plated, cadmium-plated or unknown-coated metal at the weld",
+  "Ventilation or local exhaust running and aimed at the arc",
+  "Charged ABC extinguisher within reach, gauge in green, tag in date",
+  "Fire watch assigned, trained, has an extinguisher, and has no other duties",
+  "Screens or curtains up so bystanders are not exposed to arc flash"
+];
+var PERMIT_AFTER = [
+  "Fire watch maintained for at least 30 minutes after the last hot work",
+  "Area and adjacent spaces inspected: no smoldering, no sparks in gaps, no hot parts left on wood",
+  "Hot parts marked HOT; equipment shut off; leads and gas stowed",
+  "Permit signed off and filed with the job"
+];
+function permitList(el, arr, pre){
+  el.innerHTML = arr.map(function(t, i){ var k = pre + i; return '<li><label><input type="checkbox" data-pc="' + k + '"' + (S.pchecks[k] ? " checked" : "") + "><span>" + esc(t) + "</span></label></li>"; }).join("");
+}
+permitList(document.getElementById("permitBefore"), PERMIT_BEFORE, "b");
+permitList(document.getElementById("permitAfter"), PERMIT_AFTER, "a");
+document.querySelectorAll("[data-permit]").forEach(function(i){
+  var k = i.getAttribute("data-permit"); i.value = S.permit[k] || (k === "date" ? today() : "");
+  i.addEventListener("input", function(){ S.permit[k] = i.value; save(); });
+});
+document.getElementById("permitClear").addEventListener("click", function(){
+  S.permit = {}; S.pchecks = {}; save();
+  document.querySelectorAll("[data-permit]").forEach(function(i){ i.value = i.getAttribute("data-permit") === "date" ? today() : ""; });
+  document.querySelectorAll("[data-pc]").forEach(function(i){ i.checked = false; });
+});
+document.addEventListener("change", function(e){ var t = e.target; if(t.matches("[data-pc]")){ S.pchecks[t.getAttribute("data-pc")] = t.checked; save(); } });
+
+/* ---- pre-shift ---- */
+var psDate = document.getElementById("psDate"); psDate.value = today();
+function renderPs(){
+  var d = psDate.value || today(); S.ps[d] = S.ps[d] || {c:{}, by:"", issues:""};
+  var rec = S.ps[d];
+  document.getElementById("psBody").innerHTML = PRESHIFT.map(function(g, gi){
+    return '<div class="panel"><h3>' + esc(g[0]) + '</h3><ul class="checks">' + g[1].map(function(t, i){ var k = gi + "-" + i; return '<li><label><input type="checkbox" data-ps="' + k + '"' + (rec.c[k] ? " checked" : "") + "><span>" + esc(t) + "</span></label></li>"; }).join("") + "</ul></div>";
+  }).join("");
+  document.getElementById("psBy").value = rec.by || ""; document.getElementById("psIssues").value = rec.issues || "";
+}
+psDate.addEventListener("change", renderPs);
+document.addEventListener("change", function(e){ var t = e.target; if(t.matches("[data-ps]")){ var d = psDate.value || today(); S.ps[d].c[t.getAttribute("data-ps")] = t.checked; save(); } });
+document.getElementById("psBy").addEventListener("input", function(e){ var d = psDate.value || today(); S.ps[d].by = e.target.value; save(); });
+document.getElementById("psIssues").addEventListener("input", function(e){ var d = psDate.value || today(); S.ps[d].issues = e.target.value; save(); });
+renderPs();
+
+/* ---- PPE cert ---- */
+["ppeWhere", "ppeDate", "ppeWho"].forEach(function(id){
+  var el = document.getElementById(id); if(S.ppe[id]) el.value = S.ppe[id]; else if(id === "ppeDate") el.value = today();
+  el.addEventListener("input", function(){ S.ppe[id] = el.value; save(); });
+});
+
+/* ---- training ---- */
+document.getElementById("trainBody").innerHTML = TRAINING.map(function(r){ return "<tr><td><b>" + esc(r[0]) + '</b></td><td class="num">' + esc(r[1]) + "</td><td>" + esc(r[2]) + "</td></tr>"; }).join("");
+function renderRoster(){
+  document.getElementById("rosterHead").innerHTML = "<tr><th>Name</th>" + TRAINING.map(function(r){ return '<th class="v">' + esc(r[0]) + "</th>"; }).join("") + '<th class="noprint"></th></tr>';
+  document.getElementById("rosterBody").innerHTML = S.roster.map(function(p, ri){
+    return '<tr><td><input type="text" class="field" data-rn="' + ri + '" value="' + esc(p.name) + '" aria-label="Crew member name"></td>' +
+      TRAINING.map(function(r, ti){ return '<td class="c"><input type="checkbox" data-rc="' + ri + ":" + ti + '"' + (p.c[ti] ? " checked" : "") + ' aria-label="' + esc(r[0]) + '"></td>'; }).join("") +
+      '<td class="noprint"><button class="btn ghost small" data-rm="' + ri + '" aria-label="Remove row"><i class="fas fa-trash"></i></button></td></tr>';
+  }).join("");
+}
+document.getElementById("addCrew").addEventListener("click", function(){ S.roster.push({name:"", c:{}}); save(); renderRoster(); });
+document.addEventListener("input", function(e){ var t = e.target; if(t.matches("[data-rn]")){ S.roster[+t.getAttribute("data-rn")].name = t.value; save(); } });
+document.addEventListener("change", function(e){ var t = e.target; if(t.matches("[data-rc]")){ var p = t.getAttribute("data-rc").split(":"); S.roster[+p[0]].c[p[1]] = t.checked; save(); } });
+document.addEventListener("click", function(e){
+  var rm = e.target.closest("[data-rm]"); if(rm){ S.roster.splice(+rm.getAttribute("data-rm"), 1); save(); renderRoster(); return; }
+  var pr = e.target.closest("[data-print]"); if(pr){
+    var w = pr.getAttribute("data-print"); if(w) document.body.classList.add("only-" + w);
+    window.print(); document.body.classList.remove("only-" + w);
+  }
+});
+renderRoster();
+document.getElementById("yr").textContent = new Date().getFullYear();
+</script>
+</body>
+</html>

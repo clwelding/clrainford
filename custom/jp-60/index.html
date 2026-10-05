@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<meta name="description" content="Internal shop build traveler for the JP-60 commercial jerk pit, with OSHA-referenced safety gates on every step.">
+<title>JP-60 Jerk Pit Shop Build | C. L. Rainford Welding &amp; Fabrication</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Public+Sans:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="/custom/jp-60/style.css">
+</head>
+<body>
+<div class="hazard-strip"></div>
+
+<header class="site-header" role="banner">
+  <div class="wordmark">
+    <a href="/"><span class="mark">C.L. RAINFORD <span>WELDING &amp; FABRICATION</span></span></a>
+    <span class="sub">Chicago, IL &middot; Since 2015</span>
+  </div>
+  <nav class="main-nav" aria-label="Main navigation">
+    <ul>
+      <li><a href="/">Home</a></li>
+      <li><a href="/capabilities.html">What We Do</a></li>
+      <li><a href="/residential.html">Residential</a></li>
+      <li><a href="/commercial.html">Commercial</a></li>
+      <li><a href="/custom/" class="active">Custom</a></li>
+      <li><a href="/gallery.html">Gallery</a></li>
+      <li><a href="/about.html">About</a></li>
+      <li><a href="/contact.html">Contact</a></li>
+      <li><a href="/careers.html">Careers</a></li>
+    </ul>
+  </nav>
+  <div class="header-cta">
+    <a class="btn ghost small" href="/portal.html"><i class="fas fa-user"></i> Client Login</a>
+    <a class="btn primary small" href="/quote.html?type=custom-other">Request a Quote</a>
+  </div>
+</header>
+
+<main>
+  <div class="back-bar"><a href="/custom/jerk-pits.html"><i class="fas fa-arrow-left"></i> Back to Jerk Pits</a></div>
+
+  <div class="page-hero">
+    <span class="eyebrow"><i class="fas fa-fire" style="margin-right:6px;"></i>Internal Shop Traveler &middot; JP-60</span>
+    <h1 style="font-size:clamp(1.9rem,4vw,2.6rem); margin-top:10px;">JP-60 Commercial Jerk Pit &mdash; Shop Build</h1>
+    <p class="lede">33 steps from receiving steel to customer handoff. Every step has a pre-task safety gate, hazard controls, PPE, a QC gate and the OSHA standards that apply. Work is signed off step by step, and the whole traveler prints for the job file.</p>
+    <div class="sublinks">
+      <a class="btn primary small" href="/custom/jp-60/safety.html"><i class="fas fa-shield-halved"></i> Safety &amp; OSHA Program</a>
+      <a class="btn ghost small" href="/custom/jp-60/safety.html#permit"><i class="fas fa-fire-flame-curved"></i> Hot-Work Permit</a>
+      <a class="btn ghost small" href="/custom/jp-60/safety.html#preshift"><i class="fas fa-list-check"></i> Pre-Shift Checklist</a>
+    </div>
+  </div>
+
+  <div class="banner screen">
+    <i class="fas fa-triangle-exclamation"></i>
+    <div><strong>Safety gates are not optional.</strong> The work steps in a card stay locked until its pre-task safety gate is checked, and a step can be signed off only when the gate, every work step and the QC gate are complete. Dimensions are nominal shop baselines; the lead fabricator verifies them against the as-built pit and the customer&rsquo;s local code before cutting.</div>
+  </div>
+
+  <div class="toolbar">
+    <div class="tabs" role="tablist" id="tabs"></div>
+    <div class="progress"><div class="bar"><i id="bar"></i></div><div class="txt" id="ptxt"></div></div>
+    <select class="filter" id="phaseFilter" aria-label="Filter by phase"></select>
+    <div class="tools">
+      <button class="btn ghost small" id="btnPrint"><i class="fas fa-print"></i> Print traveler</button>
+      <button class="btn ghost small" id="btnExport"><i class="fas fa-download"></i> Export</button>
+      <button class="btn ghost small" id="btnImport"><i class="fas fa-upload"></i> Import</button>
+      <button class="btn ghost small" id="btnReset"><i class="fas fa-rotate-left"></i> Reset</button>
+      <input type="file" id="fileIn" accept="application/json" hidden>
+    </div>
+  </div>
+  <p class="note">Progress and sign-offs save in this browser only. Use Export / Import to move the traveler between devices, and Print to file the signed copy.</p>
+
+  <section class="panel" style="margin-top:16px;" aria-label="Job information">
+    <h3>Job information</h3>
+    <div class="form-grid" style="margin-bottom:0;">
+      <label>Customer / job<input class="field" data-job="job" autocomplete="off"></label>
+      <label>Serial number<input class="field" data-job="serial" autocomplete="off"></label>
+      <label>Lead fabricator<input class="field" data-job="lead" autocomplete="off"></label>
+      <label>Fire watch (default)<input class="field" data-job="watch" autocomplete="off"></label>
+      <label>Start date<input class="field" type="date" data-job="start"></label>
+    </div>
+  </section>
+
+  <div id="view"></div>
+</main>
+
+<footer>
+  <div class="footer-bottom">
+    <span>&copy; <span id="yr"></span> C. L. Rainford Welding &amp; Fabrication, Inc. &middot; 70 E 63rd Street, Chicago, IL 60637</span>
+    <span>Source: JP-60 Commercial Jerk Pit Shop Manual &middot; OSHA references: 29 CFR 1910 (general industry)</span>
+  </div>
+</footer>
+
+<script src="/custom/jp-60/data.js"></script>
+<script src="/custom/jp-60/osha.js"></script>
+<script>
+/* ---------- helpers ---------- */
+var KEY = "clr-jp60-build-v1";
+var VIEWS = [["guide","Step guide"],["board","Board"],["materials","Materials & cuts"],["tools","Tools"],["specs","Specs & drawings"]];
+var COLS = [["todo","To do","var(--ink-faint)"],["doing","In progress","var(--spark)"],["hold","QC hold","var(--warn)"],["done","Done","var(--good)"]];
+var armedReset = false;
+
+function esc(s){ return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;"); }
+function defaults(){ return {status:{}, checks:{}, sign:{}, bom:{}, job:{}, view:"guide", phase:"all"}; }
+function load(){ try{ var r = localStorage.getItem(KEY); if(r) return Object.assign(defaults(), JSON.parse(r)); }catch(e){} return defaults(); }
+var S = load();
+function save(){ try{ localStorage.setItem(KEY, JSON.stringify(S)); }catch(e){} }
+
+var byId = function(id){ return CARDS.find(function(c){ return c.id === id; }); };
+var phaseOf = function(c){ return PHASES.find(function(p){ return p.id === c.p; }); };
+function statusOf(c){ return S.status[c.id] || "todo"; }
+function tagsOf(c){ return STEP_TAGS[c.id] || []; }
+function gatesOf(c){
+  var seen = {}, out = [];
+  tagsOf(c).forEach(function(t){ var g = TAGS[t].gate; if(!seen[g]){ seen[g] = 1; out.push(g); } });
+  return out;
+}
+function stdKeysOf(c){
+  var seen = {}, out = [];
+  tagsOf(c).forEach(function(t){ TAGS[t].std.forEach(function(k){ if(!seen[k]){ seen[k] = 1; out.push(k); } }); });
+  (STEP_STD[c.id] || []).forEach(function(k){ if(!seen[k]){ seen[k] = 1; out.push(k); } });
+  return out;
+}
+function stdUrl(s){
+  var m = /^1910\.(\d+)/.exec(s.n);
+  return m ? OSHA_URL(m[1]) : "https://www.osha.gov/laws-regs/regulations/standardnumber/1904";
+}
+function keys(c){
+  var g = gatesOf(c).map(function(_, i){ return c.id + ":g:" + i; });
+  var s = c.steps.map(function(_, i){ return c.id + ":s:" + i; });
+  var q = c.qc.map(function(_, i){ return c.id + ":q:" + i; });
+  return {g:g, s:s, q:q};
+}
+function allOn(arr){ return arr.every(function(k){ return !!S.checks[k]; }); }
+function countOn(arr){ return arr.filter(function(k){ return !!S.checks[k]; }).length; }
+function progressOf(c){ var k = keys(c); var all = k.g.concat(k.s, k.q); return {done:countOn(all), total:all.length}; }
+function readiness(c){
+  var k = keys(c), why = [];
+  if(!allOn(k.g)) why.push("safety gate");
+  if(!allOn(k.s)) why.push("work steps");
+  if(!allOn(k.q)) why.push("QC gate");
+  var by = (S.sign[c.id] && S.sign[c.id].by || "").trim();
+  if(!by) why.push("initials");
+  return why;
+}
+function fmtHrs(h){ return h < 1 ? Math.round(h*60) + " min" : (h % 1 ? h.toFixed(1) : h) + " hr" + (h === 1 ? "" : "s"); }
+function visible(c){ return S.phase === "all" || c.p === S.phase; }
+
+/* ---------- guide ---------- */
+function checkItem(key, text, disabled){
+  var on = !!S.checks[key];
+  return '<li><label><input type="checkbox" data-key="' + key + '"' + (on ? " checked" : "") + (disabled ? " disabled" : "") + '><span>' + text + '</span></label></li>';
+}
+function stepHTML(c){
+  var ph = phaseOf(c), st = statusOf(c), k = keys(c), gates = gatesOf(c);
+  var gOk = allOn(k.g), p = progressOf(c), sign = S.sign[c.id] || {};
+  var why = readiness(c);
+  var stat = {todo:["","To do"], doing:["doing","In progress"], hold:["hold","QC hold"], done:["go","Done"]}[st];
+  var tagHtml = tagsOf(c).map(function(t){ var T = TAGS[t]; return '<span class="tag ' + t + '" title="' + esc(T.label) + '"><i class="fas ' + T.icon + '"></i>' + esc(T.label) + '</span>'; }).join("");
+  var controls = tagsOf(c).map(function(t){
+    return '<div class="std"><b>' + esc(TAGS[t].label) + '</b><ul class="plist">' + CONTROLS[t].map(function(x){ return "<li>" + esc(x) + "</li>"; }).join("") + "</ul></div>";
+  }).join("");
+  var stds = stdKeysOf(c).map(function(key){
+    var s = STANDARDS[key];
+    return '<div class="std"><b><a href="' + stdUrl(s) + '" target="_blank" rel="noopener">' + esc(s.n) + '</a> &middot; ' + esc(s.t) + '</b><p>' + esc(s.w) + '</p></div>';
+  }).join("");
+  return '<article class="step ' + (st === "done" ? "is-done" : "") + '" id="step-' + c.id + '" style="--c:var(--' + c.p + ')">' +
+    '<div class="step-top">' +
+      '<div class="step-title"><div class="num">' + c.id + '</div><div><h3>' + c.title + '</h3>' +
+        '<div class="chips"><span class="chip ' + stat[0] + '">' + stat[1] + '</span><span class="chip">' + fmtHrs(c.hrs) + '</span><span class="chip">' + esc(c.crew) + '</span><span class="chip">' + p.done + "/" + p.total + ' checks</span></div>' +
+        (tagHtml ? '<div class="tagrow">' + tagHtml + "</div>" : "") +
+      '</div></div>' +
+    '</div>' +
+    '<p class="goal">' + c.goal + '</p>' +
+    (c.haz.length ? '<div class="hazbox"><strong><i class="fas fa-triangle-exclamation"></i> Stop and read</strong><ul>' + c.haz.map(function(h){ return "<li>" + h + "</li>"; }).join("") + "</ul></div>" : "") +
+    '<div class="step-body"><div>' +
+      (gates.length ? '<div class="gate' + (gOk ? " pass" : "") + '"><h4 class="sub"><i class="fas ' + (gOk ? "fa-lock-open" : "fa-lock") + '"></i> Pre-task safety gate</h4><ul class="checks">' +
+        gates.map(function(g, i){ return checkItem(c.id + ":g:" + i, esc(g), false); }).join("") + "</ul>" +
+        (gOk ? "" : '<p class="locked-note">Check every item to unlock the work steps.</p>') + "</div>" : "") +
+      '<h4 class="sub" style="margin-top:20px;">Work steps</h4><ul class="checks">' +
+        c.steps.map(function(t, i){ return checkItem(c.id + ":s:" + i, t, !gOk); }).join("") + "</ul>" +
+    '</div><div>' +
+      '<div class="side-card"><h4 class="sub">PPE for this step</h4><div class="ppe">' + c.ppe.map(function(x){ return "<span>" + esc(PPE[x]) + "</span>"; }).join("") + '</div></div>' +
+      '<div class="side-card"><h4 class="sub">Tools and equipment</h4><ul class="plist">' + c.tools.map(function(t){ return "<li>" + t + "</li>"; }).join("") + '</ul></div>' +
+      '<div class="side-card"><h4 class="sub">QC gate</h4><ul class="checks">' + c.qc.map(function(q, i){ return checkItem(c.id + ":q:" + i, q, false); }).join("") + '</ul></div>' +
+    '</div></div>' +
+    '<details class="osha"><summary>Hazard controls and OSHA references (' + stdKeysOf(c).length + ')</summary><div class="stdlist">' +
+      (controls ? '<h4 class="sub" style="margin:8px 0 0;">Controls (eliminate, engineer, administer, PPE)</h4>' + controls : "") +
+      '<h4 class="sub" style="margin:12px 0 0;">Standards that apply to this step</h4>' + (stds || '<p class="std">No specific standard beyond the general duty to provide a workplace free of recognized hazards (OSH Act, Section 5(a)(1)).</p>') +
+    '</div></details>' +
+    '<div class="signoff">' +
+      '<label>Completed by (initials)<input class="field" style="width:120px" maxlength="12" data-sign="' + c.id + '" value="' + esc(sign.by || "") + '" autocomplete="off"></label>' +
+      (sign.at && st === "done" ? '<span class="stamp"><i class="fas fa-circle-check"></i> Signed ' + new Date(sign.at).toLocaleString() + "</span>" : "") +
+      '<div class="step-actions">' +
+        (st === "done" ? '<button class="btn ghost small" data-act="reopen" data-id="' + c.id + '"><i class="fas fa-rotate-left"></i> Reopen</button>' :
+          '<button class="btn warn small" data-act="hold" data-id="' + c.id + '"><i class="fas fa-pause"></i> ' + (st === "hold" ? "Release hold" : "Put on QC hold") + '</button>' +
+          '<button class="btn good small" data-act="done" data-id="' + c.id + '"' + (why.length ? " disabled" : "") + '><i class="fas fa-check"></i> Sign off step</button>' +
+          '<span class="why" data-why="' + c.id + '">' + (why.length ? "Still needed: " + why.join(", ") : "") + '</span>') +
+      '</div></div>' +
+  '</article>';
+}
+function renderGuide(){
+  var out = "";
+  PHASES.forEach(function(ph){
+    var list = CARDS.filter(function(c){ return c.p === ph.id && visible(c); });
+    if(!list.length) return;
+    out += '<section style="--c:var(--' + ph.id + ')"><div class="phase-head"><span class="eyebrow">' + ph.id.replace("p", "Phase ") + '</span><h2>' + ph.name + '</h2></div>' + list.map(stepHTML).join("") + "</section>";
+  });
+  return '<div class="guide">' + out + "</div>";
+}
+
+/* ---------- board ---------- */
+function renderBoard(){
+  var out = "";
+  COLS.forEach(function(col, ci){
+    var list = CARDS.filter(function(c){ return visible(c) && statusOf(c) === col[0]; });
+    out += '<div class="col" data-col="' + col[0] + '"><div class="col-head" style="--c:' + col[2] + '"><h3>' + col[1] + '</h3><span class="n">' + list.length + '</span></div>' +
+      '<div class="col-note">' + ({todo:"Not started", doing:"Safety gate, work steps and QC under way", hold:"Waiting on QC or a decision", done:"Gate, steps, QC and sign-off complete"})[col[0]] + '</div><div class="col-body">' +
+      list.map(function(c){
+        var p = progressOf(c);
+        return '<div class="kcard" draggable="true" data-card="' + c.id + '" style="--c:var(--' + c.p + ')">' +
+          '<div class="code">Step ' + c.id + " &middot; " + esc(phaseOf(c).name) + '</div><h4>' + c.title + '</h4>' +
+          '<div class="meta"><span>' + fmtHrs(c.hrs) + '</span><span>' + p.done + "/" + p.total + ' checks</span></div>' +
+          '<div class="moves"><button data-move="' + c.id + ':-1" ' + (ci === 0 ? "disabled" : "") + '>&larr;</button><button data-move="' + c.id + ':1" ' + (ci === COLS.length - 1 ? "disabled" : "") + '>&rarr;</button></div>' +
+          '<button class="open" data-open="' + c.id + '">Open step &rarr;</button></div>';
+      }).join("") + "</div></div>";
+  });
+  return '<div class="board" aria-label="Kanban board">' + out + '</div><p class="note">Dragging a card to Done only works when its gate, work steps, QC and initials are complete. Open the step to finish it.</p>';
+}
+
+/* ---------- reference views ---------- */
+function renderMaterials(){
+  return '<div class="sec"><h2>Bill of materials</h2><p class="lead">Quantities include a small allowance for scrap. No galvanized, zinc-plated, cadmium-plated or unknown-coating material anywhere on the pit. Tick each line as it is received and inspected (step 03).</p>' +
+   '<div class="panel"><div class="tblwrap"><table><thead><tr><th>Rec’d</th><th>Material</th><th>Qty</th><th>Used for</th></tr></thead><tbody>' +
+   BOM.map(function(r, i){ return '<tr><td><input type="checkbox" data-bom="' + i + '"' + (S.bom[i] ? " checked" : "") + ' aria-label="Received ' + esc(r[0]) + '" style="width:18px;height:18px;accent-color:var(--good);"></td><td>' + r[0] + '</td><td class="num">' + r[1] + '</td><td>' + r[2] + "</td></tr>"; }).join("") +
+   '</tbody></table></div></div></div>' +
+   '<div class="sec"><h2>Cut list</h2><p class="lead">Part numbers match the step cards. Lid parts are nominal; fit them to the as-built body. Weights to plan lifts: 3/16″ plate is about 7.7 lb per sq ft, and a full 48″ × 96″ sheet is about 245 lb.</p>' +
+   '<div class="panel"><div class="tblwrap"><table><thead><tr><th>Part</th><th>Name</th><th>Material</th><th>Qty</th><th>Size</th><th>Notes</th></tr></thead><tbody>' +
+   CUT.map(function(r){ return '<tr><td class="num"><b>' + r[0] + '</b></td><td>' + r[1] + '</td><td>' + r[2] + '</td><td class="num">' + r[3] + '</td><td class="num">' + r[4] + '</td><td>' + r[5] + "</td></tr>"; }).join("") +
+   '</tbody></table></div></div></div>';
+}
+function renderTools(){
+  return '<div class="sec"><h2>Tools and equipment</h2><p class="lead">Everything this build uses, with what to check before you pick it up. The daily inspection items also appear on the <a href="/custom/jp-60/safety.html#preshift" style="color:var(--accent);font-weight:600;">pre-shift checklist</a>.</p>' +
+   '<div class="two">' + TOOLS.map(function(g){
+     return '<div class="panel"><h3>' + g.g + '</h3><div class="tblwrap"><table><thead><tr><th>Tool</th><th>Used for</th><th>Check before use</th></tr></thead><tbody>' +
+       g.items.map(function(r){ return "<tr><td>" + r[0] + "</td><td>" + r[1] + "</td><td>" + r[2] + "</td></tr>"; }).join("") + "</tbody></table></div></div>";
+   }).join("") + "</div></div>";
+}
+function planView(){
+  var s = 8, ox = 200, oy = 120, W = 60 * s, D = 30 * s;
+  function T(x, y, t, a, c){ return '<text x="' + x + '" y="' + y + '" text-anchor="' + (a || "start") + '" class="' + (c || "pl-t") + '">' + t + "</text>"; }
+  var trays = "", grates = "", i;
+  for(i = 0; i < 3; i++) trays += '<rect x="' + (ox + 4 + i * 19.5 * s) + '" y="' + (oy + 8) + '" width="' + (19.5 * s - 2) + '" height="' + (D - 16) + '" class="pl-tray"/>';
+  [[0, 0], [14.75, 0], [30.25, 0], [45, 0]].forEach(function(g){ grates += '<rect x="' + (ox + (g[0] + 0.4) * s) + '" y="' + (oy + 2 * s) + '" width="' + (14.5 * s - 2) + '" height="' + (D - 4 * s) + '" class="pl-grate"/>'; });
+  return '<svg viewBox="0 0 1020 430" role="img" aria-label="Plan view of the JP-60 jerk pit">' +
+  '<style>.pl-o{fill:none;stroke:var(--ink);stroke-width:2}.pl-body{fill:var(--panel2);stroke:var(--ink);stroke-width:2.5}.pl-led{fill:rgba(245,199,43,.25);stroke:var(--marker);stroke-width:1}' +
+  '.pl-tray{fill:rgba(242,107,88,.12);stroke:var(--red);stroke-width:1.2;stroke-dasharray:6 4}.pl-grate{fill:none;stroke:#6FBF8B;stroke-width:1.6}' +
+  '.pl-cap{fill:var(--marker);stroke:var(--ink);stroke-width:1.5}.pl-dash{fill:none;stroke:var(--muted);stroke-width:1.2;stroke-dasharray:7 5}.pl-dim{stroke:var(--muted);stroke-width:1}' +
+  '.pl-t{font-family:var(--body);font-size:13px;fill:var(--ink)}.pl-m{font-family:var(--body);font-size:12px;fill:var(--muted)}.pl-h{font-family:var(--display);font-weight:700;font-size:18px;fill:var(--ink)}</style>' +
+  T(20, 30, "Plan view (looking down, lids removed)", "start", "pl-h") + T(20, 50, "Nominal, scale about 1:12. Front of the pit is at the bottom.", "start", "pl-m") +
+  /* shelves folded out */
+  '<rect x="' + (ox - 16 * s) + '" y="' + (oy + 1 * s) + '" width="' + (16 * s) + '" height="' + (28 * s) + '" class="pl-dash"/><rect x="' + (ox + W) + '" y="' + (oy + 1 * s) + '" width="' + (16 * s) + '" height="' + (28 * s) + '" class="pl-dash"/>' +
+  T(ox - 8 * s, oy + s - 6, "Fold-down shelf", "middle", "pl-m") + T(ox + W + 8 * s, oy + s - 6, "Fold-down shelf", "middle", "pl-m") +
+  '<rect x="' + ox + '" y="' + oy + '" width="' + W + '" height="' + D + '" class="pl-body"/>' +
+  trays + '<rect x="' + ox + '" y="' + oy + '" width="' + W + '" height="16" class="pl-led"/><rect x="' + ox + '" y="' + (oy + D - 16) + '" width="' + W + '" height="16" class="pl-led"/>' + grates +
+  '<rect x="' + (ox + 30 * s - 12) + '" y="' + oy + '" width="24" height="' + D + '" class="pl-cap"/>' +
+  /* stacks, intakes, cleanout, drain */
+  '<circle cx="' + (ox + 15 * s) + '" cy="' + (oy + 5 * s) + '" r="14" class="pl-o"/><circle cx="' + (ox + 45 * s) + '" cy="' + (oy + 5 * s) + '" r="14" class="pl-o"/>' +
+  '<rect x="' + (ox + 10 * s) + '" y="' + (oy + D - 4) + '" width="' + (10 * s) + '" height="8" class="pl-o" style="stroke:var(--spark);stroke-width:3"/><rect x="' + (ox + 40 * s) + '" y="' + (oy + D - 4) + '" width="' + (10 * s) + '" height="8" class="pl-o" style="stroke:var(--spark);stroke-width:3"/>' +
+  '<rect x="' + (ox - 4) + '" y="' + (oy + 6 * s) + '" width="8" height="' + (18 * s) + '" class="pl-o" style="stroke:var(--spark);stroke-width:3"/>' +
+  '<circle cx="' + (ox + W - 2 * s) + '" cy="' + (oy + D - 2 * s) + '" r="7" class="pl-o"/>' +
+  /* labels */
+  T(ox + 15 * s, oy - 12, "Stack + damper", "middle", "pl-m") + T(ox + 45 * s, oy - 12, "Stack + damper", "middle", "pl-m") +
+    T(ox + W + 16 * s + 16, oy + 40, "Center cap (lids land here)", "start", "pl-t") +
+  '<line x1="' + (ox + 30 * s) + '" y1="' + (oy - 2) + '" x2="' + (ox + 30 * s) + '" y2="' + (oy - 10) + '" class="pl-dim"/>' +
+  T(ox + W + 16 * s + 16, oy + 70, "Grate ledges, 2″ angle at 22″", "start", "pl-m") +
+  T(ox + W + 16 * s + 16, oy + 100, "Four 304 stainless grates", "start", "pl-m") +
+  T(ox + W + 16 * s + 16, oy + 130, "Three lift-out coal trays", "start", "pl-m") +
+  T(ox + 15 * s, oy + D + 26, "Intake 3″ × 10″", "middle", "pl-m") + T(ox + 45 * s, oy + D + 26, "Intake 3″ × 10″", "middle", "pl-m") +
+  T(ox - 120, oy + D + 26, "Ash cleanout (left end) 18″ × 5″", "start", "pl-m") +
+  T(ox + W - 2 * s, oy + D + 42, "3/4″ NPT drain plug", "end", "pl-m") +
+  /* dims */
+  '<line x1="' + ox + '" y1="' + (oy + D + 62) + '" x2="' + (ox + W) + '" y2="' + (oy + D + 62) + '" class="pl-dim"/><line x1="' + ox + '" y1="' + (oy + D + 54) + '" x2="' + ox + '" y2="' + (oy + D + 70) + '" class="pl-dim"/><line x1="' + (ox + W) + '" y1="' + (oy + D + 54) + '" x2="' + (ox + W) + '" y2="' + (oy + D + 70) + '" class="pl-dim"/>' +
+  T(ox + W / 2, oy + D + 86, "60″ body", "middle") +
+  '<line x1="' + (ox - 16 * s - 24) + '" y1="' + oy + '" x2="' + (ox - 16 * s - 24) + '" y2="' + (oy + D) + '" class="pl-dim"/>' + T(ox - 16 * s - 30, oy + D / 2, "30″", "end") +
+  "</svg>";
+}
+function renderSpecs(){
+  return '<div class="sec"><h2>Drawings</h2><div class="diagram">' + svgFront() + '</div><div class="diagram" style="margin-top:16px;">' + planView() + '</div></div>' +
+  '<div class="sec two">' +
+   '<div class="panel"><h3>JP-60 baseline spec</h3><dl class="dl">' +
+    '<dt>Body</dt><dd>60″ L × 30″ D × 24″ H, 3/16″ A36 plate, fully welded</dd>' +
+    '<dt>Cook area</dt><dd>Two zones, each about 29-5/8″ × 29-5/8″ (about 12 sq ft total)</dd>' +
+    '<dt>Grate height</dt><dd>22″ above the pit floor, about 36″ above the ground</dd>' +
+    '<dt>Fire</dt><dd>Three lift-out coal trays; legs set the coals at 6″, 10″ or 14″ off the floor</dd>' +
+    '<dt>Cooking surface</dt><dd>Four 304 stainless grates, or traditional pimento sticks on the same ledges</dd>' +
+    '<dt>Lids</dt><dd>Two 10 ga lids, 10″ skirts, counterweighted, with stops</dd>' +
+    '<dt>Airflow</dt><dd>Two 3″ × 10″ sliding intakes; a 3″ stack with butterfly damper on each lid</dd>' +
+    '<dt>Ash</dt><dd>18″ × 5″ drop-down cleanout on the left end; 3/4″ NPT drain plug</dd>' +
+    '<dt>Stand</dt><dd>2″ × 2″ × 3/16″ tube, 6″ casters (2 locking swivel, 2 rigid)</dd>' +
+    '<dt>Overall</dt><dd>About 92″ W with shelves open, about 65″ H to stack tops</dd>' +
+    '<dt>Weight</dt><dd>About 650 lb empty. Plan lifts and load-out around it.</dd>' +
+    '<dt>Finish</dt><dd>1200°F high-heat paint outside; seasoned bare steel inside</dd></dl></div>' +
+   '<div class="panel"><h3>Weld and process settings</h3><dl class="dl">' +
+    '<dt>Carbon steel</dt><dd>MIG, ER70S-6 .035″, 75/25 at 25–30 CFH. Dial in on 3/16″ scrap first.</dd>' +
+    '<dt>Stainless</dt><dd>TIG, DCEN, ER308L, 100% argon 15–20 CFH, 3/32″ lanthanated tungsten</dd>' +
+    '<dt>Body seams</dt><dd>Continuous outside on corners and floor perimeter; stitched inside</dd>' +
+    '<dt>Floor to stand</dt><dd>2″ stitches every 8″ to allow heat expansion</dd>' +
+    '<dt>Squareness</dt><dd>Diagonals within 1/8″ on body, stand and trays</dd></dl>' +
+    '<div class="callout" style="margin-top:14px;">Baseline numbers are a starting point. The lead fabricator verifies them against the as-built pit, the customer’s options and local health and fire requirements before cutting. Welding is to be done by welders qualified for the process and position the customer or code requires.</div></div>' +
+  '</div>';
+}
+
+/* ---------- top-level render ---------- */
+function updateTop(){
+  var done = CARDS.filter(function(c){ return statusOf(c) === "done"; }).length;
+  var left = CARDS.filter(function(c){ return statusOf(c) !== "done"; }).reduce(function(a, c){ return a + c.hrs; }, 0);
+  document.getElementById("bar").style.width = (done / CARDS.length * 100).toFixed(1) + "%";
+  document.getElementById("ptxt").textContent = done + " of " + CARDS.length + " steps signed off · about " + left.toFixed(1) + " hrs left";
+  document.getElementById("tabs").innerHTML = VIEWS.map(function(v){ return '<button class="tab' + (S.view === v[0] ? " on" : "") + '" role="tab" aria-selected="' + (S.view === v[0]) + '" data-tab="' + v[0] + '">' + v[1] + "</button>"; }).join("");
+  var rb = document.getElementById("btnReset");
+  rb.innerHTML = armedReset ? '<i class="fas fa-triangle-exclamation"></i> Tap again to erase' : '<i class="fas fa-rotate-left"></i> Reset';
+  document.getElementById("phaseFilter").style.display = (S.view === "guide" || S.view === "board") ? "" : "none";
+}
+function render(){
+  updateTop();
+  var v = document.getElementById("view");
+  v.innerHTML = S.view === "guide" ? renderGuide() : S.view === "board" ? renderBoard() : S.view === "materials" ? renderMaterials() : S.view === "tools" ? renderTools() : renderSpecs();
+  if(S.view === "board") wireDrag();
+}
+function refreshStep(id){
+  var c = byId(id), el = document.getElementById("step-" + id);
+  if(!el){ render(); return; }
+  var open = el.querySelector("details.osha").open;
+  var tmp = document.createElement("div"); tmp.innerHTML = stepHTML(c);
+  var n = tmp.firstChild; if(open) n.querySelector("details.osha").open = true;
+  el.replaceWith(n); updateTop();
+}
+function flashStep(id){ var el = document.getElementById("step-" + id); if(!el) return; el.classList.add("flash"); setTimeout(function(){ el.classList.remove("flash"); }, 900); }
+function goStep(id){
+  S.view = "guide"; S.phase = "all"; document.getElementById("phaseFilter").value = "all"; save(); render();
+  var el = document.getElementById("step-" + id);
+  if(el){ el.scrollIntoView({block:"start"}); flashStep(id); }
+}
+
+/* ---------- state changes ---------- */
+function setStatus(id, status){
+  var c = byId(id);
+  if(status === "done" && readiness(c).length){ return false; }
+  S.status[id] = status;
+  if(status === "done"){ S.sign[id] = Object.assign(S.sign[id] || {}, {at:new Date().toISOString()}); }
+  save(); return true;
+}
+function nextOpen(after){
+  var i = CARDS.findIndex(function(c){ return c.id === after; });
+  return CARDS.slice(i + 1).find(function(c){ return statusOf(c) !== "done"; });
+}
+
+document.addEventListener("change", function(e){
+  var t = e.target;
+  if(t.matches("input[data-key]")){
+    S.checks[t.getAttribute("data-key")] = t.checked;
+    var id = t.getAttribute("data-key").split(":")[0], c = byId(id);
+    if(statusOf(c) === "todo" && t.checked) S.status[id] = "doing";
+    if(statusOf(c) === "done" && !t.checked) S.status[id] = "doing";
+    save(); refreshStep(id);
+    var again = document.querySelector('[data-key="' + t.getAttribute("data-key") + '"]'); if(again) again.focus();
+  } else if(t.matches("input[data-bom]")){
+    S.bom[t.getAttribute("data-bom")] = t.checked; save();
+  } else if(t.matches("input[data-job]")){
+    S.job[t.getAttribute("data-job")] = t.value; save();
+  } else if(t.id === "phaseFilter"){
+    S.phase = t.value; save(); render();
+  } else if(t.id === "fileIn"){
+    var f = t.files[0]; if(!f) return;
+    var r = new FileReader();
+    r.onload = function(){ try{ var d = JSON.parse(r.result); if(!d || typeof d !== "object" || !d.checks) throw 0; S = Object.assign(defaults(), d); save(); loadJob(); render(); }catch(err){ alert("That file isn't a JP-60 traveler export."); } };
+    r.readAsText(f); t.value = "";
+  }
+});
+document.addEventListener("input", function(e){
+  var t = e.target;
+  if(t.matches("input[data-sign]")){
+    var id = t.getAttribute("data-sign");
+    S.sign[id] = Object.assign(S.sign[id] || {}, {by:t.value}); save();
+    var why = readiness(byId(id)), btn = document.querySelector('[data-act="done"][data-id="' + id + '"]'), w = document.querySelector('[data-why="' + id + '"]');
+    if(btn) btn.disabled = why.length > 0;
+    if(w) w.textContent = why.length ? "Still needed: " + why.join(", ") : "";
+  } else if(t.matches("input[data-job]")){
+    S.job[t.getAttribute("data-job")] = t.value; save();
+  }
+});
+document.addEventListener("click", function(e){
+  var t = e.target.closest("[data-tab],[data-act],[data-move],[data-open]"); if(!t) return;
+  if(t.hasAttribute("data-tab")){ S.view = t.getAttribute("data-tab"); save(); render(); window.scrollTo({top:0}); }
+  else if(t.hasAttribute("data-open")){ goStep(t.getAttribute("data-open")); }
+  else if(t.hasAttribute("data-move")){
+    var p = t.getAttribute("data-move").split(":"), id = p[0], d = +p[1];
+    var order = COLS.map(function(c){ return c[0]; }), to = order[order.indexOf(statusOf(byId(id))) + d];
+    if(to && !setStatus(id, to)) alert("Step " + id + " can't move to Done yet. Open it and complete the safety gate, work steps, QC gate and initials first.");
+    render();
+  } else if(t.hasAttribute("data-act")){
+    var act = t.getAttribute("data-act"), sid = t.getAttribute("data-id");
+    if(act === "done"){
+      if(setStatus(sid, "done")){ var n = nextOpen(sid); refreshStep(sid); if(n){ var el = document.getElementById("step-" + n.id); if(el){ if(statusOf(n) === "todo"){ S.status[n.id] = "doing"; save(); refreshStep(n.id); } document.getElementById("step-" + n.id).scrollIntoView({block:"start"}); flashStep(n.id); } } }
+    } else if(act === "hold"){ setStatus(sid, statusOf(byId(sid)) === "hold" ? "doing" : "hold"); refreshStep(sid); }
+    else if(act === "reopen"){ setStatus(sid, "doing"); refreshStep(sid); }
+  }
+});
+
+/* ---------- board drag ---------- */
+function wireDrag(){
+  var dragId = null;
+  document.querySelectorAll(".kcard").forEach(function(el){
+    el.addEventListener("dragstart", function(ev){ dragId = el.getAttribute("data-card"); el.classList.add("dragging"); ev.dataTransfer.setData("text/plain", dragId); });
+    el.addEventListener("dragend", function(){ el.classList.remove("dragging"); document.querySelectorAll(".col.over").forEach(function(c){ c.classList.remove("over"); }); });
+  });
+  document.querySelectorAll(".col").forEach(function(col){
+    col.addEventListener("dragover", function(ev){ ev.preventDefault(); col.classList.add("over"); });
+    col.addEventListener("dragleave", function(){ col.classList.remove("over"); });
+    col.addEventListener("drop", function(ev){
+      ev.preventDefault(); col.classList.remove("over");
+      var id = dragId || ev.dataTransfer.getData("text/plain"); if(!id) return;
+      if(!setStatus(id, col.getAttribute("data-col"))) alert("Step " + id + " can't move to Done yet. Open it and complete the safety gate, work steps, QC gate and initials first.");
+      render();
+    });
+  });
+}
+
+/* ---------- toolbar ---------- */
+document.getElementById("btnExport").addEventListener("click", function(){
+  var blob = new Blob([JSON.stringify(S, null, 2)], {type:"application/json"});
+  var a = document.createElement("a"); a.href = URL.createObjectURL(blob);
+  a.download = "jp-60-traveler-" + (S.job.serial || "job") + "-" + new Date().toISOString().slice(0, 10) + ".json"; a.click(); URL.revokeObjectURL(a.href);
+});
+document.getElementById("btnImport").addEventListener("click", function(){ document.getElementById("fileIn").click(); });
+document.getElementById("btnPrint").addEventListener("click", function(){ if(S.view !== "guide"){ S.view = "guide"; S.phase = "all"; render(); } window.print(); });
+document.getElementById("btnReset").addEventListener("click", function(){
+  if(!armedReset){ armedReset = true; updateTop(); setTimeout(function(){ armedReset = false; updateTop(); }, 4000); return; }
+  armedReset = false; S = defaults(); save(); loadJob(); render();
+});
+window.addEventListener("beforeprint", function(){ document.querySelectorAll("details.osha").forEach(function(d){ d.open = true; }); });
+
+function loadJob(){ document.querySelectorAll("input[data-job]").forEach(function(i){ i.value = S.job[i.getAttribute("data-job")] || ""; }); }
+(function init(){
+  document.getElementById("yr").textContent = new Date().getFullYear();
+  var sel = document.getElementById("phaseFilter");
+  sel.innerHTML = '<option value="all">All phases</option>' + PHASES.map(function(p){ return '<option value="' + p.id + '">' + p.name + "</option>"; }).join("");
+  sel.value = S.phase;
+  loadJob();
+  var m = /^#step-(\d\d)$/.exec(location.hash);
+  if(m && byId(m[1])){ S.view = "guide"; S.phase = "all"; sel.value = "all"; }
+  render();
+  if(m && byId(m[1])){ var el = document.getElementById("step-" + m[1]); if(el){ el.scrollIntoView({block:"start"}); flashStep(m[1]); } }
+})();
+</script>
+</body>
+</html>
