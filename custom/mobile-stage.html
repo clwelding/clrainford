@@ -130,12 +130,25 @@
   .part.got{border-color:var(--good);}
   .part.got .pimg{opacity:0.55;}
 
-  .hero img, .card .thumb img, .part .pimg img{cursor:zoom-in;}
+  .hero img, .card .thumb img, .part .pimg img, .vtile img{cursor:zoom-in;}
   .lightbox{position:fixed; inset:0; background:rgba(10,11,13,0.92); z-index:100; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:24px; gap:12px; cursor:zoom-out;}
   .lightbox[hidden]{display:none;}
   .lightbox img{max-width:96vw; max-height:84vh; background:#fff; border-radius:6px; object-fit:contain;}
   .lightbox .cap{color:var(--ink-soft); font-size:0.85rem; text-align:center;}
   .lightbox .x{position:absolute; top:16px; right:20px; background:none; border:0; color:var(--ink); font-size:2rem; cursor:pointer; line-height:1;}
+
+
+  /* ---- Configuration views ---- */
+  .views{margin-top:22px;}
+  .views h2{font-size:1.05rem;}
+  .views p{margin:4px 0 12px; color:var(--ink-faint); font-size:0.8rem;}
+  .vgrid{display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:14px;}
+  .vtile{background:var(--surface); border:1px solid var(--line); border-radius:8px; overflow:hidden;}
+  .vtile .vimg{aspect-ratio:16/9; background:#fff;}
+  .vtile .vimg img{width:100%; height:100%; object-fit:contain; cursor:zoom-in;}
+  .vtile .vcap{padding:10px 12px; font-size:0.8rem;}
+  .vtile .vcap b{display:block; font-family:"Oswald",sans-serif; text-transform:uppercase; letter-spacing:0.05em; font-size:0.78rem; color:var(--spark);}
+  .vtile .vcap span{color:var(--ink-soft);}
 
   footer{border-top:1px solid var(--line); padding:30px 32px 26px;}
   .footer-bottom{max-width:1500px; margin:0 auto; color:var(--ink-faint); font-size:0.78rem; display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px;}
@@ -201,6 +214,8 @@
     </div>
   </div>
   <p style="font-size:0.74rem; color:var(--ink-faint); margin:6px 2px 0;">Progress saves in this browser only. Use Export / Import to share the board between crew devices.</p>
+
+  <section class="views" id="viewsStrip" aria-label="Configuration views" hidden></section>
 
   <div id="boardView" class="board" aria-label="Kanban board"></div>
   <div id="guideView" class="guide" hidden></div>
@@ -328,7 +343,7 @@ var STEPS = [
   gate:'Weld and dimensional inspection recorded for each panel before coating.'},
  {id:'s15', ph:'ph3', code:'HG', hold:true, title:'Fabricate hinge nodes, bushings & pins',
   sum:'Segmented structural hinges at reinforced nodes with replaceable bushings and retained removable pins.',
-  parts:[P('hg-knuckles','Hinge knuckle plates','No hardened steel without approved WPS','Engineer-selected weldable steel'), P('hg-bushings','Replaceable bushings','Depends on pressure, movement, lubrication','Selected bearing material (bronze / polymer)'), P('hg-pins','Retained removable pins','Specify strength, toughness, wear, retention','Engineer-selected alloy steel, heat treated'), P('hg-grease','Grease fittings','','Selected product specification'), P('hw-bolt','Hex-head bolts','Grade and size per released drawings','ASTM F3125 A325 / A490 where designed'), P('hw-nut','Hex nuts','Match bolt system, coating, installation','Compatible specified ASTM grade'), P('hw-washer','Flat washers','Match bolt system, coating, installation','Compatible specified ASTM grade'), P('hw-cotter','Cotter pins','','Selected product specification')],
+  parts:[P('hg-knuckles','Hinge knuckle plates','No hardened steel without approved WPS','Engineer-selected weldable steel'), P('hg-bushings','Replaceable bushings','Depends on pressure, movement, lubrication','Selected bearing material (bronze / polymer)'), P('hg-pins','Retained removable pins','Specify strength, toughness, wear, retention','Engineer-selected alloy steel, heat treated'), P('hg-grease','Grease fittings','','Selected product specification'), P('hg-thrust','Hinge thrust washers','Defined axial clearances and wear interfaces','Selected bearing material (bronze / polymer)'), P('hw-bolt','Hex-head bolts','Grade and size per released drawings','ASTM F3125 A325 / A490 where designed'), P('hw-nut','Hex nuts','Match bolt system, coating, installation','Compatible specified ASTM grade'), P('hw-washer','Flat washers','Match bolt system, coating, installation','Compatible specified ASTM grade'), P('hw-cotter','Cotter pins','','Selected product specification')],
   equip:[P('drill-press','Mag drill / drill press'), P('line-bore','Line-boring / reaming setup'), P('mig-welder','Welding machines'), P('torque-wrench','Calibrated torque wrench')],
   how:['Machine pin bores and bushing fits to the drawing clearances.','Weld knuckle plates into reinforced nodes using the specified procedure.','Never weld hardened pins of unknown alloy or generic purchased hinges into critical structure.','Record pin diameter, bearing length, bushing fit, lubrication and wear/rejection limits in the build file.'],
   gate:'Hinge release package (material, shear planes, fatigue basis, retention) signed off.'},
@@ -348,7 +363,7 @@ var STEPS = [
  /* ---------- Phase 4 ---------- */
  {id:'s18', ph:'ph4', code:'LG', hold:true, title:'Fabricate adjustable deck legs & ground pads',
   sum:'Each leg needs verified 2–4 ft adjustment, a positive lock, lateral restraint, retained pins and a ground-spreading foot.',
-  parts:[P('lg-tube','Telescoping leg members','Verify telescoping clearances','ASTM A500 Gr C HSS'), P('lg-pin','Retained pins','','Engineer-selected alloy steel, heat treated'), P('lg-foot','Designed foot','Ground reactions set thickness & area','ASTM A572 Gr 50 (proposed)'), P('lg-pad','Ground-spreading pads','','Rated manufacturer product'), P('lg-brace','Lateral restraint / bracing','','ASTM A500 Gr C HSS'), P('hw-bolt','Hex-head bolts','Grade and size per released drawings','ASTM F3125 A325 / A490 where designed'), P('hw-nut','Hex nuts','Match bolt system, coating, installation','Compatible specified ASTM grade'), P('hw-washer','Flat washers','Match bolt system, coating, installation','Compatible specified ASTM grade')],
+  parts:[P('lg-tube','Telescoping leg members','Verify telescoping clearances','ASTM A500 Gr C HSS'), P('lg-inner','Inner leg members','Pin-hole spacing sets height range','ASTM A500 Gr C HSS'), P('lg-pin','Retained pins','','Engineer-selected alloy steel, heat treated'), P('lg-foot','Designed foot','Ground reactions set thickness & area','ASTM A572 Gr 50 (proposed)'), P('lg-pad','Ground-spreading pads','','Rated manufacturer product'), P('lg-brace','Lateral restraint / bracing','','ASTM A500 Gr C HSS'), P('hw-bolt','Hex-head bolts','Grade and size per released drawings','ASTM F3125 A325 / A490 where designed'), P('hw-nut','Hex nuts','Match bolt system, coating, installation','Compatible specified ASTM grade'), P('hw-washer','Flat washers','Match bolt system, coating, installation','Compatible specified ASTM grade')],
   equip:[P('cold-saw','Cold saw / band saw'), P('mig-welder','Welding machines'), P('tape','Calibrated tape measures')],
   how:['Fabricate legs at the engineer-selected locations — not a leg at every joint by default.','Verify the adjustment range and locks, in both compression and uplift where applicable.','Fit retained pins and lateral restraint.','Establish allowable slope/settlement and the survey method.'],
   gate:'Leg capacity and adjustment range verified before installation.'},
@@ -362,7 +377,7 @@ var STEPS = [
  /* ---------- Phase 5 ---------- */
  {id:'s20', ph:'ph5', code:'TW', hold:true, title:'Install lifting towers & base nodes',
   sum:'Towers transfer roof forces into designated chassis/base nodes — deck wings are not automatically foundations.',
-  parts:[P('tw-tower','Lifting tower assemblies','Match lifting & truss system','Manufacturer / engineer specified'), P('tw-base','Base nodes / plates','','Manufacturer / engineer specified'), P('tw-guide','Guides & telescoping hardware','','Manufacturer / engineer specified'), P('tw-lock','Tower locks','','Manufacturer / engineer specified')],
+  parts:[P('tw-tower','Lifting tower assemblies','Match lifting & truss system','Manufacturer / engineer specified'), P('tw-base','Base nodes / plates','','Manufacturer / engineer specified'), P('tw-guide','Guides & telescoping hardware','','Manufacturer / engineer specified'), P('tw-roller','Guide rollers & bearings','','Manufacturer / engineer specified'), P('tw-lock','Tower locks','','Manufacturer / engineer specified')],
   equip:[P('crane','Overhead crane / lifting gear'), P('torque-wrench','Calibrated torque wrench'), P('squares','Squares, levels, laser level')],
   how:['Install towers at the released positions on the base nodes.','Check plumb, guides and overlap; do not drill or weld proprietary trusses without written approval.','Isolate steel-to-aluminum interfaces against galvanic corrosion and use compatible fasteners.'],
   gate:'Tower reactions, geometry and manufacturer compatibility confirmed.'},
@@ -374,7 +389,7 @@ var STEPS = [
   gate:'Roof layout, rigging schedule and transport packaging released.'},
  {id:'s22', ph:'ph5', code:'CN', hold:true, title:'Fabricate & fit the fabric canopy',
   sum:'Order fabric after roof geometry and tensioning are fixed. 960 sq ft is deck area, not the fabric order area.',
-  parts:[P('cn-fabric','Coated canopy fabric','Strength, seam, weathering, flame-test documents','Specified coated architectural / event fabric'), P('cn-attach','Engineered distributed attachments'), P('cn-perimeter','Perimeter reinforcement'), P('cn-flame','Flame-propagation test documents')],
+  parts:[P('cn-fabric','Coated canopy fabric','Strength, seam, weathering, flame-test documents','Specified coated architectural / event fabric'), P('cn-attach','Engineered distributed attachments'), P('cn-tension','Canopy tensioners'), P('cn-perimeter','Perimeter reinforcement'), P('cn-flame','Flame-propagation test documents')],
   equip:[P('sewing-weld','Seam welding / sewing equipment'), P('tape','Calibrated tape measures'), P('tension-gauge','Tension gauge')],
   how:['Size fabric from the finished roof geometry and attachment design.','Fit slope, edge drainage, drip control and anti-ponding details.','Set the specified pretension. Do not use a flat taut tarp or ordinary grommets as structural attachment.','Keep sidewalls, scrims, banners and screens out of scope until analyzed.','Store clean and dry; set a fabric inspection schedule.'],
   gate:'Membrane and attachment design released; fire-authority documents on file.'},
@@ -382,13 +397,13 @@ var STEPS = [
  /* ---------- Phase 6 ---------- */
  {id:'s23', ph:'ph6', code:'HY', hold:true, title:'Install hydraulics: cylinders, pump & hoses',
   sum:'Rated cylinders, brackets, pump, manifold and protected hose paths through every fold.',
-  parts:[P('hy-cyl','Rated cylinders','Specify model, pressure, force, stroke','Rated manufacturer product'), P('hy-brackets','Engineered brackets & pivots'), P('hy-pump','Pump / motor / reservoir / filtration'), P('hy-manifold','Control manifold, relief & counterbalance'), P('hy-hoses','Protected hoses & fittings','','Rated manufacturer product')],
+  parts:[P('hy-cyl','Rated cylinders','Specify model, pressure, force, stroke','Rated manufacturer product'), P('hy-brackets','Engineered brackets & pivots'), P('hy-pump','Pump / motor / reservoir / filtration'), P('hy-manifold','Control manifold, relief & counterbalance'), P('hy-hoses','Protected hoses & fittings','','Rated manufacturer product'), P('hy-adapter','Hydraulic adapters','Exact thread and pressure spec pending','Rated manufacturer product'), P('hy-elbow','Hydraulic elbows','Exact thread and pressure spec pending','Rated manufacturer product'), P('hy-filter','Hydraulic filter elements','Replaceable; match pump and reservoir','Rated manufacturer product')],
   equip:[P('torque-wrench','Calibrated torque wrench'), P('pressure-gauge','Pressure gauges'), P('flush-rig','Fluid flush / filtration cart')],
   how:['Install per the approved hydraulic schematic; cylinder count, bore, stroke and pressure come from the release.','Route hoses with controlled bend radii and abrasion protection through every fold; leave service access.','Provide load-holding on each axis and a documented recovery method.','Do not rely on flow division alone to keep four towers aligned: fit position sensing with maximum mismatch and fault stop.'],
   gate:'Kinematics, force/stroke calcs and controls design released.'},
  {id:'s24', ph:'ph6', code:'EL', hold:true, title:'Install electrical, controls & interlocks',
   sum:'Hold-to-run controls, emergency stop, interlocks and weather-rated enclosures.',
-  parts:[P('el-panel','Control panel / enclosure'), P('el-estop','Emergency stop & deliberate reset'), P('el-limits','Travel limit switches'), P('el-power','Shore power / battery & charger'), P('el-disc','Labeled disconnects'), P('el-conn','Weather-rated connectors & wiring')],
+  parts:[P('el-panel','Control panel / enclosure'), P('el-estop','Emergency stop & deliberate reset'), P('el-limits','Travel limit switches'), P('el-power','Shore power / battery & charger'), P('el-disc','Labeled disconnects'), P('el-conn','Weather-rated connectors & wiring'), P('el-terminal','Terminal blocks')],
   equip:[P('multimeter','Multimeter / insulation tester'), P('crimp','Crimp & termination tools')],
   how:['Wire to the released schematic: circuit protection, bonding/grounding, disconnects.','Make E-stop behavior safe — it must not create uncontrolled descent.','Interlock locks so operation is not allowed unless engagement is verified.','Keep festival lighting/audio distribution separate from machinery power.'],
   gate:'Supply, control and logic drawings released.'},
@@ -493,6 +508,25 @@ function imgFail(el){
 }
 function allParts(st){ return st.parts.concat(st.equip); }
 function gotCount(st){ var a = allParts(st); return a.filter(function(p){ return state.got[gotKey(st.id,p.id)]; }).length; }
+
+
+/* ===== Configuration views =====
+   Drop a file at /custom/img/stage/views/<id>.webp and add a line here, in the order it should appear. */
+var VIEWS = [
+  {id:'01-transport',       title:'Transport configuration',   note:'Folded deck on the trailer, towable length. Verify folded size, weight and lighting (step 30).'},
+  {id:'02-partly-deployed', title:'Partly deployed',           note:'Deck strips unfolding with legs set. Used for the unloaded functional checks (step 25).'},
+  {id:'03-fully-deployed',  title:'Fully deployed deck',       note:'All seven panels open on adjustable legs (step 29 tests and step 17 fold trials).'}
+];
+function renderViews(){
+  var el = document.getElementById('viewsStrip');
+  el.innerHTML = '<h2>Configuration views</h2><p>Transport and deployed stages. Click an image to enlarge.</p><div class="vgrid">' +
+    VIEWS.map(function(v){
+      return '<div class="vtile"><div class="vimg"><img src="/custom/img/stage/views/' + v.id + '.webp" alt="' + esc(v.title) + '" loading="lazy" onerror="viewFail(this)"></div><div class="vcap"><b>' + esc(v.title) + '</b><span>' + esc(v.note) + '</span></div></div>';
+    }).join('') + '</div>';
+  el.hidden = false;
+}
+function viewFail(el){ el.closest('.vtile').remove(); viewsCheck(); }
+function viewsCheck(){ var el = document.getElementById('viewsStrip'); if(!el.querySelector('.vtile')) el.hidden = true; }
 
 /* ===== Render ===== */
 function render(){
@@ -652,7 +686,7 @@ document.getElementById('btnReset').onclick = function(){
 var lb = document.getElementById('lightbox');
 function closeLb(){ lb.hidden = true; document.getElementById('lbImg').src = ''; }
 document.addEventListener('click', function(e){
-  var im = e.target.closest && e.target.closest('.hero img, .card .thumb img, .part .pimg img');
+  var im = e.target.closest && e.target.closest('.hero img, .card .thumb img, .part .pimg img, .vtile .vimg img');
   if(im){
     e.preventDefault();
     document.getElementById('lbImg').src = im.currentSrc || im.src;
@@ -664,6 +698,7 @@ document.addEventListener('click', function(e){
 document.addEventListener('keydown', function(e){ if(e.key === 'Escape' && !lb.hidden) closeLb(); });
 
 document.getElementById('clrwf-year').textContent = new Date().getFullYear();
+renderViews();
 render();
 </script>
 </body>

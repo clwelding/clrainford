@@ -13,7 +13,7 @@ Filename must match the ID exactly. Preferred format `.webp` (`.jpg` / `.png` al
 Progress: tick each box as the file is added.
 
 
-## Step images (17 missing)
+## Step images (14 missing)
 
 - [ ] `steps/s01.webp` - Freeze requirements & open-items list
 - [ ] `steps/s02.webp` - Commission engineering scope
@@ -25,15 +25,12 @@ Progress: tick each box as the file is added.
 - [ ] `steps/s08.webp` - Receive, trace & mark stock
 - [ ] `steps/s09.webp` - Set up shop equipment & fixtures
 - [ ] `steps/s10.webp` - Open master assembly & weld registers
-- [ ] `steps/s25.webp` - Unloaded functional checks
 - [ ] `steps/s26.webp` - Audio rigging interfaces
 - [ ] `steps/s27.webp` - Deck surfacing, stairs, rails & edge protection
 - [ ] `steps/s28.webp` - Assemble accessories & first-use kit
-- [ ] `steps/s29.webp` - Engineer-defined load, stability & fault tests
-- [ ] `steps/s30.webp` - Verify vehicle weight, brakes, lighting & folded size
 - [ ] `steps/s31.webp` - Issue as-builts, load charts & training records
 
-## Part images (113 unique missing)
+## Part images (102 unique missing)
 
 Shared items appear once; 'Used in' shows the steps that reference them.
 
@@ -78,17 +75,11 @@ Shared items appear once; 'Used in' shows the steps that reference them.
 - [ ] `parts/assy-register.webp` - Master assembly register - used in s10
 - [ ] `parts/weld-register.webp` - Weld register - used in s10
 - [ ] `parts/wps-pqr.webp` - WPS / PQR & welder qualifications - used in s10
-- [ ] `parts/ch-rails.webp` - Main rails (Subject to trailer design & fatigue) - used in s11
-- [ ] `parts/ch-cross.webp` - Crossmembers - used in s11
-- [ ] `parts/ch-torsion.webp` - Torsional bracing - used in s11
 - [ ] `parts/hitch.webp` - Hitch / gooseneck / kingpin assembly - used in s12
 - [ ] `parts/axles.webp` - Axles & suspension - used in s12
-- [ ] `parts/wheels-tires.webp` - Wheels & tires - used in s12
 - [ ] `parts/brakes.webp` - Brakes - used in s12
 - [ ] `parts/lighting-harness.webp` - Lighting & wiring - used in s12
-- [ ] `parts/fenders.webp` - Fenders - used in s12
 - [ ] `parts/spare.webp` - Spare tire - used in s12
-- [ ] `parts/park-supports.webp` - Parking supports - used in s12
 - [ ] `parts/travel-restraints.webp` - Transport restraints - used in s12
 - [ ] `parts/cert-plate.webp` - Identification / certification plate - used in s12
 - [ ] `parts/torque-wrench.webp` - Calibrated torque wrench - used in s12, s15, s20, s21, s23, s26
@@ -96,19 +87,14 @@ Shared items appear once; 'Used in' shows the steps that reference them.
 - [ ] `parts/dk-hss.webp` - HSS frame members (Engineer sets section & wall) - used in s13
 - [ ] `parts/dk-plate.webp` - Connection plates (A572 Gr 50) - used in s13
 - [ ] `parts/dk-frame.webp` - Deck frame sub-assemblies - used in s14
-- [ ] `parts/hg-knuckles.webp` - Hinge knuckle plates (No hardened steel without approved WPS) - used in s15
 - [ ] `parts/line-bore.webp` - Line-boring / reaming setup - used in s15
 - [ ] `parts/trial-supports.webp` - Temporary positive supports - used in s17
 - [ ] `parts/trial-rigging.webp` - Test slings / hoists - used in s17
-- [ ] `parts/ou-feet.webp` - Outrigger feet / pads (Ground reactions set thickness & area) - used in s19
 - [ ] `parts/ou-ballast.webp` - Engineered ballast attachment points - used in s19
 - [ ] `parts/tw-tower.webp` - Lifting tower assemblies (Match lifting & truss system) - used in s20
-- [ ] `parts/tw-base.webp` - Base nodes / plates - used in s20
 - [ ] `parts/tw-lock.webp` - Tower locks - used in s20
 - [ ] `parts/rf-truss.webp` - Entertainment trusses (Buy an engineered system; account for welded strength) - used in s21
-- [ ] `parts/rf-brace.webp` - Approved bracing - used in s21
 - [ ] `parts/rf-conn.webp` - Truss connection hardware - used in s21
-- [ ] `parts/rf-mount.webp` - Canopy attachment hardware - used in s21
 - [ ] `parts/cn-fabric.webp` - Coated canopy fabric (Strength, seam, weathering, flame-test documents) - used in s22
 - [ ] `parts/cn-attach.webp` - Engineered distributed attachments - used in s22
 - [ ] `parts/cn-flame.webp` - Flame-propagation test documents - used in s22
