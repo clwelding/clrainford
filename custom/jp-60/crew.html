@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<meta name="description" content="Crew Mode for the JP-60 build: a reader, a prep worker and a skilled worker stay in step with spoken callouts and voice commands.">
+<title>JP-60 Crew Mode | C. L. Rainford Welding &amp; Fabrication</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Public+Sans:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="/custom/jp-60/style.css">
+<style>
+  .setup{max-width:980px; margin:24px auto 0;}
+  .rolecards{display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:14px; margin-top:8px;}
+  .rolecard{background:var(--surface-2); border:1.5px solid var(--line-strong); border-radius:10px; padding:20px; text-align:left; color:var(--ink); cursor:pointer; display:flex; flex-direction:column; gap:8px;}
+  .rolecard:hover{border-color:var(--spark);}
+  .rolecard i{font-size:1.6rem; color:var(--spark);}
+  .rolecard b{font-family:"Oswald",sans-serif; text-transform:uppercase; letter-spacing:.05em; font-size:1.15rem;}
+  .rolecard span{color:var(--ink-soft); font-size:.88rem;}
+  .crewbar{display:flex; flex-wrap:wrap; gap:14px 24px; align-items:center; justify-content:space-between; background:var(--surface); border:1px solid var(--line); border-radius:8px; padding:12px 16px; margin-top:20px;}
+  .crewctl{display:flex; gap:10px; align-items:center; flex-wrap:wrap;}
+  .pchips{display:flex; gap:6px; flex-wrap:wrap;}
+  .pchip{font-size:.74rem; padding:4px 10px; border-radius:12px; border:1px solid var(--line-strong); color:var(--ink-faint);}
+  .pchip.on{color:var(--good); border-color:rgba(111,191,139,.5); background:rgba(111,191,139,.08);}
+  .small{font-size:.78rem; color:var(--ink-soft);}
+  .crewprog{margin:10px 0 0;}
+  .crewprog .bar{height:6px; background:var(--surface-2); border-radius:6px; overflow:hidden;}
+  .crewprog .bar i{display:block; height:100%; background:var(--spark);}
+  .toast{margin-top:14px; background:rgba(242,184,75,.12); border:1px solid rgba(242,184,75,.5); border-left:5px solid var(--warn); border-radius:8px; padding:12px 16px; font-weight:600;}
+  .bigcard{margin-top:18px; background:var(--surface); border:1px solid var(--line); border-left:8px solid var(--spark); border-radius:12px; padding:clamp(18px,3vw,36px); min-height:220px;}
+  .bigcard.hazard{border-left-color:var(--bad); background:rgba(242,107,88,.08);}
+  .bigcard.gate,.bigcard.qc{border-left-color:var(--warn); background:rgba(242,184,75,.07);}
+  .bigcard.step{border-left-color:var(--good);}
+  .bigcard.end{border-left-color:var(--ink-faint);}
+  .bigcard.peek{border-left-color:var(--accent);}
+  .bigtext{font-size:clamp(1.6rem,4.2vw,3.1rem); line-height:1.25; font-weight:600; margin-top:10px;}
+  .crewbtns{display:flex; gap:12px; flex-wrap:wrap; margin-top:16px;}
+  .crewbtns.small2{gap:8px; margin-top:10px;}
+  .cbtn{flex:1 1 150px; min-height:68px; font-family:"Oswald",sans-serif; text-transform:uppercase; letter-spacing:.05em; font-size:1.15rem; font-weight:600; border-radius:8px; border:2px solid var(--line-strong); background:var(--surface-2); color:var(--ink); cursor:pointer; display:inline-flex; align-items:center; justify-content:center; gap:10px; padding:10px 18px;}
+  .cbtn:hover{border-color:var(--ink);}
+  .cbtn.primary{background:var(--accent); border-color:var(--accent); color:#17191C;}
+  .cbtn.good{background:var(--good); border-color:var(--good); color:#0f2418;}
+  .crewctx{display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:12px; margin-top:16px;}
+  .ctx{background:var(--surface); border:1px solid var(--line); border-radius:8px; padding:10px 14px; color:var(--ink-soft); font-size:.9rem;}
+  .ctx span{display:block; font-family:"Oswald",sans-serif; text-transform:uppercase; letter-spacing:.08em; font-size:.68rem; color:var(--spark);}
+  .voicebox{margin-top:20px; background:var(--surface); border:1px solid var(--line); border-radius:8px; padding:14px 16px; display:flex; flex-wrap:wrap; gap:10px 22px; align-items:center;}
+  .voicebox label{display:flex; align-items:center; gap:8px;}
+  .voicebox input[type=checkbox]{width:18px; height:18px; accent-color:var(--good);}
+  .cheat{margin-top:10px; padding:10px 14px; background:var(--surface-2); border-radius:8px;}
+  .prepflag{margin-top:18px; padding:10px 16px; border-radius:8px; border:1px solid rgba(242,184,75,.5); background:rgba(242,184,75,.08); color:var(--warn); font-weight:600;}
+  .prepflag.ok{border-color:rgba(111,191,139,.5); background:rgba(111,191,139,.08); color:var(--good);}
+  .stations{display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:12px; margin-top:14px;}
+  .station{background:var(--surface); border:1px solid var(--line); border-top:4px solid var(--spark); border-radius:8px; padding:12px 16px;}
+  .station.parts{border-top-color:var(--accent);} .station.ppe{border-top-color:var(--warn);}
+  .station h3{font-size:1rem; margin-bottom:8px;}
+  .station ul{margin:0; padding-left:20px; font-size:1rem;} .station li{padding:3px 0;}
+  .nexthead{margin-top:28px; font-size:1rem; color:var(--ink-soft);}
+  @media print{ .toolbar{display:none;} }
+</style>
+</head>
+<body>
+<div class="hazard-strip"></div>
+
+<header class="site-header" role="banner">
+  <div class="wordmark">
+    <a href="/"><span class="mark">C.L. RAINFORD <span>WELDING &amp; FABRICATION</span></span></a>
+    <span class="sub">Chicago, IL &middot; Since 2015</span>
+  </div>
+  <nav class="main-nav" aria-label="Main navigation">
+    <ul>
+      <li><a href="/">Home</a></li>
+      <li><a href="/capabilities.html">What We Do</a></li>
+      <li><a href="/residential.html">Residential</a></li>
+      <li><a href="/commercial.html">Commercial</a></li>
+      <li><a href="/custom/" class="active">Custom</a></li>
+      <li><a href="/gallery.html">Gallery</a></li>
+      <li><a href="/about.html">About</a></li>
+      <li><a href="/contact.html">Contact</a></li>
+      <li><a href="/careers.html">Careers</a></li>
+    </ul>
+  </nav>
+  <div class="header-cta">
+    <a class="btn ghost small" href="/portal.html"><i class="fas fa-user"></i> Client Login</a>
+    <a class="btn primary small" href="/quote.html?type=custom-other">Request a Quote</a>
+  </div>
+</header>
+
+<main>
+  <div class="back-bar"><a href="/custom/jp-60/"><i class="fas fa-arrow-left"></i> Back to the JP-60 build traveler</a></div>
+  <div class="page-hero">
+    <span class="eyebrow"><i class="fas fa-headset" style="margin-right:6px;"></i>JP-60 &middot; Crew Mode</span>
+    <h1 style="font-size:clamp(1.9rem,4vw,2.6rem); margin-top:10px;">Reader, Prep and Skilled Worker</h1>
+  </div>
+  <div id="app"></div>
+</main>
+
+<footer>
+  <div class="footer-bottom">
+    <span>&copy; <span id="yr"></span> C. L. Rainford Welding &amp; Fabrication, Inc. &middot; 70 E 63rd Street, Chicago, IL 60637</span>
+    <span>Internal use. Crew Mode does not replace the safety program or the build traveler sign-offs.</span>
+  </div>
+</footer>
+
+<script>document.getElementById("yr").textContent = new Date().getFullYear();</script>
+<script src="/assets/js/supabase-client.js"></script>
+<script src="/custom/jp-60/data.js"></script>
+<script src="/custom/jp-60/osha.js"></script>
+<script src="/custom/jp-60/crew.js"></script>
+</body>
+</html>
