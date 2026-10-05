@@ -1,0 +1,39 @@
+{
+  "updated": "2026-10-05",
+  "_how_to_edit": "Single source of truth. The public page /roadmap.html shows every item with public:true. The Sunday reminder issue lists ALL items that are not status 'done'. status: in_progress | up_next | evaluating | ongoing | done",
+  "items": [
+    { "id": "bep", "area": "Certifications & registrations", "title": "Illinois BEP certification", "status": "in_progress", "public": true,
+      "note": "Fast-track reciprocal certification through the Commission on Equity and Inclusion, based on our City of Chicago MBE." },
+    { "id": "sam", "area": "Certifications & registrations", "title": "SAM.gov federal registration", "status": "up_next", "public": true,
+      "note": "Includes choosing our NAICS codes. Needed to bid on and be paid for federal work." },
+    { "id": "nmsdc", "area": "Certifications & registrations", "title": "NMSDC MBE certification", "status": "evaluating", "public": true,
+      "note": "National corporate supplier-diversity certification. We are deciding whether it fits our customers." },
+    { "id": "mbe-maint", "area": "Certifications & registrations", "title": "Keep our City of Chicago MBE current", "status": "ongoing", "public": true,
+      "note": "Annual No-Change Affidavit, filed 60 days before the May 1 anniversary." },
+
+    { "id": "insurance", "area": "Insurance & bonding", "title": "Publish certificate of insurance and bonding capacity", "status": "up_next", "public": true,
+      "note": "Confirm current general-liability limits and bonding capacity, then post the documents here." },
+
+    { "id": "refs", "area": "Track record", "title": "Past-performance references", "status": "up_next", "public": true,
+      "note": "Collect and publish completed-project references (most public bids ask for two or three)." },
+
+    { "id": "t-authority", "area": "Welding training program", "title": "Training authority (IBHE approval, exemption, or authorized partner)", "status": "up_next", "public": true,
+      "note": "Illinois requires IBHE approval for vocational training unless an exemption applies." },
+    { "id": "t-site", "area": "Welding training program", "title": "Training site, cohort dates and transit directions", "status": "up_next", "public": true, "note": "" },
+    { "id": "t-costs", "area": "Welding training program", "title": "Costs, funding and sponsorship", "status": "up_next", "public": true,
+      "note": "Tuition or sponsorship, PPE, transportation help and testing fees. No free seats advertised until funding is secured." },
+    { "id": "t-staff", "area": "Welding training program", "title": "Support staff and safety providers", "status": "up_next", "public": true,
+      "note": "Craig Rainford leads instruction. Still to confirm: lab support, a navigator, and the OSHA 10 and First Aid/CPR/AED providers." },
+    { "id": "t-test", "area": "Welding training program", "title": "Outside AWS test facility and employer input", "status": "up_next", "public": true,
+      "note": "Agree the test scope with an Accredited Test Facility, and confirm the process (MIG vs stick) with employers." },
+    { "id": "t-interest", "area": "Welding training program", "title": "Follow up with everyone on the interest list", "status": "ongoing", "public": true,
+      "note": "Reply within two business days." },
+
+    { "id": "i-wbe", "area": "Internal housekeeping", "title": "Fix 'MBE/WBE/DBE' wording in contracts.html", "status": "up_next", "public": false,
+      "note": "The City letter certifies MBE only. Remove WBE/DBE claims wherever they appear." },
+    { "id": "i-directory", "area": "Internal housekeeping", "title": "Verify our City certification directory listing", "status": "up_next", "public": false,
+      "note": "The letter says it is our responsibility to check that the listing and NAICS specialties are correct." },
+    { "id": "i-inbox", "area": "Internal housekeeping", "title": "Check info@clrainford.com for [Welding Training Interest] messages", "status": "ongoing", "public": false, "note": "" },
+    { "id": "i-doc", "area": "Internal housekeeping", "title": "Update the internal program proposal (.docx): 3 seats, Craig as instructor", "status": "up_next", "public": false, "note": "" }
+  ]
+}

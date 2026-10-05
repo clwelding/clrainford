@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="What C. L. Rainford Welding &amp; Fabrication is working on next: certifications, registrations, insurance documentation and our welding training program.">
+<title>Building Out | C. L. Rainford Welding &amp; Fabrication</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Public+Sans:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+  :root{
+    --ground:#17191C; --surface:#202327; --surface-2:#282C31;
+    --ink:#F2F1EC; --ink-soft:#A9ACB1; --ink-faint:#6E7278;
+    --line:rgba(242,241,236,0.10); --line-strong:rgba(242,241,236,0.20);
+    --accent:#E8571F; --accent-deep:#B8431A; --accent-soft:rgba(232,87,31,0.14); --spark:#8FE3EF; --good:#6FBF8B;
+  }
+  *{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%; text-size-adjust:100%;}
+  html{scroll-behavior:smooth;}
+  body{margin:0; background:var(--ground); color:var(--ink); font-family:"Public Sans",-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; line-height:1.6;}
+  a{color:inherit; text-decoration:none;}
+  img{max-width:100%; display:block;}
+  h1,h2,h3{font-family:"Oswald",Impact,"Arial Narrow",sans-serif; font-weight:700; text-transform:uppercase; letter-spacing:0.01em; text-wrap:balance; margin:0;}
+  .eyebrow{font-family:"Oswald",sans-serif; font-weight:600; font-size:0.74rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--accent);}
+  .hazard-strip{height:8px; background:repeating-linear-gradient(135deg, var(--accent), var(--accent) 18px, var(--ground) 18px, var(--ground) 36px);}
+
+  header.site-header{display:flex; align-items:center; justify-content:space-between; gap:20px; padding:20px 32px; background:var(--ground); border-bottom:1px solid var(--line); position:sticky; top:0; z-index:50; flex-wrap:wrap;}
+  .wordmark{display:flex; flex-direction:column; line-height:1.1;}
+  .wordmark .mark{font-family:"Oswald",sans-serif; font-weight:700; font-size:1.3rem; letter-spacing:0.02em; color:var(--ink);}
+  .wordmark .mark span{color:var(--accent);}
+  .wordmark .sub{font-size:0.62rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--ink-faint); margin-top:3px;}
+  nav.main-nav ul{list-style:none; display:flex; gap:26px; margin:0; padding:0; flex-wrap:wrap;}
+  nav.main-nav a{font-size:0.84rem; font-weight:600; color:var(--ink-soft); padding:6px 0; border-bottom:2px solid transparent;}
+  nav.main-nav a:hover{color:var(--ink); border-color:var(--accent);}
+  nav.main-nav a.active{color:var(--ink); border-color:var(--accent);}
+  .header-cta{display:flex; gap:10px; flex-wrap:wrap;}
+  .btn{display:inline-flex; align-items:center; gap:9px; font-family:"Oswald",sans-serif; font-weight:600; font-size:0.82rem; letter-spacing:0.04em; text-transform:uppercase; padding:12px 22px; border-radius:3px; border:1.5px solid transparent; cursor:pointer; white-space:nowrap;}
+  .btn.primary{background:var(--accent); color:#17191C;} .btn.primary:hover{background:#ff6b2e;}
+  .btn.ghost{background:transparent; border-color:var(--line-strong); color:var(--ink);} .btn.ghost:hover{border-color:var(--ink);}
+  .btn.small{padding:9px 16px; font-size:0.74rem;}
+
+  main{max-width:1180px; margin:0 auto;}
+  .back-bar{padding:14px 32px 0;}
+  .back-bar a{font-size:0.82rem; font-weight:600; color:var(--ink-soft); display:inline-flex; align-items:center; gap:8px;}
+  .back-bar a:hover{color:var(--accent);}
+  section{padding:50px 32px;}
+
+  .page-hero{padding:40px 32px 8px;}
+  .page-hero p.lede{color:var(--ink-soft); font-size:1.05rem; max-width:64ch; margin:14px 0 0;}
+
+  .mission-band{background:var(--surface); border:1px solid var(--line); border-left:3px solid var(--spark); border-radius:10px; padding:32px 34px; margin-top:10px;}
+  .mission-band p{font-size:1.08rem; color:var(--ink); margin:0; font-style:italic;}
+
+  .facts-grid{display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-top:8px;}
+  @media (max-width:700px){ .facts-grid{grid-template-columns:1fr;} }
+  .fact-item{background:var(--surface); border:1px solid var(--line); border-radius:8px; padding:20px 22px; display:flex; justify-content:space-between; gap:14px; align-items:baseline;}
+  .fact-item .k{color:var(--ink-soft); font-size:0.86rem;}
+  .fact-item .v{color:var(--ink); font-weight:600; font-size:0.92rem; text-align:right;}
+
+  .service-mix{display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-top:8px;}
+  @media (max-width:700px){ .service-mix{grid-template-columns:1fr;} }
+  .service-mix .item{background:var(--surface); border:1px solid var(--line); border-radius:8px; padding:24px 26px; border-top:3px solid var(--accent);}
+  .service-mix h3{font-size:1rem; margin-bottom:8px;}
+  .service-mix p{color:var(--ink-soft); font-size:0.9rem; margin:0;}
+
+  .cta-band{background:linear-gradient(120deg, var(--accent-deep), var(--accent)); color:#1a1204; padding:56px 32px; text-align:center; border-radius:12px;}
+  .cta-band h2{color:#1a1204; font-size:clamp(1.5rem,3.4vw,2.1rem);}
+  .cta-band p{color:rgba(26,18,4,0.78); margin:12px 0 26px; font-size:1rem;}
+  .cta-band .btn.primary{background:#17191C; color:var(--ink);} .cta-band .btn.primary:hover{background:#000;}
+
+  footer{border-top:1px solid var(--line); padding:40px 32px 26px; margin-top:20px;}
+  .footer-bottom{max-width:1180px; margin:0 auto; color:var(--ink-faint); font-size:0.78rem; display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px;}
+  .rm-hero{position:relative; overflow:hidden; margin:10px 32px 0; padding:48px 40px 40px; border:1px solid var(--line); border-radius:16px; background:radial-gradient(90% 120% at 100% 0%, rgba(232,87,31,0.26), transparent 60%), var(--surface);}
+  @media (max-width:860px){ .rm-hero{padding:34px 22px; margin:10px 16px 0;} }
+  .rm-hero h1{font-size:clamp(2rem,4.8vw,3.2rem); line-height:1.05; margin:14px 0 0; max-width:20ch;}
+  .rm-hero h1 em{font-style:normal; color:var(--accent);}
+  .rm-hero p{color:var(--ink-soft); font-size:1.05rem; max-width:64ch; margin:18px 0 0;}
+  .pulse{width:8px; height:8px; border-radius:50%; background:var(--accent); animation:pulse 1.6s ease-out infinite; display:inline-block;}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(232,87,31,0.7);} 100%{box-shadow:0 0 0 9px rgba(232,87,31,0);}}
+  .counts{display:flex; gap:12px; flex-wrap:wrap; margin-top:26px;}
+  .counts span{border:1px solid var(--line-strong); border-radius:20px; padding:6px 14px; font-size:0.8rem; color:var(--ink-soft); background:rgba(23,25,28,0.6);}
+  .counts b{color:var(--ink); font-family:"Oswald",sans-serif; font-size:1rem; margin-right:4px;}
+  .area{margin-bottom:34px;}
+  .area h2{font-size:1.2rem; margin-bottom:14px;}
+  .items{display:grid; grid-template-columns:repeat(2,1fr); gap:16px;}
+  @media (max-width:760px){ .items{grid-template-columns:1fr;} }
+  .item{background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:20px 22px;}
+  .item.in_progress{border-color:rgba(232,87,31,0.55); box-shadow:0 10px 30px -20px rgba(232,87,31,0.7);}
+  .item.up_next{border-color:var(--line-strong);}
+  .item.evaluating{border-style:dashed; border-color:var(--line-strong); background:transparent;}
+  .item.ongoing{border-top:3px solid var(--good);}
+  .item h3{font-size:0.98rem; margin:10px 0 6px;}
+  .item p{margin:0; color:var(--ink-soft); font-size:0.88rem;}
+  .tag{display:inline-flex; align-items:center; gap:7px; font-family:"Oswald",sans-serif; font-size:0.68rem; letter-spacing:0.14em; text-transform:uppercase; padding:2px 10px; border-radius:3px;}
+  .tag.in_progress{color:var(--accent); border:1px solid var(--accent);}
+  .tag.up_next{color:var(--spark); border:1px solid var(--spark);}
+  .tag.evaluating{color:var(--ink-soft); border:1px dashed var(--line-strong);}
+  .tag.ongoing{color:var(--good); border:1px solid var(--good);}
+  .bar{height:6px; border-radius:6px; background:var(--ground); border:1px solid var(--line); overflow:hidden; margin-top:14px;}
+  .bar i{display:block; height:100%; width:100%; background:repeating-linear-gradient(135deg, var(--accent), var(--accent) 10px, var(--accent-deep) 10px, var(--accent-deep) 20px); background-size:28px 28px; animation:weld 1.2s linear infinite;}
+  @keyframes weld{to{background-position:28px 0;}}
+  @media (prefers-reduced-motion:reduce){ .bar i,.pulse{animation:none;} }
+  .fine{color:var(--ink-faint); font-size:0.8rem; margin-top:14px;}
+</style>
+</head>
+<body>
+
+<div class="hazard-strip"></div>
+
+<header class="site-header" role="banner">
+  <div class="wordmark">
+    <a href="/" style="color:inherit;"><span class="mark">C.L. RAINFORD <span>WELDING &amp; FABRICATION</span></span></a>
+    <span class="sub">Chicago, IL &middot; Since 2015</span>
+  </div>
+  <nav class="main-nav" role="navigation" aria-label="Main navigation">
+    <ul>
+      <li><a href="/">Home</a></li>
+      <li><a href="/capabilities.html">What We Do</a></li>
+      <li><a href="/residential.html">Residential</a></li>
+      <li><a href="/commercial.html">Commercial</a></li>
+      <li><a href="/custom/">Custom</a></li>
+      <li><a href="/gallery.html">Gallery</a></li>
+      <li><a href="/about.html">About</a></li>
+      <li><a href="/credentials.html">Credentials</a></li>
+      <li><a href="/contact.html">Contact</a></li>
+      <li><a href="/careers.html">Careers</a></li>
+      <li><a href="/welding-training.html">Welding Training</a></li>
+    </ul>
+  </nav>
+  <div class="header-cta">
+    <a class="btn ghost small" href="/portal.html"><i class="fas fa-user"></i> Client Login</a>
+    <a class="btn primary small" href="/quote.html">Request a Quote</a>
+  </div>
+</header>
+
+<main>
+  <div class="back-bar"><a href="/credentials.html"><i class="fas fa-arrow-left"></i> Back to Credentials</a></div>
+
+  <div class="rm-hero">
+    <span class="eyebrow"><span class="pulse" style="margin-right:8px; vertical-align:middle;"></span>Building Out</span>
+    <h1>We&rsquo;re upgrading. <em>Here&rsquo;s exactly what&rsquo;s next.</em></h1>
+    <p>C. L. Rainford Welding &amp; Fabrication is actively adding certifications, registrations, documentation and a welding training program. Anything on this page is <strong>not yet in place</strong> &mdash; we list it so you can see where we are and hold us to it. We review this list every week.</p>
+    <div class="counts" id="counts"></div>
+  </div>
+
+  <section>
+    <noscript><p class="fine">This page needs JavaScript to load the list. Questions? Email <a href="mailto:info@clrainford.com" style="color:var(--spark);">info@clrainford.com</a>.</p></noscript>
+    <div id="roadmap"><p class="fine">Loading&hellip;</p></div>
+    <p class="fine" id="updated"></p>
+    <p style="margin-top:20px;"><a href="/credentials.html" style="color:var(--spark); font-weight:600;"><i class="fas fa-certificate"></i> What we already hold &rarr;</a> &nbsp;&middot;&nbsp; <a href="/welding-training.html" style="color:var(--spark); font-weight:600;"><i class="fas fa-graduation-cap"></i> Welding training program &rarr;</a></p>
+  </section>
+
+  <section style="padding-top:0;">
+    <div class="cta-band">
+      <h2>Need Something We Don&rsquo;t Have Yet?</h2>
+      <p>Tell us what your bid or project requires &mdash; we&rsquo;ll tell you honestly where we stand.</p>
+      <a class="btn primary" href="/contact.html"><i class="fas fa-envelope"></i> Contact Us</a>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="footer-bottom">
+    <span>&copy; <span id="clrwf-year"></span> C. L. Rainford Welding &amp; Fabrication, Inc. &middot; Chicago, IL</span>
+    <span><a href="/" style="color:var(--ink-soft);">&larr; Back to Home</a></span>
+  </div>
+</footer>
+
+<script>document.getElementById('clrwf-year').textContent = new Date().getFullYear();</script>
+
+
+
+<script>
+(function () {
+  var LABEL = { in_progress: 'In progress', up_next: 'Up next', evaluating: 'Evaluating', ongoing: 'Ongoing' };
+  function esc(s) { var d = document.createElement('div'); d.textContent = s == null ? '' : s; return d.innerHTML; }
+  fetch('/roadmap.json', { cache: 'no-cache' }).then(function (r) { return r.json(); }).then(function (data) {
+    var items = data.items.filter(function (i) { return i.public && i.status !== 'done'; });
+    var areas = [], byArea = {};
+    items.forEach(function (i) { if (!byArea[i.area]) { byArea[i.area] = []; areas.push(i.area); } byArea[i.area].push(i); });
+    var html = areas.map(function (a) {
+      return '<div class="area"><h2>' + esc(a) + '</h2><div class="items">' + byArea[a].map(function (i) {
+        return '<div class="item ' + i.status + '"><span class="tag ' + i.status + '">' +
+          (i.status === 'in_progress' ? '<span class="pulse"></span>' : '') + esc(LABEL[i.status] || i.status) + '</span>' +
+          '<h3>' + esc(i.title) + '</h3>' + (i.note ? '<p>' + esc(i.note) + '</p>' : '') +
+          (i.status === 'in_progress' ? '<div class="bar"><i></i></div>' : '') + '</div>';
+      }).join('') + '</div></div>';
+    }).join('');
+    document.getElementById('roadmap').innerHTML = html || '<p class="fine">Nothing outstanding right now.</p>';
+    var c = {}; items.forEach(function (i) { c[i.status] = (c[i.status] || 0) + 1; });
+    document.getElementById('counts').innerHTML = Object.keys(LABEL).filter(function (k) { return c[k]; })
+      .map(function (k) { return '<span><b>' + c[k] + '</b>' + LABEL[k] + '</span>'; }).join('');
+    if (data.updated) {
+      var d = new Date(data.updated + 'T12:00:00');
+      document.getElementById('updated').textContent = 'Last updated ' + d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) + '.';
+    }
+  }).catch(function () {
+    document.getElementById('roadmap').innerHTML = '<p class="fine">Could not load the list. Please email info@clrainford.com.</p>';
+  });
+})();
+</script>
+</body>
+</html>

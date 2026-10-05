@@ -1,0 +1,49 @@
+name: Sunday roadmap reminder
+
+# Every Sunday ~9 AM Chicago time, open a GitHub issue assigned to the owner
+# listing everything in roadmap.json that is not done. GitHub emails the
+# assignee. Edit roadmap.json to change the list (it also drives /roadmap.html).
+on:
+  schedule:
+    - cron: '0 14 * * 0'   # 14:00 UTC = 9 AM CDT / 8 AM CST
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  remind:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Close last week's reminder
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          for n in $(gh issue list --state open --search 'in:title "Sunday check-in"' --json number --jq '.[].number'); do
+            gh issue close "$n" --comment "Superseded by this week's reminder."
+          done
+
+      - name: Open this week's reminder
+        env:
+          GH_TOKEN: ${{ github.token }}
+          OWNER: ${{ github.repository_owner }}
+        run: |
+          open=$(jq '[.items[] | select(.status != "done")] | length' roadmap.json)
+          {
+            echo "Time for the weekly check on the missing pieces. Pick one, move it forward, and update \`roadmap.json\` (status, or \`done\`) so the public page at https://clrainford.com/roadmap.html stays honest."
+            echo
+            jq -r '
+              [.items[] | select(.status != "done")]
+              | group_by(.area)[]
+              | "### " + .[0].area + "\n" +
+                ( map("- [ ] **" + .title + "** (" + (.status | gsub("_"; " ")) + ")" + (if .public then "" else " _internal_" end) + (if .note != "" then "\n  - " + .note else "" end)) | join("\n") ) + "\n"
+            ' roadmap.json
+            echo "Edit the list: https://github.com/${GITHUB_REPOSITORY}/edit/main/roadmap.json"
+          } > body.md
+          gh issue create \
+            --title "Sunday check-in $(date -u +%F): ${open} open items" \
+            --body-file body.md \
+            --assignee "$OWNER"
