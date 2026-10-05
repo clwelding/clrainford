@@ -513,10 +513,12 @@ function gotCount(st){ var a = allParts(st); return a.filter(function(p){ return
 /* ===== Configuration views =====
    Drop a file at /custom/img/stage/views/<id>.webp and add a line here, in the order it should appear. */
 var VIEWS = [
-  {id:'01-transport',       title:'Transport configuration',   note:'Folded deck on the trailer, towable length. Verify folded size, weight and lighting (step 30).'},
-  {id:'02-folded-panels',   title:'Folded seven-panel stack',  note:'Panels stood up and stacked on each side of the centre strip. The packaging and motion study (step 3) and hinge fold trials (step 17).'},
-  {id:'03-partly-deployed', title:'Partly deployed',           note:'Deck strips unfolding with legs set. Used for the unloaded functional checks (step 25).'},
-  {id:'04-fully-deployed',  title:'Fully deployed deck',       note:'All seven panels open on adjustable legs (step 29 tests).'}
+  {id:'01-transport',            title:'Transport configuration',     note:'Folded deck on the trailer, towable length. Verify folded size, weight and lighting (step 30).'},
+  {id:'02-folded-panels',        title:'Folded seven-panel stack',    note:'Panels stood up and stacked on each side of the centre strip. Packaging and motion study (step 3) and hinge fold trials (step 17).'},
+  {id:'03-extend-left',          title:'1. Extend left',              note:'Left wing panels L1, L2, L3 unfold in order away from the centre strip and legs are set under each.'},
+  {id:'04-extend-right',         title:'2. Extend right',             note:'Right wing panels R1, R2, R3 unfold the same way. All seven panels are now open.'},
+  {id:'05-fully-deployed',       title:'Fully deployed deck',         note:'All seven panels open on adjustable legs, ready for the load, stability and fault tests (step 29).'},
+  {id:'06-deck-strips-and-legs', title:'Deck strips and legs',        note:'Close view of the strips, joints and adjustable legs. Unloaded functional checks (step 25).'}
 ];
 function renderViews(){
   var el = document.getElementById('viewsStrip');
