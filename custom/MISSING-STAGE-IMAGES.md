@@ -13,11 +13,10 @@ Filename must match the ID exactly. Preferred format `.webp` (`.jpg` / `.png` al
 Progress: tick each box as the file is added.
 
 
-## Step images (14 missing)
+## Step images (13 missing)
 
 - [ ] `steps/s01.webp` - Freeze requirements & open-items list
 - [ ] `steps/s02.webp` - Commission engineering scope
-- [ ] `steps/s03.webp` - Packaging study: folded cross-section & motion study
 - [ ] `steps/s04.webp` - Build the mass budget
 - [ ] `steps/s05.webp` - Collect equipment weights & load data
 - [ ] `steps/s06.webp` - Vendor RFQs, samples & availability quotes
