@@ -1528,3 +1528,37 @@ create policy "Allow anon insert to clrwf-resumes" on storage.objects
 
 create policy "Staff can read clrwf-resumes" on storage.objects
   for select to authenticated
+
+
+-- Signed-in users can use the public forms too
+-- ---------------------------------------------------------------------------
+-- The public form policies above were anon-only, so a staff member entering a
+-- caller's request while signed in (or a client logged into the portal) was
+-- rejected by RLS. Same checks as before, just open to both roles.
+drop policy if exists "Allow anon insert" on clrwf_quote_requests;
+create policy "Allow anon insert" on clrwf_quote_requests for insert to anon, authenticated with check (true);
+grant insert on clrwf_quote_requests to authenticated;
+
+drop policy if exists "Allow anon insert" on clrwf_maintenance_agreement_requests;
+create policy "Allow anon insert" on clrwf_maintenance_agreement_requests for insert to anon, authenticated with check (true);
+grant insert on clrwf_maintenance_agreement_requests to authenticated;
+
+drop policy if exists "Allow anon insert" on clrwf_contact_messages;
+create policy "Allow anon insert" on clrwf_contact_messages for insert to anon, authenticated with check (true);
+grant insert on clrwf_contact_messages to authenticated;
+
+drop policy if exists "anon can submit job application" on clrwf_job_applications;
+create policy "anon can submit job application" on clrwf_job_applications for insert to anon, authenticated with check (true);
+grant insert on clrwf_job_applications to authenticated;
+
+drop policy if exists "Allow anon insert to clrwf-job-photos" on storage.objects;
+create policy "Allow anon insert to clrwf-job-photos" on storage.objects
+  for insert to anon, authenticated with check (bucket_id = 'clrwf-job-photos');
+
+drop policy if exists "Allow anon insert to clrwf-voice-notes" on storage.objects;
+create policy "Allow anon insert to clrwf-voice-notes" on storage.objects
+  for insert to anon, authenticated with check (bucket_id = 'clrwf-voice-notes');
+
+drop policy if exists "Allow anon insert to clrwf-resumes" on storage.objects;
+create policy "Allow anon insert to clrwf-resumes" on storage.objects
+  for insert to anon, authenticated with check (bucket_id = 'clrwf-resumes');
