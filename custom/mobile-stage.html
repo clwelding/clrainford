@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<meta name="description" content="Internal build board and step-by-step fabrication guide for the C.L. Rainford mobile festival stage.">
+<title>Mobile Stage Build Board | C. L. Rainford Welding &amp; Fabrication</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Public+Sans:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+  :root{
+    --ground:#17191C; --surface:#202327; --surface-2:#282C31;
+    --ink:#F2F1EC; --ink-soft:#A9ACB1; --ink-faint:#6E7278;
+    --line:rgba(242,241,236,0.10); --line-strong:rgba(242,241,236,0.20);
+    --accent:#E8571F; --accent-deep:#B8431A; --accent-soft:rgba(232,87,31,0.14); --spark:#8FE3EF; --good:#6FBF8B; --warn:#F2B84B;
+  }
+  *{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%; text-size-adjust:100%; scroll-behavior:smooth;}
+  body{margin:0; background:var(--ground); color:var(--ink); font-family:"Public Sans",-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; line-height:1.6;}
+  a{color:inherit; text-decoration:none;}
+  img{max-width:100%; display:block;}
+  button,select{font:inherit;}
+  h1,h2,h3{font-family:"Oswald",Impact,"Arial Narrow",sans-serif; font-weight:700; text-transform:uppercase; letter-spacing:0.01em; text-wrap:balance; margin:0;}
+  .eyebrow{font-family:"Oswald",sans-serif; font-weight:600; font-size:0.74rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--spark);}
+  .hazard-strip{height:8px; background:repeating-linear-gradient(135deg, var(--accent), var(--accent) 18px, var(--ground) 18px, var(--ground) 36px);}
+
+  header.site-header{display:flex; align-items:center; justify-content:space-between; gap:20px; padding:20px 32px; background:var(--ground); border-bottom:1px solid var(--line); position:sticky; top:0; z-index:50; flex-wrap:wrap;}
+  .wordmark{display:flex; flex-direction:column; line-height:1.1;}
+  .wordmark .mark{font-family:"Oswald",sans-serif; font-weight:700; font-size:1.3rem; letter-spacing:0.02em; color:var(--ink);}
+  .wordmark .mark span{color:var(--accent);}
+  .wordmark .sub{font-size:0.62rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--ink-faint); margin-top:3px;}
+  nav.main-nav ul{list-style:none; display:flex; gap:26px; margin:0; padding:0; flex-wrap:wrap;}
+  nav.main-nav a{font-size:0.84rem; font-weight:600; color:var(--ink-soft); padding:6px 0; border-bottom:2px solid transparent;}
+  nav.main-nav a:hover, nav.main-nav a.active{color:var(--ink); border-color:var(--accent);}
+  .header-cta{display:flex; gap:10px; flex-wrap:wrap;}
+  .btn{display:inline-flex; align-items:center; gap:9px; font-family:"Oswald",sans-serif; font-weight:600; font-size:0.82rem; letter-spacing:0.04em; text-transform:uppercase; padding:12px 22px; border-radius:3px; border:1.5px solid transparent; cursor:pointer; white-space:nowrap; background:none; color:var(--ink);}
+  .btn.primary{background:var(--accent); color:#17191C;} .btn.primary:hover{background:#ff6b2e;}
+  .btn.ghost{border-color:var(--line-strong);} .btn.ghost:hover{border-color:var(--ink);}
+  .btn.small{padding:9px 16px; font-size:0.74rem;}
+
+  main{max-width:1500px; margin:0 auto; padding:0 32px 40px;}
+  .back-bar{padding:14px 0 0;}
+  .back-bar a{font-size:0.82rem; font-weight:600; color:var(--ink-soft); display:inline-flex; align-items:center; gap:8px;}
+  .back-bar a:hover{color:var(--accent);}
+  .page-hero{padding:32px 0 8px;}
+  .page-hero p.lede{color:var(--ink-soft); font-size:1.02rem; max-width:70ch; margin:14px 0 0;}
+
+  .gate-banner{display:flex; gap:14px; background:var(--surface); border:1px solid var(--line); border-left:3px solid var(--warn); border-radius:8px; padding:16px 20px; margin:22px 0 0; font-size:0.88rem; color:var(--ink-soft);}
+  .gate-banner i{color:var(--warn); margin-top:4px;}
+  .gate-banner strong{color:var(--ink);}
+
+  .toolbar{display:flex; flex-wrap:wrap; align-items:center; gap:14px; margin:26px 0 8px; padding:14px 16px; background:var(--surface); border:1px solid var(--line); border-radius:8px; position:sticky; top:84px; z-index:40;}
+  .tabs{display:flex; gap:6px;}
+  .tab{background:transparent; border:1.5px solid var(--line-strong); color:var(--ink-soft); padding:8px 16px; border-radius:3px; cursor:pointer; font-family:"Oswald",sans-serif; font-weight:600; font-size:0.78rem; letter-spacing:0.05em; text-transform:uppercase;}
+  .tab.on{border-color:var(--spark); color:var(--ink); background:rgba(143,227,239,0.1);}
+  .progress{flex:1; min-width:180px;}
+  .progress .bar{height:8px; background:var(--surface-2); border-radius:6px; overflow:hidden;}
+  .progress .bar i{display:block; height:100%; background:var(--good); width:0;}
+  .progress .txt{font-size:0.74rem; color:var(--ink-soft); margin-top:4px;}
+  select.filter{background:var(--surface-2); color:var(--ink); border:1.5px solid var(--line-strong); border-radius:3px; padding:8px 10px; font-size:0.8rem; max-width:260px;}
+  .tools{display:flex; gap:8px; flex-wrap:wrap;}
+
+  /* ---- Board ---- */
+  .board{display:grid; grid-template-columns:repeat(5, minmax(240px,1fr)); gap:14px; margin-top:16px; overflow-x:auto; padding-bottom:10px; align-items:start;}
+  .col{background:var(--surface); border:1px solid var(--line); border-radius:8px; min-height:200px; display:flex; flex-direction:column;}
+  .col.over{border-color:var(--spark); background:rgba(143,227,239,0.05);}
+  .col-head{padding:12px 14px; border-bottom:1px solid var(--line); display:flex; align-items:center; justify-content:space-between; border-top:3px solid var(--c); border-radius:8px 8px 0 0;}
+  .col-head h3{font-size:0.88rem;}
+  .col-head .n{font-family:"Oswald",sans-serif; font-size:0.78rem; color:var(--ink-soft); background:var(--surface-2); padding:2px 10px; border-radius:10px;}
+  .col-note{font-size:0.7rem; color:var(--ink-faint); padding:8px 14px 0;}
+  .col-body{padding:10px; display:flex; flex-direction:column; gap:10px; flex:1;}
+  .card{background:var(--surface-2); border:1px solid var(--line); border-radius:8px; overflow:hidden; cursor:grab;}
+  .card.dragging{opacity:0.4;}
+  .card .thumb{aspect-ratio:16/9; background:#fff; position:relative;}
+  .card .thumb img{width:100%; height:100%; object-fit:contain;}
+  .card .info{padding:10px 12px 12px;}
+  .card .code{font-family:"Oswald",sans-serif; font-size:0.66rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--spark);}
+  .card h4{margin:3px 0 6px; font-size:0.88rem; line-height:1.3; font-weight:600;}
+  .card .meta{display:flex; justify-content:space-between; align-items:center; font-size:0.72rem; color:var(--ink-soft);}
+  .card .moves{display:flex; gap:6px; margin-top:8px;}
+  .card .moves button{flex:1; background:var(--surface); border:1px solid var(--line-strong); color:var(--ink-soft); border-radius:3px; padding:5px 0; cursor:pointer; font-size:0.74rem;}
+  .card .moves button:hover:not(:disabled){border-color:var(--spark); color:var(--ink);}
+  .card .moves button:disabled{opacity:0.3; cursor:default;}
+  .card .open{display:block; margin-top:8px; font-size:0.72rem; font-weight:600; color:var(--accent);}
+  .ph{width:100%; height:100%; min-height:90px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:4px; color:#8a8d93; background:repeating-linear-gradient(135deg,#f3f3f1,#f3f3f1 10px,#ebebe8 10px,#ebebe8 20px); font-size:0.66rem; text-transform:uppercase; letter-spacing:0.08em; text-align:center; padding:6px;}
+  .ph i{font-size:1.1rem;}
+
+  /* ---- Guide ---- */
+  .guide{margin-top:24px; display:flex; flex-direction:column; gap:48px;}
+  .phase-head{border-bottom:2px solid var(--accent); padding-bottom:10px; margin-bottom:20px;}
+  .phase-head .eyebrow{display:block; margin-bottom:4px;}
+  .phase-head h2{font-size:clamp(1.3rem,2.6vw,1.7rem);}
+  .phase-head p{margin:8px 0 0; color:var(--ink-soft); font-size:0.9rem; max-width:80ch;}
+  .step{background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:24px; margin-bottom:22px; scroll-margin-top:170px;}
+  .step.flash{border-color:var(--spark);}
+  .step-top{display:flex; gap:14px; align-items:flex-start; justify-content:space-between; flex-wrap:wrap;}
+  .step-title{display:flex; gap:14px; align-items:center;}
+  .num{flex:none; width:40px; height:40px; border-radius:50%; background:var(--spark); color:#0c2b31; font-family:"Oswald",sans-serif; font-weight:700; display:flex; align-items:center; justify-content:center;}
+  .step h3{font-size:1.15rem;}
+  .chips{display:flex; gap:8px; flex-wrap:wrap; margin-top:4px;}
+  .chip{font-family:"Oswald",sans-serif; font-size:0.62rem; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; padding:3px 9px; border-radius:10px; background:var(--surface-2); color:var(--ink-soft);}
+  .chip.hold{background:rgba(242,184,75,0.16); color:var(--warn);}
+  .chip.go{background:rgba(111,191,139,0.16); color:var(--good);}
+  .status-sel{background:var(--surface-2); color:var(--ink); border:1.5px solid var(--line-strong); border-radius:3px; padding:8px 10px; font-size:0.82rem;}
+  .step-body{display:grid; grid-template-columns:minmax(220px,320px) 1fr; gap:26px; margin-top:18px;}
+  @media (max-width:860px){ .step-body{grid-template-columns:1fr;} }
+  .hero{background:#fff; border-radius:8px; border:1px solid var(--line); aspect-ratio:4/3; overflow:hidden;}
+  .hero img{width:100%; height:100%; object-fit:contain;}
+  .summary{color:var(--ink-soft); font-size:0.93rem; margin:0 0 14px;}
+  .step h4.sub{font-family:"Oswald",sans-serif; text-transform:uppercase; letter-spacing:0.08em; font-size:0.78rem; color:var(--spark); margin:18px 0 8px;}
+  ol.how{margin:0; padding-left:22px; color:var(--ink); font-size:0.9rem;}
+  ol.how li{padding:3px 0;}
+  .gatebox{margin-top:18px; padding:12px 16px; border-radius:8px; background:rgba(242,184,75,0.08); border:1px solid rgba(242,184,75,0.35); font-size:0.86rem; color:var(--ink-soft);}
+  .gatebox strong{color:var(--warn);}
+  .gatebox.pass{background:rgba(111,191,139,0.08); border-color:rgba(111,191,139,0.35);} .gatebox.pass strong{color:var(--good);}
+  .parts-wrap{display:grid; grid-template-columns:1fr 1fr; gap:22px; margin-top:22px;}
+  @media (max-width:860px){ .parts-wrap{grid-template-columns:1fr;} }
+  .parts{display:grid; grid-template-columns:repeat(auto-fill,minmax(130px,1fr)); gap:10px;}
+  .part{background:var(--surface-2); border:1px solid var(--line); border-radius:8px; overflow:hidden; cursor:pointer; position:relative; display:flex; flex-direction:column;}
+  .part:hover{border-color:var(--line-strong);}
+  .part .pimg{aspect-ratio:1/1; background:#fff;}
+  .part .pimg img{width:100%; height:100%; object-fit:contain; padding:6px;}
+  .part .ptxt{padding:8px 10px 10px; font-size:0.76rem; line-height:1.3;}
+  .part .ptxt b{display:block; color:var(--ink); font-weight:600;}
+  .part .ptxt span{color:var(--ink-faint); font-size:0.7rem;}
+  .part input{position:absolute; top:8px; left:8px; width:20px; height:20px; accent-color:var(--good); cursor:pointer;}
+  .part.got{border-color:var(--good);}
+  .part.got .pimg{opacity:0.55;}
+
+  footer{border-top:1px solid var(--line); padding:30px 32px 26px;}
+  .footer-bottom{max-width:1500px; margin:0 auto; color:var(--ink-faint); font-size:0.78rem; display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px;}
+  @media (max-width:700px){ main{padding:0 16px 40px;} header.site-header{padding:16px;} .toolbar{position:static;} }
+  @media print{ .toolbar,header,.hazard-strip,.back-bar,.moves{display:none;} body{background:#fff; color:#000;} .step{break-inside:avoid;} }
+</style>
+</head>
+<body>
+
+<div class="hazard-strip"></div>
+
+<header class="site-header" role="banner">
+  <div class="wordmark">
+    <a href="/" style="color:inherit;"><span class="mark">C.L. RAINFORD <span>WELDING &amp; FABRICATION</span></span></a>
+    <span class="sub">Chicago, IL &middot; Since 2015</span>
+  </div>
+  <nav class="main-nav" role="navigation" aria-label="Main navigation">
+    <ul>
+      <li><a href="/">Home</a></li>
+      <li><a href="/capabilities.html">What We Do</a></li>
+      <li><a href="/residential.html">Residential</a></li>
+      <li><a href="/commercial.html">Commercial</a></li>
+      <li><a href="/custom/" class="active">Custom</a></li>
+      <li><a href="/gallery.html">Gallery</a></li>
+      <li><a href="/about.html">About</a></li>
+      <li><a href="/contact.html">Contact</a></li>
+      <li><a href="/careers.html">Careers</a></li>
+    </ul>
+  </nav>
+  <div class="header-cta">
+    <a class="btn ghost small" href="/portal.html"><i class="fas fa-user"></i> Client Login</a>
+    <a class="btn primary small" href="/quote.html?type=custom-other">Request a Quote</a>
+  </div>
+</header>
+
+<main>
+  <div class="back-bar"><a href="/custom/"><i class="fas fa-arrow-left"></i> Back to Custom</a></div>
+
+  <div class="page-hero">
+    <span class="eyebrow"><i class="fas fa-truck-ramp-box" style="margin-right:6px;"></i>Internal Build Board &middot; Design Spec 02</span>
+    <h1 style="font-size:clamp(1.9rem,4vw,2.6rem); margin-top:10px;">Mobile Festival Stage &mdash; Build Guide &amp; Kanban</h1>
+    <p class="lede">A 40 ft &times; 24 ft towable stage with a 2&ndash;4 ft adjustable deck, seven-panel folding deck, powered roof (15 ft+ clearance) and 3,600 lb of suspended audio. Work the steps in order, gather each part and tool, and move each card across the board as it is done.</p>
+  </div>
+
+  <div class="gate-banner">
+    <i class="fas fa-triangle-exclamation"></i>
+    <div><strong>Preliminary &mdash; not released for construction, structural procurement, lifting, or public use.</strong>
+    Steps marked <em>Hold</em> must not start until their release gate is signed off by the responsible engineer. No thickness, rating, pin size, ballast mass, or axle count is implied here &mdash; every dimension comes from the released drawings. Unknowns are open issues, never zero loads.</div>
+  </div>
+
+  <div class="toolbar">
+    <div class="tabs" role="tablist">
+      <button class="tab on" id="tab-board" role="tab">Kanban Board</button>
+      <button class="tab" id="tab-guide" role="tab">Step-by-Step Guide</button>
+    </div>
+    <div class="progress"><div class="bar"><i id="bar"></i></div><div class="txt" id="ptxt"></div></div>
+    <select class="filter" id="phaseFilter" aria-label="Filter by phase"></select>
+    <div class="tools">
+      <button class="btn ghost small" id="btnExport"><i class="fas fa-download"></i> Export</button>
+      <button class="btn ghost small" id="btnImport"><i class="fas fa-upload"></i> Import</button>
+      <button class="btn ghost small" id="btnReset"><i class="fas fa-rotate-left"></i> Reset</button>
+      <input type="file" id="fileIn" accept="application/json" hidden>
+    </div>
+  </div>
+  <p style="font-size:0.74rem; color:var(--ink-faint); margin:6px 2px 0;">Progress saves in this browser only. Use Export / Import to share the board between crew devices.</p>
+
+  <div id="boardView" class="board" aria-label="Kanban board"></div>
+  <div id="guideView" class="guide" hidden></div>
+</main>
+
+<footer>
+  <div class="footer-bottom">
+    <span>&copy; <span id="clrwf-year"></span> C. L. Rainford Welding &amp; Fabrication, Inc. &middot; 70 E 63rd Street, Chicago, IL 60637</span>
+    <span>Source: Mobile Stage Design Specification 02, Oct 4 2026</span>
+  </div>
+</footer>
+
+<script>
+/* ===== Content =====
+   Images: step image  -> /custom/img/stage/steps/<step id>.(webp|jpg|png)
+           part image  -> /custom/img/stage/parts/<part id>.(webp|jpg|png)
+   Drop files with those names in and they appear; until then a placeholder shows. */
+var P = function(id, name, note){ return {id:id, name:name, note:note||''}; };
+
+var PHASES = [
+ {id:'ph0', code:'PRE', title:'Phase 0 — Engineering, Packaging & Sourcing', note:'Authorized now by the spec: packaging drawings, equipment weights, vendor documents, proposals and the mass budget. No structural cutting or final orders.'},
+ {id:'ph1', code:'SHOP', title:'Phase 1 — Assemble Materials & Equipment', note:'Stage the shop, receive traceable stock and set up the register before any metal is cut.'},
+ {id:'ph2', code:'CH', title:'Phase 2 — Chassis & Trailer', note:'Purpose-designed chassis coordinated with a qualified trailer manufacturer.'},
+ {id:'ph3', code:'DK', title:'Phase 3 — Deck Panels & Fold System', note:'Seven nominal panels, six hinge lines. Folds the 40 ft dimension; trailer runs along the 24 ft depth.'},
+ {id:'ph4', code:'LG', title:'Phase 4 — Legs, Supports & Outriggers', note:'Deck legs (2–4 ft range) are separate from roof outriggers.'},
+ {id:'ph5', code:'TW', title:'Phase 5 — Towers, Roof & Canopy', note:'Candidate: engineered aluminum entertainment trusses on four lifting towers. Final count open.'},
+ {id:'ph6', code:'SYS', title:'Phase 6 — Hydraulics, Electrical & Controls', note:'Electric-powered hydraulics is the proposed architecture, not a selected product.'},
+ {id:'ph7', code:'RG', title:'Phase 7 — Audio Rigging & Access', note:'Two proposed 1,800 lb audio positions for layout only, plus stairs, rails and deck surfacing.'},
+ {id:'ph8', code:'CX', title:'Phase 8 — Commissioning & Handover', note:'Engineer-defined tests only. No improvised proof-load or public-use test.'}
+];
+
+var STEPS = [
+ /* ---------- Phase 0 ---------- */
+ {id:'s01', ph:'ph0', code:'PRE', hold:false, title:'Freeze requirements & open-items list',
+  sum:'Lock the confirmed requirements so every later drawing starts from the same basis, and record each unknown as an open issue.',
+  parts:[P('req-sheet','Requirements sheet','Spec §1'), P('open-items','Open-items register','Spec §15')],
+  equip:[P('laptop','Computer / shared folder'), P('printer','Printer for drawing sets')],
+  how:['Write down the basis: 40 ft × 24 ft deck (960 sq ft), one towable trailer, deck height 2–4 ft, 15 ft+ roof clearance to lowest structural member, 3,600 lb total suspended audio.','Record folding basis: fold the 40 ft dimension, seven nominal panels, six hinge lines, one center + three per side.','List every priority input still unknown: tow vehicle/hitch, speaker models and inclusive weights, lighting/screen loads, rigging travels installed or not, setup time/crew, shore/battery power, site slope, overhang/sidewalls, deck occupancy, storage limits, budget.','Treat each unknown as an open issue — never as a zero load.'],
+  gate:'Requirements and open-items register agreed by owner. No drawings are released from this step.'},
+ {id:'s02', ph:'ph0', code:'ENG', hold:false, title:'Commission engineering scope',
+  sum:'Engage a licensed engineer experienced with mobile entertainment structures, plus trailer and machinery specialists.',
+  parts:[P('eng-scope','Engineering scope letter'), P('rfp-pack','Proposal request package')],
+  equip:[P('laptop','Computer / shared folder')],
+  how:['Send the spec to structural, trailer and machinery candidates and request proposals.','Ask each to state which standards they will use: ANSI E1.21, ANSI E1.2, AISC, aluminum design provisions, AWS D1.1 / D1.2, applicable machinery standards.','Confirm who seals the structural calculations and who owns each interface (structure, chassis, hydraulics, electrical).','Confirm jurisdiction-specific items: building/permit, fire, accessibility, egress and trailer requirements are separate interfaces.'],
+  gate:'Engineer engaged in writing. Nothing in this document is a structural calculation or stamped drawing.'},
+ {id:'s03', ph:'ph0', code:'PKG', hold:false, title:'Packaging study: folded cross-section & motion study',
+  sum:'The packaging gate. Prove the seven panels can actually stack and travel before choosing any frame size.',
+  parts:[P('gen-arr','General arrangement drawing'), P('fold-env','Folded envelope drawing'), P('motion-study','Motion study')],
+  equip:[P('cad','CAD / motion software')],
+  how:['Number deck panels D1–D7, audience left to right; D4 is the fixed center candidate. Nominal width is 40/7 ft ≈ 5 ft 8.571 in — do not round panels independently.','Draw the dimensioned folded cross-section: panel depths, hinge offsets, columns, roof members, hoses, wheels, fenders, storage, travel locks and center of gravity.','Study every intermediate position, not just the end states. Evaluate offset stacking pivots / controlled alternating folds — "accordion" alone is not a workable sequence.','Set the transport-width target at 102 in initially; set a route-specific height and length target. Include the tow structure and rear equipment in overall length.','Compare a separately stowed demountable truss roof with an integrated folding roof.'],
+  gate:'Packaging gate: dimensioned folded cross-section and motion study accepted before panel frame sizes are chosen.'},
+ {id:'s04', ph:'ph0', code:'MASS', hold:false, title:'Build the mass budget',
+  sum:'Establish weights and centers of gravity before ordering axles. GVWR is a whole-vehicle limit, not a sum of axle ratings.',
+  parts:[P('mass-sheet','Mass budget spreadsheet')],
+  equip:[P('laptop','Computer / shared folder')],
+  how:['Line up the masses: chassis + seven deck frames + deck surfaces + roof/towers + hydraulics + supports/outriggers + access equipment + carried cargo.','Evaluate center of gravity for empty, transport-loaded, partially deployed and deployed states.','Track axle reactions and hitch load; note swept turning path, ground clearance and stability.','Plan to verify actual completed weights before any road operation.'],
+  gate:'Mass budget reviewed by the trailer specialist before axle or hitch selection.'},
+ {id:'s05', ph:'ph0', code:'RG', hold:false, title:'Collect equipment weights & load data',
+  sum:'Get real numbers for audio, lighting and screens — and decide whether 3,600 lb is all-inclusive.',
+  parts:[P('speaker-data','Speaker / array data sheets'), P('weight-sched','Signed equipment weight schedule'), P('rig-hw-list','Rigging hardware list')],
+  equip:[P('laptop','Computer / shared folder')],
+  how:['Obtain array dimensions, centers of gravity, manufacturer flying limits, pick-point arrangement and projected wind area.','List speakers, flying frames, hoists, shackles, cables and all hardware separately.','Confirm in writing whether the 3,600 lb includes rigging. Two 1,800 lb positions are for layout only.','Add lighting, screens, backdrops, banners and other roof loads as separate unresolved loads.'],
+  gate:'Signed equipment weight schedule on file.'},
+ {id:'s06', ph:'ph0', code:'RFQ', hold:false, title:'Vendor RFQs, samples & availability quotes',
+  sum:'Source catalogs, certified product data, samples and quotes. Budget pricing is not purchase authorization.',
+  parts:[P('rfq-form','RFQ form'), P('fabric-samples','Canopy fabric samples'), P('deck-samples','Deck panel samples'), P('hinge-proposals','Hinge system proposals')],
+  equip:[P('laptop','Computer / shared folder')],
+  how:['Send an RFQ for every package in the procurement schedule requesting: model, dimensions, mass, ratings and their conditions, drawings, materials, certificates, inspection/maintenance instructions, lead time, warranty, replacement parts and integration limits.','Request canopy fabric data: coating, mass, tensile/tear strength, seams, UV durability, flame-propagation test documents (NFPA 701 where the fire authority requires), attachment system, pretension, service temperature, life.','Request deck samples with system ratings, and engineered hinge-system proposals.','Confirm steel availability for ASTM A500 Gr C HSS and A572 Gr 50 plate.','Buy only non-load-bearing shop consumables now.'],
+  gate:'Quotes collected. HOLD final orders for chassis, structural steel cuts, trusses, towers, cylinders, hinges, locking pins, ground pads, ballast and rigging hardware.'},
+ {id:'s07', ph:'ph0', code:'GATE', hold:true, title:'Release-gate review & drawing package',
+  sum:'Convert proposals and calculations into released shop drawings. Nothing below this card starts without it.',
+  parts:[P('struct-calcs','Sealed structural calculations'), P('shop-drawings','Released shop drawings'), P('cut-list','Released cut list'), P('weld-sched','Weld schedule')],
+  equip:[P('laptop','Computer / shared folder')],
+  how:['Confirm each package\'s release prerequisite is met (e.g. deck frames: approved dimensions and structural schedules; hinges: motion study, forces, pin/attachment design; towers: reactions, geometry, wind/lift cases).','Collect the final release documents: general arrangement, folded envelope and motion drawings, calculations with seals, chassis/certification documents, panel/hinge/lock drawings, supports/ground-reaction plan, roof/tower/canopy drawings, audio load chart, hydraulic schematic, control logic, cut list, weld schedule, inspection/test plan.','Issue each drawing with a revision. Member lengths derive from joint details, not the overall stage size.'],
+  gate:'Responsible engineer releases the structural design. Required before every Hold card below.'},
+
+ /* ---------- Phase 1 ---------- */
+ {id:'s08', ph:'ph1', code:'SHOP', hold:true, title:'Receive, trace & mark stock',
+  sum:'Every piece of structural stock must trace to a mill certificate and carry a unique part mark.',
+  parts:[P('hss-a500','ASTM A500 Gr C HSS','or A1085 only if specified'), P('plate-a572','ASTM A572 Gr 50 plate','A36 only if engineer approves'), P('mill-certs','Mill certificates'), P('paint-marker','Marking paint / stamps')],
+  equip:[P('tape','Calibrated tape measures'), P('scale','Shop scale / weigh gear'), P('stock-rack','Stock racks')],
+  how:['Check each delivery against the purchase order: grade, size, wall thickness, heat number.','Match heat numbers to mill certs and file them. Reject untraceable stock.','Mark each piece with its part mark from the register and keep marks when cutting.','Store stock dry and off the floor. Note galvanizing/coating plan and hollow-section venting needs.'],
+  gate:'Do not cut until the cut list is released.'},
+ {id:'s09', ph:'ph1', code:'SHOP', hold:false, title:'Set up shop equipment & fixtures',
+  sum:'Prepare the floor, welding equipment, fixtures and calibrated measurement tools.',
+  parts:[P('layout-table','Flat layout table / strongback'), P('jig-stops','Fixture stops & clamps')],
+  equip:[P('mig-welder','Welding machines (GMAW / GTAW)','steel and aluminum'), P('cold-saw','Cold saw / band saw'), P('drill-press','Mag drill / drill press'), P('crane','Overhead crane / lifting gear'), P('ppe','PPE: helmet, gloves, respirator, glasses'), P('fire-ext','Fire extinguisher & weld screens'), P('squares','Squares, levels, laser level')],
+  how:['Lay out the shop for 24 ft long panels with room to turn, flip and store seven frames.','Verify all measuring equipment and tools; record calibration.','Check lifting equipment is rated and inspected before it carries any assembly.','Set up ventilation and welding screens; stage fire protection.','Keep separate tooling for aluminum so steel contamination does not reach truss or aluminum work.'],
+  gate:'Equipment inspected and ready.'},
+ {id:'s10', ph:'ph1', code:'REG', hold:true, title:'Open master assembly & weld registers',
+  sum:'One register ties every part and joint to a drawing and a revision.',
+  parts:[P('assy-register','Master assembly register'), P('weld-register','Weld register'), P('wps-pqr','WPS / PQR & welder qualifications')],
+  equip:[P('laptop','Computer / shared folder')],
+  how:['Create assemblies: CH chassis, DK deck, HG hinges, LK locks, LG legs, OU outriggers, TW towers, RF roof, CN canopy, RG rigging, HY hydraulics, EL electrical, AC access.','Enter each part with the cut-list fields: mark, parent, qty, material, size/wall, cut length, end angles, holes/slots, machining, tolerance, finish, mass, drawing/revision, procurement status.','Enter each weld joint: base metals, code and edition, WPS/PQR, welder qualification, prep, symbol/size/length, consumables, preheat/interpass, fit-up limits, sequence, inspection method and acceptance.','Confirm welders are qualified for the WPS (AWS D1.1 steel, D1.2 aluminum as selected by the engineer).'],
+  gate:'Registers populated from the released cut list and weld schedule.'},
+
+ /* ---------- Phase 2 ---------- */
+ {id:'s11', ph:'ph2', code:'CH', hold:true, title:'Chassis: main rails, crossmembers & bracing',
+  sum:'Build or receive the purpose-designed chassis per the trailer manufacturer\'s released drawings.',
+  parts:[P('ch-rails','Main rails'), P('ch-cross','Crossmembers'), P('ch-torsion','Torsional bracing'), P('ch-gusset','Gusset / node plates')],
+  equip:[P('layout-table','Flat layout table / strongback'), P('mig-welder','Welding machines'), P('squares','Squares, levels, laser level'), P('crane','Overhead crane / lifting gear')],
+  how:['Cut and prepare members per released drawings and weld preparation.','Fit up on a flat, level jig; hold a dimensional inspection before final welds.','Weld in the specified sequence to control distortion; record each joint in the weld register.','Inspect critical connections with the engineer\'s specified methods.','Do not alter an existing trailer without a documented capacity and certification review.'],
+  gate:'Fit-up dimensional check passed before final welds.'},
+ {id:'s12', ph:'ph2', code:'CH', hold:true, title:'Hitch, axles, brakes, lighting & restraints',
+  sum:'Fit the towing and running gear selected against the mass budget and certification plan.',
+  parts:[P('hitch','Hitch / gooseneck / kingpin assembly'), P('axles','Axles & suspension'), P('wheels-tires','Wheels & tires'), P('brakes','Brakes'), P('lighting-harness','Lighting & wiring'), P('fenders','Fenders'), P('spare','Spare tire'), P('park-supports','Parking supports'), P('travel-restraints','Transport restraints'), P('cert-plate','Identification / certification plate')],
+  equip:[P('torque-wrench','Calibrated torque wrench'), P('jack-stands','Jack stands & lifts'), P('mig-welder','Welding machines')],
+  how:['Install the hitch and axle assemblies per the released drawings and manufacturer instructions.','Fit brakes, lighting, wiring, fenders and parking supports.','Install storage mounts and transport restraints for deck, roof and equipment.','Fit identification and certification plates; keep the certification documents with the build records.','Do not assume tires or springs give a stable platform for setup.'],
+  gate:'Weigh the completed vehicle and verify axle and hitch reactions before road operation.'},
+
+ /* ---------- Phase 3 ---------- */
+ {id:'s13', ph:'ph3', code:'DK', hold:true, title:'Cut & prepare deck frame members (D1–D7)',
+  sum:'Cut the HSS frame members and plates for seven panel assemblies from the released cut list.',
+  parts:[P('dk-hss','HSS frame members'), P('dk-plate','Connection plates (A572 Gr 50)'), P('dk-joist','Intermediate joists / framing')],
+  equip:[P('cold-saw','Cold saw / band saw'), P('drill-press','Mag drill / drill press'), P('tape','Calibrated tape measures'), P('squares','Squares, levels, laser level')],
+  how:['Cut each member to the length on its drawing — lengths come from joint details, not 5 ft 8.571 in.','Cut end angles, holes and slots; deburr and mark with the part mark.','Check against the cut list and update procurement status in the register.','Plan hollow-section venting and coating compatibility before welding.'],
+  gate:'First article inspected before cutting the rest.'},
+ {id:'s14', ph:'ph3', code:'DK', hold:true, title:'Weld & square deck frames',
+  sum:'Assemble each panel to approved dimensions with the specified weld sequence.',
+  parts:[P('dk-frame','Deck frame sub-assemblies')],
+  equip:[P('layout-table','Flat layout table / strongback'), P('jig-stops','Fixture stops & clamps'), P('mig-welder','Welding machines'), P('crane','Overhead crane / lifting gear'), P('ppe','PPE')],
+  how:['Fit up on the strongback; check diagonals, flatness and the hinge-node positions.','Hold a dimensional inspection before final welds.','Weld per the schedule; control distortion; do not grind critical welds for appearance without approval.','Inspect welds and dimensions before coating.','Keep the 24 ft panels torsionally stiff as the engineer specifies — they can rack during deployment.'],
+  gate:'Weld and dimensional inspection recorded for each panel before coating.'},
+ {id:'s15', ph:'ph3', code:'HG', hold:true, title:'Fabricate hinge nodes, bushings & pins',
+  sum:'Segmented structural hinges at reinforced nodes with replaceable bushings and retained removable pins.',
+  parts:[P('hg-knuckles','Hinge knuckle plates'), P('hg-bushings','Replaceable bushings'), P('hg-pins','Retained removable pins'), P('hg-grease','Grease fittings')],
+  equip:[P('drill-press','Mag drill / drill press'), P('line-bore','Line-boring / reaming setup'), P('mig-welder','Welding machines'), P('torque-wrench','Calibrated torque wrench')],
+  how:['Machine pin bores and bushing fits to the drawing clearances.','Weld knuckle plates into reinforced nodes using the specified procedure.','Never weld hardened pins of unknown alloy or generic purchased hinges into critical structure.','Record pin diameter, bearing length, bushing fit, lubrication and wear/rejection limits in the build file.'],
+  gate:'Hinge release package (material, shear planes, fatigue basis, retention) signed off.'},
+ {id:'s16', ph:'ph3', code:'LK', hold:true, title:'Locks, bearing seats & alignment devices',
+  sum:'The deployed load path must not depend on the hinge — fit separate bearing seats and positive structural locks.',
+  parts:[P('lk-seats','Deployed bearing seats'), P('lk-align','Alignment devices'), P('lk-struct','Positive structural locks'), P('lk-transport','Transport locks')],
+  equip:[P('mig-welder','Welding machines'), P('squares','Squares, levels, laser level')],
+  how:['Fabricate and fit bearing seats at each fold joint per the drawings.','Install alignment devices and structural locks; confirm engagement is visible/verifiable.','Install dedicated transport locks.','Document final pivot-axis coordinates and the full fold sequence.'],
+  gate:'Lock engagement can be verified before any operation is permitted.'},
+ {id:'s17', ph:'ph3', code:'DK', hold:true, title:'Trial-fit hinges and fold the deck',
+  sum:'Prove the fold sequence in the shop with positive supports before anything is installed permanently.',
+  parts:[P('trial-supports','Temporary positive supports'), P('trial-rigging','Test slings / hoists')],
+  equip:[P('crane','Overhead crane / lifting gear'), P('squares','Squares, levels, laser level'), P('tape','Calibrated tape measures')],
+  how:['Assemble D1–D7 on level supports; verify total width through the full assembly, including joints and edge details.','Fold slowly through each intermediate position; watch for interference and measure clearances.','Verify the folded envelope against the packaging drawing.','Record alignment and any fit-up corrections in the build file.'],
+  gate:'Folded envelope and alignment match the released drawings.'},
+
+ /* ---------- Phase 4 ---------- */
+ {id:'s18', ph:'ph4', code:'LG', hold:true, title:'Fabricate adjustable deck legs & ground pads',
+  sum:'Each leg needs verified 2–4 ft adjustment, a positive lock, lateral restraint, retained pins and a ground-spreading foot.',
+  parts:[P('lg-tube','Telescoping leg members'), P('lg-pin','Retained pins'), P('lg-foot','Designed foot'), P('lg-pad','Ground-spreading pads'), P('lg-brace','Lateral restraint / bracing')],
+  equip:[P('cold-saw','Cold saw / band saw'), P('mig-welder','Welding machines'), P('tape','Calibrated tape measures')],
+  how:['Fabricate legs at the engineer-selected locations — not a leg at every joint by default.','Verify the adjustment range and locks, in both compression and uplift where applicable.','Fit retained pins and lateral restraint.','Establish allowable slope/settlement and the survey method.'],
+  gate:'Leg capacity and adjustment range verified before installation.'},
+ {id:'s19', ph:'ph4', code:'OU', hold:true, title:'Roof outriggers & ballast attachments',
+  sum:'Roof outriggers are distinct from deck legs. Ballast must have engineered attachment and weight verification.',
+  parts:[P('ou-arms','Outrigger arms'), P('ou-feet','Outrigger feet / pads'), P('ou-ballast','Engineered ballast attachment points')],
+  equip:[P('mig-welder','Welding machines'), P('scale','Shop scale / weigh gear'), P('crane','Overhead crane / lifting gear')],
+  how:['Fabricate to the ground-reaction plan: stability, uplift, sliding and outrigger bending.','Install connection points for ballast or anchors as engineered.','Loose, unconnected weight is not an assumed solution.'],
+  gate:'Ground reactions and support layout released.'},
+
+ /* ---------- Phase 5 ---------- */
+ {id:'s20', ph:'ph5', code:'TW', hold:true, title:'Install lifting towers & base nodes',
+  sum:'Towers transfer roof forces into designated chassis/base nodes — deck wings are not automatically foundations.',
+  parts:[P('tw-tower','Lifting tower assemblies'), P('tw-base','Base nodes / plates'), P('tw-guide','Guides & telescoping hardware'), P('tw-lock','Tower locks')],
+  equip:[P('crane','Overhead crane / lifting gear'), P('torque-wrench','Calibrated torque wrench'), P('squares','Squares, levels, laser level')],
+  how:['Install towers at the released positions on the base nodes.','Check plumb, guides and overlap; do not drill or weld proprietary trusses without written approval.','Isolate steel-to-aluminum interfaces against galvanic corrosion and use compatible fasteners.'],
+  gate:'Tower reactions, geometry and manufacturer compatibility confirmed.'},
+ {id:'s21', ph:'ph5', code:'RF', hold:true, title:'Assemble roof frame & bracing',
+  sum:'Manufacturer-engineered aluminum entertainment trusses with approved bracing. Roof layout is still open.',
+  parts:[P('rf-truss','Entertainment trusses'), P('rf-brace','Approved bracing'), P('rf-conn','Truss connection hardware'), P('rf-mount','Canopy attachment hardware')],
+  equip:[P('crane','Overhead crane / lifting gear'), P('torque-wrench','Calibrated torque wrench'), P('squares','Squares, levels, laser level')],
+  how:['Assemble the roof per the manufacturer and engineer drawings; confirm at least 15 ft from finished deck to the lowest structural roof member.','Check cantilevers where towers sit near the narrow center chassis.','Add slope and drainage features specified for the canopy.'],
+  gate:'Roof layout, rigging schedule and transport packaging released.'},
+ {id:'s22', ph:'ph5', code:'CN', hold:true, title:'Fabricate & fit the fabric canopy',
+  sum:'Order fabric after roof geometry and tensioning are fixed. 960 sq ft is deck area, not the fabric order area.',
+  parts:[P('cn-fabric','Coated canopy fabric'), P('cn-attach','Engineered distributed attachments'), P('cn-perimeter','Perimeter reinforcement'), P('cn-flame','Flame-propagation test documents')],
+  equip:[P('sewing-weld','Seam welding / sewing equipment'), P('tape','Calibrated tape measures'), P('tension-gauge','Tension gauge')],
+  how:['Size fabric from the finished roof geometry and attachment design.','Fit slope, edge drainage, drip control and anti-ponding details.','Set the specified pretension. Do not use a flat taut tarp or ordinary grommets as structural attachment.','Keep sidewalls, scrims, banners and screens out of scope until analyzed.','Store clean and dry; set a fabric inspection schedule.'],
+  gate:'Membrane and attachment design released; fire-authority documents on file.'},
+
+ /* ---------- Phase 6 ---------- */
+ {id:'s23', ph:'ph6', code:'HY', hold:true, title:'Install hydraulics: cylinders, pump & hoses',
+  sum:'Rated cylinders, brackets, pump, manifold and protected hose paths through every fold.',
+  parts:[P('hy-cyl','Rated cylinders'), P('hy-brackets','Engineered brackets & pivots'), P('hy-pump','Pump / motor / reservoir / filtration'), P('hy-manifold','Control manifold, relief & counterbalance'), P('hy-hoses','Protected hoses & fittings')],
+  equip:[P('torque-wrench','Calibrated torque wrench'), P('pressure-gauge','Pressure gauges'), P('flush-rig','Fluid flush / filtration cart')],
+  how:['Install per the approved hydraulic schematic; cylinder count, bore, stroke and pressure come from the release.','Route hoses with controlled bend radii and abrasion protection through every fold; leave service access.','Provide load-holding on each axis and a documented recovery method.','Do not rely on flow division alone to keep four towers aligned: fit position sensing with maximum mismatch and fault stop.'],
+  gate:'Kinematics, force/stroke calcs and controls design released.'},
+ {id:'s24', ph:'ph6', code:'EL', hold:true, title:'Install electrical, controls & interlocks',
+  sum:'Hold-to-run controls, emergency stop, interlocks and weather-rated enclosures.',
+  parts:[P('el-panel','Control panel / enclosure'), P('el-estop','Emergency stop & deliberate reset'), P('el-limits','Travel limit switches'), P('el-power','Shore power / battery & charger'), P('el-disc','Labeled disconnects'), P('el-conn','Weather-rated connectors & wiring')],
+  equip:[P('multimeter','Multimeter / insulation tester'), P('crimp','Crimp & termination tools')],
+  how:['Wire to the released schematic: circuit protection, bonding/grounding, disconnects.','Make E-stop behavior safe — it must not create uncontrolled descent.','Interlock locks so operation is not allowed unless engagement is verified.','Keep festival lighting/audio distribution separate from machinery power.'],
+  gate:'Supply, control and logic drawings released.'},
+ {id:'s25', ph:'ph6', code:'CX', hold:true, title:'Unloaded functional checks',
+  sum:'Run controlled, unloaded checks with positive supports and exclusion zones.',
+  parts:[P('cx-supports','Positive supports / cribbing'), P('cx-barriers','Exclusion-zone barriers')],
+  equip:[P('pressure-gauge','Pressure gauges'), P('multimeter','Multimeter / insulation tester'), P('radios','Radios')],
+  how:['Clear the area. No one beneath or on moving assemblies.','Cycle each axis slowly; confirm limits, interlocks and E-stop behavior.','Check synchronization faults and loss of power recovery.','Log hoses, cables and clearances through the whole range.'],
+  gate:'Functional checks signed before any loaded test.'},
+
+ /* ---------- Phase 7 ---------- */
+ {id:'s26', ph:'ph7', code:'RG', hold:true, title:'Audio rigging interfaces',
+  sum:'Manufacturer-approved flying frames, rated hardware and designed suspension points only.',
+  parts:[P('rg-frames','Approved flying frames'), P('rg-hoist','Rated hoists'), P('rg-shackles','Rated shackles & slings'), P('rg-points','Designed pick points'), P('rg-chart','Point-load & combined-load chart')],
+  equip:[P('crane','Overhead crane / lifting gear'), P('torque-wrench','Calibrated torque wrench')],
+  how:['Fit designed suspension interfaces at the released coordinates.','Do not substitute a generic eye bolt or welded tab without design.','Define whether arrays are raised with the roof or installed afterward; each mode needs its own lifting/operating check.','Establish travel securement for speakers and a qualified rigging inspection procedure.'],
+  gate:'Complete rigging load path approved; load chart issued.'},
+ {id:'s27', ph:'ph7', code:'AC', hold:true, title:'Deck surfacing, stairs, rails & edge protection',
+  sum:'Replaceable surface panels, stairs for each approved height, handrails and guards.',
+  parts:[P('ac-deck','Rated deck panels / structural plywood'), P('ac-stairs','Stairs for each deck height'), P('ac-rails','Handrails & guards'), P('ac-cable','Cable passages'), P('ac-antislip','Anti-slip surface')],
+  equip:[P('drill-press','Mag drill / drill press'), P('tape','Calibrated tape measures')],
+  how:['Cut and fasten the surface per the panel/joist design; keep joints flush, with drainage.','Fit stairs, handrails and edge protection; protect pinch points.','Keep exit routes clear — no audio, supports or controls in them.','Add perimeter visibility and cable management.'],
+  gate:'Surface rating and access counts confirmed for the jurisdiction.'},
+ {id:'s28', ph:'ph7', code:'AC', hold:false, title:'Assemble accessories & first-use kit',
+  sum:'Gather everything that travels with the stage.',
+  parts:[P('acc-mats','Support mats'), P('acc-chocks','Wheel chocks'), P('acc-level','Level / survey tools'), P('acc-weather','Weather monitoring equipment'), P('acc-pins','Lock / pin inventory'), P('acc-barriers','Deployment barriers'), P('acc-toolbox','Tool storage'), P('acc-kit','First-use inspection kit'), P('acc-wear','Replacement wear parts')],
+  equip:[],
+  how:['Collect each item and check it against the inventory.','Mount storage so each item travels secured.','Label every pin and lock with its location.'],
+  gate:'Inventory complete.'},
+
+ /* ---------- Phase 8 ---------- */
+ {id:'s29', ph:'ph8', code:'CX', hold:true, title:'Engineer-defined load, stability & fault tests',
+  sum:'Loads, increments, instrumentation and acceptance criteria must be specified in writing before testing.',
+  parts:[P('cx-plan','Written test plan'), P('cx-instr','Instrumentation')],
+  equip:[P('cx-weights','Certified test weights'), P('radios','Radios')],
+  how:['Follow only the engineer\'s test procedure.','Include stability and fault conditions: loss of power, hose failure, synchronization faults.','Record every result against the acceptance criteria.','No improvised public-use or proof-load test.'],
+  gate:'Test plan signed by the responsible engineer.'},
+ {id:'s30', ph:'ph8', code:'CX', hold:true, title:'Verify vehicle weight, brakes, lighting & folded size',
+  sum:'Confirm the completed vehicle against the mass budget and transport envelope.',
+  parts:[P('cx-weigh-ticket','Weigh tickets')],
+  equip:[P('scale','Vehicle / axle scales'), P('tape','Calibrated tape measures')],
+  how:['Weigh the complete vehicle and each axle; check hitch reactions.','Check brakes, lights, travel restraints and the folded dimensions against the transport targets.','Compare with the mass budget and record the differences.'],
+  gate:'Actual weights within the certified ratings.'},
+ {id:'s31', ph:'ph8', code:'CX', hold:true, title:'Issue as-builts, load charts & training records',
+  sum:'No service until the final documents are issued.',
+  parts:[P('doc-asbuilt','As-built drawings'), P('doc-loadcharts','Operating load charts'), P('doc-weather','Weather plan'), P('doc-maint','Maintenance & inspection instructions'), P('doc-training','Training records')],
+  equip:[P('laptop','Computer / shared folder')],
+  how:['Issue as-builts, configuration-specific load charts, wind thresholds for deploy / occupied / shutdown, and the weather plan with a named stop authority.','Issue the inspection plan: before each transport/setup, after abnormal wind/impact/overload, at intervals and after repairs.','Start the deployment-cycle log and rejection criteria.','The engineer authors the field deployment sequence — this build plan is not a field setup procedure.'],
+  gate:'Operating manual and training complete before service.'}
+];
+
+/* ===== State ===== */
+var COLS = [
+  {id:'hold',  name:'Hold / Gated', c:'#F2B84B', note:'Waiting on a release gate'},
+  {id:'todo',  name:'To Do',        c:'#8FE3EF', note:'Ready to start'},
+  {id:'doing', name:'In Progress',  c:'#E8571F', note:''},
+  {id:'check', name:'Inspect',      c:'#B79CED', note:'Hold-point inspection'},
+  {id:'done',  name:'Done',         c:'#6FBF8B', note:''}
+];
+var KEY = 'clr-mobile-stage-board-v1';
+var state = load();
+var view = 'board', phaseFilter = 'all';
+
+function fresh(){
+  var s = {status:{}, got:{}};
+  STEPS.forEach(function(st){ s.status[st.id] = st.hold ? 'hold' : 'todo'; });
+  return s;
+}
+function load(){
+  var s = fresh();
+  try{
+    var raw = localStorage.getItem(KEY);
+    if(raw){
+      var p = JSON.parse(raw);
+      if(p && p.status){ Object.keys(p.status).forEach(function(k){ if(s.status[k]) s.status[k] = p.status[k]; }); }
+      if(p && p.got) s.got = p.got;
+    }
+  }catch(e){}
+  return s;
+}
+function save(){ try{ localStorage.setItem(KEY, JSON.stringify(state)); }catch(e){} }
+
+/* ===== Helpers ===== */
+function esc(t){ return String(t).replace(/[&<>"']/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
+function phase(id){ return PHASES.filter(function(p){ return p.id === id; })[0]; }
+function gotKey(stepId, partId){ return stepId + ':' + partId; }
+function img(folder, id, alt){
+  /* tries webp, then jpg, then png, then shows the placeholder */
+  return '<img src="/custom/img/stage/' + folder + '/' + id + '.webp" alt="' + esc(alt) + '" loading="lazy" data-try="0" data-folder="' + folder + '" data-id="' + id + '" onerror="imgFail(this)">';
+}
+function imgFail(el){
+  var exts = ['webp','jpg','png'], n = +el.getAttribute('data-try') + 1;
+  if(n < exts.length){
+    el.setAttribute('data-try', n);
+    el.src = '/custom/img/stage/' + el.getAttribute('data-folder') + '/' + el.getAttribute('data-id') + '.' + exts[n];
+  }else{
+    var d = document.createElement('div');
+    d.className = 'ph';
+    d.innerHTML = '<i class="fas fa-image"></i>Image coming';
+    el.replaceWith(d);
+  }
+}
+function allParts(st){ return st.parts.concat(st.equip); }
+function gotCount(st){ var a = allParts(st); return a.filter(function(p){ return state.got[gotKey(st.id,p.id)]; }).length; }
+
+/* ===== Render ===== */
+function render(){
+  var steps = STEPS.filter(function(s){ return phaseFilter === 'all' || s.ph === phaseFilter; });
+  document.getElementById('boardView').hidden = view !== 'board';
+  document.getElementById('guideView').hidden = view !== 'guide';
+  document.getElementById('tab-board').classList.toggle('on', view === 'board');
+  document.getElementById('tab-guide').classList.toggle('on', view === 'guide');
+  if(view === 'board') renderBoard(steps); else renderGuide(steps);
+  var done = STEPS.filter(function(s){ return state.status[s.id] === 'done'; }).length;
+  document.getElementById('bar').style.width = (done / STEPS.length * 100) + '%';
+  document.getElementById('ptxt').textContent = done + ' of ' + STEPS.length + ' steps done · ' +
+    STEPS.filter(function(s){ return state.status[s.id] === 'hold'; }).length + ' on hold';
+}
+
+function renderBoard(steps){
+  var html = COLS.map(function(col, ci){
+    var cards = steps.filter(function(s){ return state.status[s.id] === col.id; });
+    return '<div class="col" data-col="' + col.id + '">' +
+      '<div class="col-head" style="--c:' + col.c + '"><h3>' + col.name + '</h3><span class="n">' + cards.length + '</span></div>' +
+      (col.note ? '<div class="col-note">' + col.note + '</div>' : '') +
+      '<div class="col-body">' + cards.map(function(s){ return cardHtml(s, ci); }).join('') + '</div></div>';
+  }).join('');
+  document.getElementById('boardView').innerHTML = html;
+}
+
+function cardHtml(s, ci){
+  var n = STEPS.indexOf(s) + 1, tot = allParts(s).length;
+  return '<div class="card" draggable="true" data-id="' + s.id + '">' +
+    '<div class="thumb">' + img('steps', s.id, s.title) + '</div>' +
+    '<div class="info"><div class="code">Step ' + n + ' · ' + s.code + '</div><h4>' + esc(s.title) + '</h4>' +
+    '<div class="meta"><span>' + esc(phase(s.ph).title.split(' — ')[0]) + '</span><span><i class="fas fa-box-open"></i> ' + gotCount(s) + '/' + tot + '</span></div>' +
+    '<div class="moves"><button data-move="-1" ' + (ci === 0 ? 'disabled' : '') + ' aria-label="Move left">&larr;</button>' +
+    '<button data-move="1" ' + (ci === COLS.length - 1 ? 'disabled' : '') + ' aria-label="Move right">&rarr;</button></div>' +
+    '<a class="open" href="#" data-open="' + s.id + '">Open instructions &rarr;</a></div></div>';
+}
+
+function partsHtml(st, list){
+  return list.map(function(p){
+    var k = gotKey(st.id, p.id), on = !!state.got[k];
+    return '<label class="part' + (on ? ' got' : '') + '"><input type="checkbox" data-got="' + k + '"' + (on ? ' checked' : '') + '>' +
+      '<div class="pimg">' + img('parts', p.id, p.name) + '</div>' +
+      '<div class="ptxt"><b>' + esc(p.name) + '</b>' + (p.note ? '<span>' + esc(p.note) + '</span>' : '') + '</div></label>';
+  }).join('');
+}
+
+function renderGuide(steps){
+  var out = '';
+  PHASES.forEach(function(ph){
+    var list = steps.filter(function(s){ return s.ph === ph.id; });
+    if(!list.length) return;
+    out += '<section><div class="phase-head"><span class="eyebrow">' + ph.code + '</span><h2>' + ph.title + '</h2><p>' + ph.note + '</p></div>';
+    list.forEach(function(s){
+      var n = STEPS.indexOf(s) + 1;
+      out += '<article class="step" id="step-' + s.id + '"><div class="step-top"><div class="step-title"><span class="num">' + n + '</span><div><h3>' + esc(s.title) + '</h3>' +
+        '<div class="chips"><span class="chip">' + s.code + '</span>' + (s.hold ? '<span class="chip hold"><i class="fas fa-lock"></i> Needs release gate</span>' : '<span class="chip go"><i class="fas fa-circle-check"></i> Authorized now</span>') + '</div></div></div>' +
+        '<select class="status-sel" data-status="' + s.id + '" aria-label="Status">' +
+        COLS.map(function(c){ return '<option value="' + c.id + '"' + (state.status[s.id] === c.id ? ' selected' : '') + '>' + c.name + '</option>'; }).join('') + '</select></div>' +
+        '<div class="step-body"><div class="hero">' + img('steps', s.id, s.title) + '</div><div>' +
+        '<p class="summary">' + esc(s.sum) + '</p><h4 class="sub">Instructions</h4><ol class="how">' + s.how.map(function(h){ return '<li>' + esc(h) + '</li>'; }).join('') + '</ol>' +
+        '<div class="gatebox' + (s.hold ? '' : ' pass') + '"><strong>' + (s.hold ? 'Release gate / hold point:' : 'Check before moving on:') + '</strong> ' + esc(s.gate) + '</div></div></div>' +
+        '<div class="parts-wrap"><div><h4 class="sub">Materials &amp; parts to gather</h4><div class="parts">' + partsHtml(s, s.parts) + '</div></div>' +
+        (s.equip.length ? '<div><h4 class="sub">Equipment &amp; tools</h4><div class="parts">' + partsHtml(s, s.equip) + '</div></div>' : '') +
+        '</div></article>';
+    });
+    out += '</section>';
+  });
+  document.getElementById('guideView').innerHTML = out;
+}
+
+/* ===== Interaction ===== */
+function setStatus(id, status){
+  if(state.status[id] === 'hold' && status !== 'hold'){
+    var st = STEPS.filter(function(s){ return s.id === id; })[0];
+    if(st.hold && !confirm('This step needs a release gate:\n\n' + st.gate + '\n\nHas it been signed off?')) return false;
+  }
+  state.status[id] = status; save(); return true;
+}
+
+document.addEventListener('click', function(e){
+  var t = e.target;
+  var mv = t.closest('[data-move]');
+  if(mv){
+    var id = mv.closest('.card').getAttribute('data-id');
+    var ci = COLS.map(function(c){ return c.id; }).indexOf(state.status[id]) + (+mv.getAttribute('data-move'));
+    if(ci >= 0 && ci < COLS.length) { setStatus(id, COLS[ci].id); render(); }
+    return;
+  }
+  var op = t.closest('[data-open]');
+  if(op){
+    e.preventDefault(); view = 'guide'; phaseFilter = 'all'; document.getElementById('phaseFilter').value = 'all'; render();
+    var el = document.getElementById('step-' + op.getAttribute('data-open'));
+    if(el){ el.scrollIntoView({behavior:'smooth', block:'start'}); el.classList.add('flash'); setTimeout(function(){ el.classList.remove('flash'); }, 1600); }
+  }
+});
+document.addEventListener('change', function(e){
+  var t = e.target;
+  if(t.matches('[data-got]')){
+    state.got[t.getAttribute('data-got')] = t.checked; save();
+    t.closest('.part').classList.toggle('got', t.checked); render_progressOnly();
+  }else if(t.matches('[data-status]')){
+    if(!setStatus(t.getAttribute('data-status'), t.value)) t.value = state.status[t.getAttribute('data-status')];
+    render_progressOnly();
+  }
+});
+function render_progressOnly(){
+  var done = STEPS.filter(function(s){ return state.status[s.id] === 'done'; }).length;
+  document.getElementById('bar').style.width = (done / STEPS.length * 100) + '%';
+  document.getElementById('ptxt').textContent = done + ' of ' + STEPS.length + ' steps done · ' +
+    STEPS.filter(function(s){ return state.status[s.id] === 'hold'; }).length + ' on hold';
+}
+
+/* drag & drop */
+var dragId = null;
+document.addEventListener('dragstart', function(e){
+  var c = e.target.closest && e.target.closest('.card'); if(!c) return;
+  dragId = c.getAttribute('data-id'); c.classList.add('dragging'); e.dataTransfer.setData('text/plain', dragId);
+});
+document.addEventListener('dragend', function(){ dragId = null; document.querySelectorAll('.dragging,.over').forEach(function(x){ x.classList.remove('dragging','over'); }); });
+document.addEventListener('dragover', function(e){ var c = e.target.closest && e.target.closest('.col'); if(c && dragId){ e.preventDefault(); c.classList.add('over'); } });
+document.addEventListener('dragleave', function(e){ var c = e.target.closest && e.target.closest('.col'); if(c && !c.contains(e.relatedTarget)) c.classList.remove('over'); });
+document.addEventListener('drop', function(e){
+  var c = e.target.closest && e.target.closest('.col'); if(!c || !dragId) return;
+  e.preventDefault(); setStatus(dragId, c.getAttribute('data-col')); render();
+});
+
+/* toolbar */
+document.getElementById('tab-board').onclick = function(){ view = 'board'; render(); };
+document.getElementById('tab-guide').onclick = function(){ view = 'guide'; render(); };
+var pf = document.getElementById('phaseFilter');
+pf.innerHTML = '<option value="all">All phases</option>' + PHASES.map(function(p){ return '<option value="' + p.id + '">' + p.title.split(' — ')[0] + ' · ' + p.title.split(' — ')[1] + '</option>'; }).join('');
+pf.onchange = function(){ phaseFilter = pf.value; render(); };
+
+document.getElementById('btnExport').onclick = function(){
+  var a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([JSON.stringify(state, null, 2)], {type:'application/json'}));
+  a.download = 'mobile-stage-board-' + new Date().toISOString().slice(0,10) + '.json'; a.click();
+};
+document.getElementById('btnImport').onclick = function(){ document.getElementById('fileIn').click(); };
+document.getElementById('fileIn').onchange = function(e){
+  var f = e.target.files[0]; if(!f) return;
+  var r = new FileReader();
+  r.onload = function(){
+    try{
+      var p = JSON.parse(r.result); if(!p || !p.status) throw 0;
+      state = fresh(); Object.keys(p.status).forEach(function(k){ if(state.status[k]) state.status[k] = p.status[k]; });
+      state.got = p.got || {}; save(); render();
+    }catch(err){ alert('That file is not a valid board export.'); }
+  };
+  r.readAsText(f); e.target.value = '';
+};
+document.getElementById('btnReset').onclick = function(){
+  if(confirm('Reset the whole board and clear all gathered checkmarks?')){ state = fresh(); save(); render(); }
+};
+
+document.getElementById('clrwf-year').textContent = new Date().getFullYear();
+render();
+</script>
+</body>
+</html>
